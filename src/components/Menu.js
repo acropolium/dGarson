@@ -4,61 +4,70 @@ import I18n from '../services/translate.js'
 import api from '../services/apiService';
 import UserApi from '../services/userService';
 import OrderApi from '../services/orderService';
-import {View} from './BaseComponents';
+import { View } from './BaseComponents';
 import RenderMenu from "./Menu/RenderMenu";
 import RenderMenuFooter from "./Menu/RenderMenuFooter";
 import LocationChooser from "./CustomComponents/LocationChooser";
 import styles from '../styles/components/Menu/MenuStyles';
+import * as routeService from "../services/routeService";
 
 const orderService = new OrderApi();
 const userService = new UserApi();
 
 export default class Menu extends Component {
-    constructor(props) { 
+    constructor(props) {
         super(props);
         this.state = {};
-        
-        userService.setProps(this.props);
-        orderService.setProps(this.props);
+
+
+        if (!Object.keys(this.props.menu.menu).length) {
+            this.props.menuActions.getMenuFromStorage()
+        }
+        // userService.setProps(this.props);
+        //orderService.setProps(this.props);
+        console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        console.log(this.props.menu)
+        console.log("@@@@@@@@@##########$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+        //routeService.changePage("companies")
     }
 
     getMenuFromStorage = async (cacheUpdate = false) => {
-        if (userService.has('read_from_storage') && userService.get('read_from_storage') == true){
-            userService.set({read_from_storage:false}, false);
+        if (userService.has('read_from_storage') && userService.get('read_from_storage') == true) {
+            userService.set({ read_from_storage: false }, false);
             cacheUpdate = true;
         }
 
-        if (cacheUpdate == false){
+        if (cacheUpdate == false) {
             this.props.spinnerActions.show();
-        }   
+        }
 
         let request = new api();
 
         request.setProps(this.props).menu(userService.get('company_info').id, 'get', false,
-            false ,
+            false,
             async (response) => {
-                if (response.hasOwnProperty('redirect')){
+                if (response.hasOwnProperty('redirect')) {
                     let orderJson = response.json;
 
-                    switch (response.status){
+                    switch (response.status) {
                         case 302:
-                            await userService.set({order: orderJson});
-                            orderService.set({order: orderJson, state:orderJson.state}, false);
+                            await userService.set({ order: orderJson });
+                            orderService.set({ order: orderJson, state: orderJson.state }, false);
                             this.props.spinnerActions.hide();
                             await userService.changePage('order');
 
                             break;
                         case 401:
                             this.props.spinnerActions.hide();
-                            await userService.changePage('init', {read_from_storage:true});
+                            await userService.changePage('init', { read_from_storage: true });
                             break
                     }
-                }else{
+                } else {
 
-                    let save_data = {company_info: response.company, company:response.company.id, menu:response.data||[]};
-                    if (response.company.hasOwnProperty('locations') && response.company.locations.length>0){
+                    let save_data = { company_info: response.company, company: response.company.id, menu: response.data || [] };
+                    if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
                         save_data['location'] = response.company.locations[0].id;
-                    }else{
+                    } else {
                         save_data['location'] = false;
                     }
 
@@ -73,41 +82,41 @@ export default class Menu extends Component {
             (error) => {
                 if (cacheUpdate == false)
                     this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title:I18n.t("server_error"), message:error.message});
+                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
             });
 
     };
 
-    aboutAs=()=>{
-        userService.changePage("about",false,false);
+    aboutAs = () => {
+        routeService.changePage("about", false);
 
     }
 
     componentDidMount() {
-        if (userService.has('read_from_storage') && userService.get('read_from_storage') == true){
+        /*if (userService.has('read_from_storage') && userService.get('read_from_storage') == true){
             this.getMenuFromStorage(true);
         }else if (!userService.has('menu')){
             this.getMenuFromStorage(true);
         }else if (userService.has('menu') && userService.get('menu').length==0){
             this.getMenuFromStorage(true);
-        }
+        }*/
     }
 
-    render() {        
+    render() {
         return (
-            <View style={styles.menuContainer}>    
+            <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
-                    <HeaderBlock aboutAs={this.aboutAs} {...this.props} centerTitle={userService.get('company_info').name} backButton/>
-                </View>            
-                    
+                    <HeaderBlock aboutAs={this.aboutAs} {...this.props} centerTitle={this.props.menu.company_info.name} backButton />
+                </View>
+
                 <View style={styles.menuItemsContainer}>
-                    <RenderMenu data={userService.get('menu')} {...this.props}/>
-                </View>  
-                    
-                <View style={styles.menuFooterContainer}>
+                    <RenderMenu data={Object.values(this.props.menu.menu)} {...this.props} />
+                </View>
+
+                {/*<View style={styles.menuFooterContainer}>
                     <LocationChooser {...this.props} />
                     <RenderMenuFooter {...this.props}/>
-                </View>  
+                </View>  */}
             </View>
         )
     }

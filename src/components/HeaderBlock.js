@@ -12,6 +12,7 @@ import TochableHeaderIcon from "./HeaderElement/TochableHeaderIcon"
 import { Text, TouchableHighlight, View, Icon, } from './BaseComponents'
 import UserApi from '../services/userService';
 const userService = new UserApi();
+import * as routeService from "../services/routeService";
 
 export default class HeaderBlock extends Component {
 
@@ -25,23 +26,23 @@ export default class HeaderBlock extends Component {
 
     }
 
-    setBackButtonStatus = () => {
-        return userService.getCompanyesCount() > 1
-            ? this.goBack
-            : null;
-    }
+    /* setBackButtonStatus = () => {
+         return userService.getCompanyesCount() > 1
+             ? this.goBack
+             : null;
+     }*/
 
     getCurrentCoordinates() {
-        if (userService.get('company_info').hasOwnProperty('locations') && userService.get('company_info').locations.length > 0) {
-            let location = userService.get('company_info').locations[0].lat + ',' + userService.get('company_info').locations[0].lng;
-            userService.get('company_info').locations.forEach(function (val) {
-                if (val.id == userService.get('location')) {
-                    location = val.lat + ',' + val.lng;
-                }
-            });
-
-            return location;
-        }
+        /*  if (userService.get('company_info').hasOwnProperty('locations') && userService.get('company_info').locations.length > 0) {
+              let location = userService.get('company_info').locations[0].lat + ',' + userService.get('company_info').locations[0].lng;
+              userService.get('company_info').locations.forEach(function (val) {
+                  if (val.id == userService.get('location')) {
+                      location = val.lat + ',' + val.lng;
+                  }
+              });
+  
+              return location;
+          }*/
         return false;
     }
 
@@ -59,7 +60,7 @@ export default class HeaderBlock extends Component {
 
     goBack = () => {
 
-        userService.changePage('companies');
+        routeService.changePage('companies');
     };
 
     renderRightSide = () => {
@@ -70,7 +71,7 @@ export default class HeaderBlock extends Component {
 
             <View style={[styles.menu_button_wrap, (this.props.showCheck || this.props.aboutAs) ? styles.justifyContent_value : {}]}>
 
-                {(userService.get('company_info').phone != '' && !this.props.showCheck && !this.props.hideRightBlock) &&
+                {(this.props.company_info && this.props.company_info.phone && !this.props.showCheck && !this.props.hideRightBlock) &&
 
                     <TochableHeaderIcon press={() => { this.handleClickUrl('tel:' + userService.get('company_info').phone) }}
                         iconName='mobile' iconFamily="Entypo" typeButton="mobile_button" />
@@ -111,7 +112,7 @@ export default class HeaderBlock extends Component {
                 <View style={[styles.center_title_wrap]}>
                     <Text style={[styles.custom_font, styles.header_text]}>{this.props.centerTitle}</Text>
                 </View>
-                {/*this.renderRightSide()*/}
+                {this.renderRightSide()}
             </View>
         )
 

@@ -38,9 +38,9 @@ export default class MenuItem extends Component {
         };
 
         let orderItems = [];
-        if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.keys(orderService.get('draft')[this.props.item.id].items).length > 0) {
-            orderItems = Object.values(orderService.get('draft')[this.props.item.id].items);
-        }
+       // if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.keys(orderService.get('draft')[this.props.item.id].items).length > 0) {
+         //   orderItems = Object.values(orderService.get('draft')[this.props.item.id].items);
+        //}
         this.state.dataSource = orderItems
 
     }
@@ -57,12 +57,12 @@ export default class MenuItem extends Component {
 
     componentWillReceiveProps(nextProps) {
 
-        let orderItems = [];
+       /* let orderItems = [];
         if (nextProps.order.draft.hasOwnProperty(nextProps.item.id) && Object.keys(nextProps.order.draft[nextProps.item.id].items).length > 0) {
             orderItems = Object.values(nextProps.order.draft[nextProps.item.id].items);
         }
 
-        this.setState({ dataSource: orderItems });
+        this.setState({ dataSource: orderItems });*/
     }
 
     getItemPrice() {
@@ -70,14 +70,14 @@ export default class MenuItem extends Component {
     }
 
     isSelected() {
-        return orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0;
+        return false//orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0;
     }
 
     itemsCount() {
         let cnt = 0;
-        if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0) {
+       /* if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0) {
             cnt = Object.values(orderService.get('draft')[this.props.item.id].items).length;
-        }
+        }*/
 
         return cnt;
     }
@@ -114,13 +114,13 @@ export default class MenuItem extends Component {
                     </View>
                 </TouchableHighlight>
 
-                <FlatList
+                {/*<FlatList
                     data={this.state.dataSource}
                     renderItem={(orderItem, idx) => {
 
                         return <OrderItem {...this.props} item={orderItem} root_item={this.props.item} root_item_idx={idx} />
                     }}
-                />
+                />*/}
 
                 {this.isSelected() &&
                     <View style={styles.selected_footer} />

@@ -14,13 +14,13 @@ import Home from './conteiners/homeConteiner'
 import Loading from './components/Loading'
 import Confirm from './conteiners/confirmContainer'
 import Companies from  './conteiners/companyConteiner' 
-import Menu from './components/Menu'
+import Menu from './conteiners/menuConteiner'
 import Order from './components/Order'
 import Location from './components/Location'
 import Popage from './components/Popage'
 import Spinner from './components/Spinner'
 import FCMHelper from './helpers/FCMHelper';
-import AboutUs from './components/AboutUs';
+import AboutUs from './conteiners/aboutAsConteiner';
 
 import ModalPicker from './widgets/modal-picker';
 
@@ -71,13 +71,12 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const myConnectedLoadingConponent = connect(mapStateToProps, mapDispatchToProps)(Loading);
-const myConnectedMenuConponent = connect(mapStateToProps, mapDispatchToProps)(Menu);
 const myConnectedOrderConponent = connect(mapStateToProps, mapDispatchToProps)(Order);
 const myConnectedLocationComponent = connect(mapStateToProps, mapDispatchToProps)(Location);
 const myConnectedDialogComponent = connect(mapStateToProps, mapDispatchToProps)(Popage);
 const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
 const myConnectedTimerComponent = connect(mapStateToProps, mapDispatchToProps)(ModalPicker);
-const myConnectedAboutUs = connect(mapStateToProps, mapDispatchToProps)(AboutUs);
+
 
 const scenes = Actions.create(
     <Lightbox>
@@ -86,13 +85,13 @@ const scenes = Actions.create(
             <Scene key="login" component={myConnectedLoadingConponent} panHandlers={null} initial={true} direction="leftToRight" />
             <Scene key="register" component={Home} panHandlers={null} direction="leftToRight" />
             <Scene key="confirm" component={Confirm} panHandlers={null} direction="leftToRight" />
-            <Scene key="menu" component={myConnectedMenuConponent} panHandlers={null} direction="leftToRight" />
+            <Scene key="menu" component={Menu} panHandlers={null} direction="leftToRight" />
             <Scene key="order" component={myConnectedOrderConponent} panHandlers={null} direction="leftToRight" />
             <Scene key="location" component={myConnectedLocationComponent} panHandlers={null} direction="vertical" />
             <Scene key="dialog" component={myConnectedDialogComponent} panHandlers={null} direction="vertical" />
             <Scene key="timer" component={myConnectedTimerComponent} panHandlers={null} direction="vertical" />
             <Scene key="companies" component={Companies} panHandlers={null} direction="leftToRight" />
-            <Scene key="about" component={myConnectedAboutUs} panHandlers={null} direction="vertical" />
+            <Scene key="about" component={AboutUs} panHandlers={null} direction="vertical" />
         </Scene>
         <Scene key="spinner" overlay component={myConnectedSpinnerComponent} panHandlers={null} direction="fade" />
     </Lightbox>

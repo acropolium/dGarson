@@ -1,7 +1,7 @@
 import * as dialogActions from '../reducers/dialog/dialogActions'
-import * as companiesActions from '../reducers/companies/companiesActions'
+//import * as companiesActions from '../reducers/companies/companiesActions'
 import * as menuActions from '../reducers/menu/menuActions'
-import Companies from '../components/Companies'
+import Menu from '../components/Menu'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -10,8 +10,8 @@ function mapDispatchToProps(dispatch) {
     return {
 
         dialogActions: bindActionCreators(dialogActions, dispatch),
-        companiesActions: bindActionCreators(companiesActions, dispatch),
-        getCompanyMenu: bindActionCreators(menuActions.companysMenu, dispatch),
+        //      companiesActions: bindActionCreators(companiesActions, dispatch),
+        menuActions: bindActionCreators(menuActions, dispatch),
 
     }
 };
@@ -19,13 +19,13 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 
     return {
-        companies: state.companies
+        menu: state.menu
     };
 
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Companies);
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);
 
 
 

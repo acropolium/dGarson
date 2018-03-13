@@ -25,13 +25,16 @@ export default class CompanyItem extends Component {
 
         this.state = {};
 
-        orderService.setProps(this.props);
-        userService.setProps(this.props);
+       // orderService.setProps(this.props);
+        //userService.setProps(this.props);
     }
 
     getMenu = async (item) => {
 
-        this.props.spinnerActions.show();
+
+        this.props.getCompanyMenu(item.id);
+
+       /* this.props.spinnerActions.show();
 
 
         let request = new api();
@@ -82,7 +85,7 @@ export default class CompanyItem extends Component {
                     company_info: response.company,
                     company: response.company.id,
                     menu: response.data || [],
-                    menus: this.props.user.menus
+                    menus: []//this.props.user.menus || []
                 };
 
                 save_data.menus[response.company.id] = response.data || [];
@@ -103,7 +106,7 @@ export default class CompanyItem extends Component {
             (error) => {
                 this.props.spinnerActions.hide();
                 this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
-            });
+            });*/
 
 
 

@@ -37,9 +37,7 @@ export default class Companies extends Component {
         this.getItemsFromStorage();
 
 
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        console.log(this.props)
-        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -85,8 +83,8 @@ export default class Companies extends Component {
         this.setState({ dataSource: list });
     };
 
-    getItemsFromStorage = async (manualUpdate = false) => {
-        this.props.companiesActions.getItemsFromStorage().catch((error) => {
+    getItemsFromStorage = (readFromServer = false) => {
+        this.props.companiesActions.getItemsFromStorage(readFromServer).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
         });
     };
@@ -97,9 +95,9 @@ export default class Companies extends Component {
 
         return (
             <View style={styles.bg}>
-
-
-                <CompanyList {...this.props}
+                <HeaderBlock   centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
+                <Spinner show={this.props.companies.spinnerShow} />
+                <CompanyList getCompanyMenu={this.props.getCompanyMenu}
                     data={Object.values(this.props.companies.companies)}
                     onRefresh={() => this.getItemsFromStorage(true)}
                 />

@@ -30,8 +30,7 @@ export default class Home extends Component {
     constructor(props) {
         super(props);
         userService.setProps(this.props);
-
-        this.companyInfo = userService.get('company_info');
+        this.companyInfo = this.props.company_info
     }
 
 
@@ -59,7 +58,7 @@ export default class Home extends Component {
                         <View style={styles.allWrap}>
                             <View style={styles.wrap_img}>
                                 <Image style={styles.item_image}
-                                        source={curImage}
+                                    source={curImage}
 
                                 />
                             </View>
