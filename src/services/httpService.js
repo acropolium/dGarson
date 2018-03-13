@@ -4,9 +4,10 @@ import StorageService from '../utils/storage';
 export default class httpService {
     apiHost = () => {
         
-       
+      
         
-        return '[PLACE_API_URL_HERE]';
+       // return 'https://api.garson.co/';
+        return 'http://10.0.2.2:8000/';
     };
 
     headers_common = () => {

@@ -4,16 +4,51 @@ import PropTypes from 'prop-types';
 import I18n from '../../services/translate.js'
 import styles from "../../styles/components/ConfirmStyle";
 import TextInput from "../BaseComponents/Components/TextInput";
+import index from 'axios';
 
 
 export default class ConfirmInputBlock extends Component {
     constructor(props) {
         super(props);
-        this.state={}
+        this.state = {}
+
+
+        this.tempCode = [];
 
     };
 
+    componentDidMount() {
+
+        this.inputs = {
+            0: this.firstInput,
+            1: this.secondInput,
+            2: this.thirdInput,
+            3: this.fourthInput
+        }
+
+    }
+
+    inputCode = (code, indx) => {
+
+        this.tempCode[indx] = code;
+
+        if (code.length == 1 && indx + 1 <= Object.keys(this.inputs).length - 1) {
+            this.inputs[indx + 1].focus();
+        } else {
+            if (code.length == 1) {
+                this.inputs[indx].blur();
+            }
+        }
+
+        if (code.length == 0 && indx - 1 >= 0)
+            this.inputs[indx - 1].focus();
+
+        return this.tempCode;
+    }
+
     render() {
+        this.tempCode = this.props.confirm;
+
         return (
             <View style={styles.phone_block}>
 
@@ -27,12 +62,8 @@ export default class ConfirmInputBlock extends Component {
                         placeholderTextColor="#BDBDBD"
                         underlineColorAndroid="transparent"
 
-                        onChangeText={(code) => {
-                            this.props.confirm.setState({ code1: code });
-                            if (code.length == 1)
-                                this.secondInput.focus();
-                        }}
-                        value={this.props.confirm.state.code1}
+                        onChangeText={(code) => { this.props.setComfirmNumber(this.inputCode(code, 0)) }}
+                        value={this.tempCode[0]}
                         style={styles.number}
 
                     />
@@ -47,15 +78,9 @@ export default class ConfirmInputBlock extends Component {
                         placeholderTextColor="#BDBDBD"
                         underlineColorAndroid="transparent"
 
-                        onChangeText={(code) => {
-                            this.props.confirm.setState({ code2: code });
-                            if (code.length == 1)
-                                this.thirdInput.focus();
-                            if (code.length == 0)
-                                this.firstInput.focus();
-                        }}
+                        onChangeText={(code) => { this.props.setComfirmNumber(this.inputCode(code, 1)) }}
 
-                        value={this.props.confirm.state.code2}
+                        value={this.tempCode[1]}
                         style={styles.number}
                     />
                 </View>
@@ -69,16 +94,10 @@ export default class ConfirmInputBlock extends Component {
                         placeholderTextColor="#BDBDBD"
                         underlineColorAndroid="transparent"
 
-                        onChangeText={(code) => {
-                            this.props.confirm.setState({ code3: code });
-                            if (code.length == 1)
-                                this.fourthInput.focus();
-                            if (code.length == 0)
-                                this.secondInput.focus();
-                        }}
+                        onChangeText={(code) => { this.props.setComfirmNumber(this.inputCode(code, 2)) }}
 
 
-                        value={this.props.confirm.state.code3}
+                        value={this.tempCode[2]}
                         style={styles.number}
                     />
                 </View>
@@ -92,16 +111,8 @@ export default class ConfirmInputBlock extends Component {
                         placeholderTextColor="#BDBDBD"
                         underlineColorAndroid="transparent"
 
-                        onChangeText={(code) => {
-                            this.props.confirm.setState({ code4: code });
-
-                            if (code.length == 1)
-                                this.fourthInput.blur();
-                            if (code.length == 0)
-                                this.thirdInput.focus();
-                            //this.sendData()
-                        }}
-                        value={this.props.confirm.state.code4}
+                        onChangeText={(code) => { this.props.setComfirmNumber(this.inputCode(code, 3)) }}
+                        value={this.tempCode[3]}
 
                         style={styles.number}
                     />
@@ -115,7 +126,7 @@ export default class ConfirmInputBlock extends Component {
 
 ConfirmInputBlock.propTypes = {
 
-    confirm: PropTypes.object.isRequired,
+    confirm: PropTypes.array.isRequired,
 }
 
 

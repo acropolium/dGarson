@@ -1,3 +1,4 @@
+
 export default class apiService {
 
     setProps(props, t = false) {
@@ -8,6 +9,8 @@ export default class apiService {
 
         if (this.props.hasOwnProperty('user'))
             this.user = this.props.user;
+
+            
         return this;
     };
 
@@ -29,10 +32,10 @@ export default class apiService {
 
     apiHost = () => {
 
-        
 
-        return 'https://api.garson.co/';
-       
+
+        //return 'https://api.garson.co/';
+        return 'http://10.0.2.2:8000/';
     };
 
 
@@ -95,6 +98,10 @@ export default class apiService {
         if (this.hasOwnProperty('user') && this.user.hasOwnProperty('token')) {
             headers_authorised = this.headers_authorised();
             headers_authorised['Authorization'] = headers_authorised['Authorization'] + this.user.token;
+       
+            console.log("222222222222222222222222222222")
+            console.log(this.user)
+            console.log("#####################################")
         }
 
         let headers = {
@@ -107,7 +114,7 @@ export default class apiService {
 
         try {
             let response = await fetch(uri, headers);
-            console.log(response)
+            
 
             return this.responseParse(response, doneFunc, successFunc, errorFunc)
         } catch (error) {
@@ -123,8 +130,6 @@ export default class apiService {
 
     responseParse = async (response, doneFunc, successFunc, errorFunc) => {
         try {
-
-
 
             switch (response.status) {
                 case 200:
@@ -165,7 +170,7 @@ export default class apiService {
 
             if (isFunction(doneFunc)) doneFunc();
             if (isFunction(errorFunc)) errorFunc(error);
-
+            throw new Error(error);
             return error
         }
 

@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import {
-    StyleSheet,    
+    StyleSheet,
     Modal,
     ActivityIndicator
 } from 'react-native';
 import { Text, View } from './BaseComponents';
-import  styles from "../styles/components/SpinnerStyles";
+import styles from "../styles/components/SpinnerStyles";
 
 export default class Spinner extends Component {
 
@@ -13,16 +13,21 @@ export default class Spinner extends Component {
         super(props);
     }
 
-    render(){
-       
+    render() {
+        
+        if(this.props.show){
+
         return (
-            <View style={[styles.background]}>
-                <ActivityIndicator
-                    size='large'
-                    style={styles.activiti_indicator}
-                />               
-            </View>
+                <View style={[styles.background]}>
+                    <ActivityIndicator
+                        size='large'
+                        style={styles.activiti_indicator}
+                    />
+                </View>
+                
         )
+    }
+    return null;
 
     }
 

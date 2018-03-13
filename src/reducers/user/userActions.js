@@ -5,7 +5,7 @@ import { request, success, failure } from "../dispatchTypes";
 
 const api = new HttpService();
 
-export const registerUserPhone = (data) => {
+/*export const registerUserPhone = (data) => {
     return dispatch => {
         dispatch(request(USER.FETCHING_PHONE_ENTER));
         api.register(data).then(response => {
@@ -14,7 +14,7 @@ export const registerUserPhone = (data) => {
 
         })
     }
-};
+};*/
 
 export function getDataByKey(key, defaultValue = false) {
     return (dispatch, props) => {
@@ -46,7 +46,7 @@ export function loadData(new_state) {
 export function changePage(new_state) {
     return (dispatch, props) => {
 
-       // alert(JSON.stringify(new_state))
+        
 
         dispatch({
             type: 'change_page',

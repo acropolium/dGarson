@@ -1,0 +1,29 @@
+import * as dialogActions from '../reducers/dialog/dialogActions'
+import * as companiesActions from '../reducers/companies/companiesActions'
+import Companies from '../components/Companies'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+function mapDispatchToProps(dispatch) {
+
+    return {
+
+        dialogActions: bindActionCreators(dialogActions, dispatch),
+        companiesActions: bindActionCreators(companiesActions, dispatch),
+    }
+};
+
+function mapStateToProps(state) {
+
+    return {
+        companies: state.companies
+    };
+
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Companies);
+
+
+
+

@@ -1,27 +1,99 @@
-import api from "../../services/httpService";
+import api from '../../services/apiService';
 import moment from "moment/moment";
 import store from "../../utils/storage";
+import * as routeService from "../../services/routeService";
+import {
 
-export const getCompanies = async() => {
-    let lastUpdate = await store.get('lastUpdatedCompanies');
-    let nextUpdate = moment(lastUpdate).add(1,'days').format();
-    let dateNow = moment.utc().format();
-    if(nextUpdate <= dateNow){
-        let requestCompanies = (new api()).setProps(this.props);
+    companyRequest,
+    companySucess,
+    companyError
+} from './constatntReducer.js';
 
-        await requestCompanies.companies('GET', false,false,
-            async (response) => {
-                let companies = {};
-                response.data.forEach((item)=>{
+const initialCompaniesStateKeys = [
+    'token',
+    'lang',
+];
+
+
+export function loadInitialStateAct(type, payload) {
+
+    return (dispatch, props) => {
+        dispatch({
+            type: type,
+            payload: payload
+        })
+    }
+
+}
+
+
+export function getItemsFromStorage() {
+
+    return (dispatch, props) => {
+
+
+        dispatch({
+            type: companyRequest,
+
+        })
+
+        let requestCompanies = (new api()).setProps({
+            user: {
+                lang: store.get('lang'),
+                token: store.get('token')
+            }
+        });
+
+        requestCompanies.companies('GET', false).then((response) => {
+
+            let companies = {};
+            alert(JSON.stringify(response))
+            // routeService.changePage('home');
+            if (response.data) {
+                response.data.forEach((item) => {
                     companies[item.id] = item;
                 });
 
-                await this.set({companies:companies, read_from_server: false});
-            },
-            (error) => {
-                this.props.dialogActions.dialogShow({ title:I18n.t("server_error"), message:error.message});
+                dispatch({
+                    type: companySucess,
+                })
+                
+
+                // await userService.set({ companies: companies });
+                // await userService.saveLastUpdateCompanies();
+
+               /* if (response.data.length == 1) {
+                    let data = { company_info: response.data[0], company: response.data[0].id };
+
+                    if (response.data[0].hasOwnProperty('locations') && response.data[0].locations[0]) {
+                        data['location'] = response.data[0].locations[0].id;
+                    } else {
+                        data['location'] = false;
+                    }
+
+                    //  await userService.set(data);
+
+                    //this.props.spinnerActions.hide();
+                    //await userService.changePage('menu');
+                }*/
+                /*else {
+                    if (manualUpdate == false)
+                        this.props.spinnerActions.hide();
+                }*/
+
+                // this.clearSearch();
+            } else {
+                routeService.changePage('home');
+
             }
-        );
-        await this.saveLastUpdateCompanies();
+        }).catch(
+            (error) => {
+                dispatch({
+                    type: companyError,
+                })
+
+                Promise.reject(error);
+
+            });
     }
-};
+}

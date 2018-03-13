@@ -1,17 +1,17 @@
 import Storage from "../realm/Repository";
-import {KEY_VALUE} from "../realm/Constants";
+import { KEY_VALUE } from "../realm/Constants";
 
-export default {
+let store = {
     get: (key) => {
         if (!Array.isArray(key)) {
             let result = Storage.objects(KEY_VALUE.KEY_VALUE_SCHEMA).filtered(
                 "key = $0",
                 key
             )[0];
-            if(!result || typeof result !== 'object' || !result.hasOwnProperty('value')){
+            if (!result || typeof result !== 'object' || !result.hasOwnProperty('value')) {
                 return null;
             }
-            
+
             return JSON.parse(result.value);
         }
     },
@@ -19,7 +19,7 @@ export default {
     save: (key, value) => {
         console.log('SAVE TO REALM', key, value);
         Storage.write(() => {
-            Storage.create(KEY_VALUE.KEY_VALUE_SCHEMA, {key: key, value: JSON.stringify(value)}, true);
+            Storage.create(KEY_VALUE.KEY_VALUE_SCHEMA, { key: key, value: JSON.stringify(value) }, true);
         });
     },
 
@@ -31,6 +31,26 @@ export default {
             );
             Storage.delete(data);
         });
+    },
+
+
+    getForArray: (keys) => {
+        let storageData = {};
+
+        keys.forEach(key => {
+
+            let value = store.get(key);
+
+            if (typeof value !== "undefined" && value !== null) {
+                storageData[key] = value;
+            }
+
+        });
+
+        return storageData;
     }
+
+
 }
 
+export default store;

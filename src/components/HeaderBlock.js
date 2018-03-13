@@ -65,7 +65,7 @@ export default class HeaderBlock extends Component {
     renderRightSide = () => {
 
 
-        return (<View style={[styles.menu_button_wrap,styles.width_value]}>
+        return (<View style={[styles.menu_button_wrap, styles.width_value]}>
 
 
             <View style={[styles.menu_button_wrap, (this.props.showCheck || this.props.aboutAs) ? styles.justifyContent_value : {}]}>
@@ -111,7 +111,7 @@ export default class HeaderBlock extends Component {
                 <View style={[styles.center_title_wrap]}>
                     <Text style={[styles.custom_font, styles.header_text]}>{this.props.centerTitle}</Text>
                 </View>
-                {this.renderRightSide()}
+                {/*this.renderRightSide()*/}
             </View>
         )
 

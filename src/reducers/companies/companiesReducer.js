@@ -1,7 +1,25 @@
-const initialState = {};
+import {
 
-export default function reducer(state = initialState, action){
-    switch (action.type){
+    companyRequest,
+    companySucess,
+    companyError
+} from './constatntReducer.js';
+
+
+const initialState = {
+    spinnerShow:false,
+    companies:{}
+};
+
+export default function company(state = initialState, action) {
+    switch (action.type) {
+
+        case companySucess:
+            return { ...state, ...action.payload, spinnerShow: false }
+        case companyRequest:
+            return { ...state, spinnerShow: true }
+        case companyError:
+            return { ...state, spinnerShow: false }
         default:
             return state;
     }

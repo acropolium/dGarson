@@ -9,14 +9,14 @@ import config from '../config'
 import HeaderBlock from './HeaderBlock';
 
 import I18n from '../services/translate.js'
-
+import * as routeService from "../services/routeService";
 import api from '../services/apiService';
 import { View } from './BaseComponents';
 import UserApi from '../services/userService';
 import SearchBlock from "./Companies/SearchBlock";
 import CompanyList from "./Companies/CompanyList";
 import styles from "../styles/components/CompaniesStyle";
-
+import Spinner from "./Spinner";
 
 const userService = new UserApi();
 
@@ -25,24 +25,32 @@ export default class Companies extends Component {
     constructor(props) {
         super(props);
 
-        userService.setProps(this.props);
+
+
+        // userService.setProps(this.props);
         this.state = {
-            dataSource: Object.values(userService.get('companies')),
+            //   dataSource: Object.values(userService.get('companies')),
             showClear: false,
             searchValue: ''
         };
-        this.getItemsFromStorage(true);
+
+        this.getItemsFromStorage();
+
+
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        console.log(this.props)
+        console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
     }
 
     componentWillReceiveProps(nextProps) {
 
-        if (nextProps.user.hasOwnProperty('read_from_server') && nextProps.user.read_from_server === true) {
-            userService.set({ read_from_server: false });
-            this.getItemsFromStorage(false);
-        } else if (nextProps.user.hasOwnProperty('read_from_storage') && nextProps.user.read_from_storage === true) {
-            userService.set({ read_from_storage: false });
-            this.getItemsFromStorage(true);
-        }
+        /* if (nextProps.user.hasOwnProperty('read_from_server') && nextProps.user.read_from_server === true) {
+             userService.set({ read_from_server: false });
+             this.getItemsFromStorage(false);
+         } else if (nextProps.user.hasOwnProperty('read_from_storage') && nextProps.user.read_from_storage === true) {
+             userService.set({ read_from_storage: false });
+             this.getItemsFromStorage(true);
+         }*/
     }
 
 
@@ -78,53 +86,9 @@ export default class Companies extends Component {
     };
 
     getItemsFromStorage = async (manualUpdate = false) => {
-        if (manualUpdate == false)
-            this.props.spinnerActions.show();
-
-        let requestCompanies = (new api()).setProps(this.props);
-
-        requestCompanies.companies('GET', false, false,
-            async (response) => {
-                
-                let companies = {};
-
-                if (response.data){
-                    response.data.forEach((item) => {
-                        companies[item.id] = item;
-                    });
-
-                await userService.set({ companies: companies });
-                await userService.saveLastUpdateCompanies();
-
-                if (response.data.length == 1) {
-                    let data = { company_info: response.data[0], company: response.data[0].id };
-
-                    if (response.data[0].hasOwnProperty('locations') && response.data[0].locations[0]) {
-                        data['location'] = response.data[0].locations[0].id;
-                    } else {
-                        data['location'] = false;
-                    }
-
-                    await userService.set(data);
-
-                    this.props.spinnerActions.hide();
-                    await userService.changePage('menu');
-                } else {
-                    if (manualUpdate == false)
-                        this.props.spinnerActions.hide();
-                }
-
-                this.clearSearch();
-            }else{
-                await userService.changePage('home');
-
-            }
-            },
-            (error) => {
-                this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
-            }
-        );
+        this.props.companiesActions.getItemsFromStorage().catch((error) => {
+            this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
+        });
     };
 
 
@@ -133,11 +97,13 @@ export default class Companies extends Component {
 
         return (
             <View style={styles.bg}>
-                <HeaderBlock  {...this.props} centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
+
+
                 <CompanyList {...this.props}
-                    data={this.state.dataSource}
+                    data={Object.values(this.props.companies.companies)}
                     onRefresh={() => this.getItemsFromStorage(true)}
                 />
+
                 <SearchBlock
                     value={this.state.searchValue}
                     clearSearch={this.clearSearch}

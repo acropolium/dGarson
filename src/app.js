@@ -10,10 +10,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { Actions, Scene, Router, Reducer, Modal, Lightbox } from 'react-native-router-flux';
-import Home from './components/Home'
+import Home from './conteiners/homeConteiner'
 import Loading from './components/Loading'
-import Confirm from './components/Confirm'
-import Companies from './components/Companies'
+import Confirm from './conteiners/confirmContainer'
+import Companies from  './conteiners/companyConteiner' 
 import Menu from './components/Menu'
 import Order from './components/Order'
 import Location from './components/Location'
@@ -32,6 +32,8 @@ import * as userActions from './reducers/user/userActions'
 import * as orderActions from './reducers/order/orderActions'
 import * as dialogActions from './reducers/dialog/dialogActions'
 import * as spinnerActions from './reducers/spinner/spinnerActions'
+import * as homeConteiner from './conteiners/homeConteiner'
+import * as confirmContainer from './conteiners/confirmContainer'
 
 import config from "./config"
 import api from './services/apiService';
@@ -46,11 +48,14 @@ const orderService = new OrderApi();
 
 
 const mapStateToProps = (state) => {
+
+
     return {
         order: state.order,
         user: state.user,
         dialog: state.dialog,
         spinner: state.spinner,
+
     }
 };
 
@@ -66,15 +71,12 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const myConnectedLoadingConponent = connect(mapStateToProps, mapDispatchToProps)(Loading);
-const myConnectedHomeConponent = connect(mapStateToProps, mapDispatchToProps)(Home);
-const myConnectedConfirmConponent = connect(mapStateToProps, mapDispatchToProps)(Confirm);
 const myConnectedMenuConponent = connect(mapStateToProps, mapDispatchToProps)(Menu);
 const myConnectedOrderConponent = connect(mapStateToProps, mapDispatchToProps)(Order);
 const myConnectedLocationComponent = connect(mapStateToProps, mapDispatchToProps)(Location);
 const myConnectedDialogComponent = connect(mapStateToProps, mapDispatchToProps)(Popage);
 const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
 const myConnectedTimerComponent = connect(mapStateToProps, mapDispatchToProps)(ModalPicker);
-const myConnectedCompaniesConponent = connect(mapStateToProps, mapDispatchToProps)(Companies);
 const myConnectedAboutUs = connect(mapStateToProps, mapDispatchToProps)(AboutUs);
 
 const scenes = Actions.create(
@@ -82,14 +84,14 @@ const scenes = Actions.create(
         <Scene key="root" hideNavBar hideTabBar >
             <Scene key="modal" component={Modal} />
             <Scene key="login" component={myConnectedLoadingConponent} panHandlers={null} initial={true} direction="leftToRight" />
-            <Scene key="register" component={myConnectedHomeConponent} panHandlers={null} direction="leftToRight" />
-            <Scene key="confirm" component={myConnectedConfirmConponent} panHandlers={null} direction="leftToRight" />
+            <Scene key="register" component={Home} panHandlers={null} direction="leftToRight" />
+            <Scene key="confirm" component={Confirm} panHandlers={null} direction="leftToRight" />
             <Scene key="menu" component={myConnectedMenuConponent} panHandlers={null} direction="leftToRight" />
             <Scene key="order" component={myConnectedOrderConponent} panHandlers={null} direction="leftToRight" />
             <Scene key="location" component={myConnectedLocationComponent} panHandlers={null} direction="vertical" />
             <Scene key="dialog" component={myConnectedDialogComponent} panHandlers={null} direction="vertical" />
             <Scene key="timer" component={myConnectedTimerComponent} panHandlers={null} direction="vertical" />
-            <Scene key="companies" component={myConnectedCompaniesConponent} panHandlers={null} direction="leftToRight" />
+            <Scene key="companies" component={Companies} panHandlers={null} direction="leftToRight" />
             <Scene key="about" component={myConnectedAboutUs} panHandlers={null} direction="vertical" />
         </Scene>
         <Scene key="spinner" overlay component={myConnectedSpinnerComponent} panHandlers={null} direction="fade" />
@@ -178,7 +180,7 @@ class App extends Component {
                 break;
             case 'about':
                 Actions.pop();
-                
+
                 currentAction = true;
                 break;
 

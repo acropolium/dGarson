@@ -14,6 +14,23 @@ export default class InputBlock extends Component {
 
     };
 
+    userInputCode = (phone) => {
+        this.props.userInputPhone('userInputPhoneCode', { phoneCode: phone });
+
+        if (phone.length == 2)
+            this.sndInput.focus();
+    }
+
+    userInputNumber = (phone) => {
+
+        this.props.userInputPhone('userInputPhoneNumber', { phoneNumber: phone });
+
+        if (phone.length == 7)
+            this.sndInput.blur();
+        if (phone.length == 0)
+            this.fstInput.focus();
+    }
+
     render() {
         return (
             <View style={styles.content_block}>
@@ -21,16 +38,11 @@ export default class InputBlock extends Component {
                     <Text style={[styles.custom_font, styles.animated_text]}>+380 (</Text>
                     <TextInput
                         keyboardType="phone-pad" style={[styles.custom_font, styles.number1]}
-                        autoFocus={true}                        
+                        autoFocus={true}
                         placeholder="XX"
                         blurOnSubmit={false}
-                        onChangeText={(phone) => {
-                            this.props.home.setState({ phone1: phone });
-
-                            if (phone.length == 2)
-                                this.sndInput.focus(); 
-                        }}
-                        value={this.props.home.state.phone1}
+                        onChangeText={this.userInputCode}
+                        value={this.props.phone.phoneCode}
                         underlineColorAndroid="transparent"
                         maxLength={2}
                         defainRef={el => this.fstInput = el}
@@ -38,19 +50,12 @@ export default class InputBlock extends Component {
                     />
                     <Text style={[styles.custom_font, styles.animated_text]}>)</Text>
                     <TextInput style={[styles.custom_font, styles.number2]}
-                        defainRef={el => this.sndInput = el}                        
-                        keyboardType="phone-pad"                       
+                        defainRef={el => this.sndInput = el}
+                        keyboardType="phone-pad"
                         placeholder="XXXXXXX"
-                        onChangeText={(phone) => {
-                            this.props.home.setState({ phone2: phone });
-                                
-                            if (phone.length == 7) 		                                 
-                                this.sndInput.blur(); 		
-                            if (phone.length == 0) 		                            
-                                this.fstInput.focus(); 
-                        }}
+                        onChangeText={this.userInputNumber}
                         underlineColorAndroid="transparent"
-                        value={this.props.home.state.phone2}
+                        value={this.props.phone.phoneNumber}
                         maxLength={7}
                     />
                 </Animated.View>
@@ -69,6 +74,6 @@ InputBlock.propTypes = {
 
     sendData: PropTypes.func.isRequired,
     home: PropTypes.object.isRequired,
-    animated: PropTypes.object.isRequired,
+
 
 }
