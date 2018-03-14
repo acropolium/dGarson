@@ -6,30 +6,32 @@ import UserApi from '../../services/userService';
 import I18n from '../../services/translate.js';
 import {Text, View, TouchableHighlight, Icon} from '../BaseComponents';
 import  styles from "../../styles/components/CustomComponents/LocationChooserCss";
+import * as routeService from "../../services/routeService";
 const userService = new UserApi();
 
 
 export default class LocationChooser extends Component {
     constructor(props){
         super(props);
-        userService.setProps(props);
+       
 
     };
 
     locationChooser = () => {
-        if (userService.get('company_info').hasOwnProperty('locations') && userService.get('company_info').location !==false) {
+        if (this.props.company_info.hasOwnProperty('locations') && (this.props.currentLocation !==false)) {
             
-            userService.changePage('location', false, false);
+            routeService.changePage('location', false);
         }
     };
 
     getCurrentAddress = () => {
-        let location = userService.get('company_info').address+', '+I18n.t("phone")+':'+userService.get('company_info').phone;
+        let location = this.props.company_info.address+', '+I18n.t("phone")+':'+this.props.company_info.phone;
 
-        if (userService.get('company_info').hasOwnProperty('locations')){
-            userService.get('company_info').locations.forEach(function(val) {
-                if (val.id == userService.get('location')){
+        if (this.props.company_info.hasOwnProperty('locations')){
+            this.props.company_info.locations.forEach((val)=> {
+                if (val.id == this.props.currentLocation){
                     location = val.address+', '+I18n.t("phone")+':'+val.phone;
+                   
                 }
             });
         }

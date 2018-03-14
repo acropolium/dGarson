@@ -50,7 +50,7 @@ export default class Home extends Component {
             < View style={styles.allWrap}>
                 <Image source={curImage} style={styles.backGroundImg} />
 
-                <HeaderBlock {...this.props} ref='header' backButton={this.goBack} centerTitle={I18n.t("aboutus_title")} />
+                <HeaderBlock company_info={this.props.company_info} currentLocation={this.props.current_location} ref='header' backButton={this.goBack} centerTitle={I18n.t("aboutus_title")} />
 
                 <View style={styles.wrap}>
                     <ScrollView>
@@ -71,7 +71,7 @@ export default class Home extends Component {
                                 data={this.companyInfo.locations}
                                 renderItem={(item) => <InfoItem
                                     pressTel={() => { { this.refs.header.handleClickUrl('tel:' + item.phone) } }}
-                                    pressLocation={() => { this.refs.header.handleClickUrl('geo:' + this.refs.header.getCurrentCoordinates()) }}
+                                    pressLocation={() => { this.refs.header.handleClickUrl('geo:' + item.lat + ',' + item.lng + '?q=' + item.lat + ',' + item.lng) }}
                                     item={item} />}
                             />
                         </View>

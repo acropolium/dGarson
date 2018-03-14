@@ -5,21 +5,22 @@ import Menu from '../components/Menu'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+
 function mapDispatchToProps(dispatch) {
 
     return {
 
         dialogActions: bindActionCreators(dialogActions, dispatch),
-        //      companiesActions: bindActionCreators(companiesActions, dispatch),
         menuActions: bindActionCreators(menuActions, dispatch),
 
     }
 };
 
 function mapStateToProps(state) {
-
+    
     return {
-        menu: state.menu
+        menu: state.menu,
+        company_info: state.companies.company_info
     };
 
 

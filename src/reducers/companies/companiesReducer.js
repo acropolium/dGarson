@@ -8,7 +8,8 @@ import {
 
 const initialState = {
     spinnerShow:false,
-    companies:{}
+    companies:{},
+    company_info: {},
 };
 
 export default function company(state = initialState, action) {

@@ -34,54 +34,42 @@ export default class Location extends Component {
     constructor(props) {
         super(props);
 
-        userService.setProps(this.props);
-        console.log("construkt")
-        this.state = {
-            location: userService.get('location')
-        };
-
         this.markers = {};
-
-        let that = this;
         this.locationList = [];
-
         let cords = [];
 
-        if (userService.get('company_info').hasOwnProperty('locations')) {
-            this.locationList = userService.get('company_info').locations;
+        if (this.props.company_info.hasOwnProperty('locations')) {
+            this.locationList = this.props.company_info.locations;
 
         }
 
         if (!this.locationList.length) {
             alert('sorry this location is unavailable')
-            userService.changePage('menu');
+            this.props.changePage('menu');
         }
 
-        this.locationList.forEach(function (val) {
+        this.locationList.forEach((val) => {
 
             if (!val.lat || !val.lng) {
                 alert('sorry this location is unavailable')
-                userService.changePage('menu');
+                this.props.changePage('menu');
 
             } else {
 
-                that.markers['m_' + val.id] = {
+                this.markers['m_' + val.id] = {
                     key: 'm_' + val.id,
                     latitude: parseFloat(val.lat),
                     longitude: parseFloat(val.lng),
-                    title: that.getCurrentAddress(val),
+                    title: this.getCurrentAddress(val),
                     location: val
                 };
             }
         });
     }
 
-
-
-
     componentDidMount() {
 
-        if (userService.get('location')) {
+        if (this.locationList.length) {
             let animationTimeout = setTimeout(() => {
 
                 if (this.locationList.length == 1 && this.locationList[0].lat && this.locationList[0].lng)
@@ -111,11 +99,11 @@ export default class Location extends Component {
     };
 
     closeModal = () => {
-        userService.changePage('menu', false, false);
+        this.props.changePage('menu', false);
     };
 
     setLocationId = async () => {
-        userService.set({ location: this.state.location });
+
         this.closeModal();
     };
 
@@ -131,7 +119,8 @@ export default class Location extends Component {
         }
 
 
-        this.setState({ location: location.id });
+        this.props.setCurrentLocation(location.id)
+
     };
 
     measureView(event) {
@@ -144,7 +133,7 @@ export default class Location extends Component {
 
     isCurrentLocation(location) {
 
-        return location.id == this.state.location;
+        return location.id == this.props.current_location;
 
     }
 
@@ -166,6 +155,7 @@ export default class Location extends Component {
                 break;
         }
     }
+
     getLocationsHeight() {
         if (this.locationList.length > 4) {
             return 170;
@@ -174,28 +164,28 @@ export default class Location extends Component {
         }
     }
 
-    getCurrentCoordinates() {
-        if (this.locationList.length > 0) {
-            let location = this.locationList[0].lat + ',' + this.locationList[0].lng;
-            let that = this;
-
-            this.locationList.forEach(function (val) {
-                if (val.id === userService.get('location')) {
+    /* getCurrentCoordinates() {
+         if (this.locationList.length > 0) {
+             let location = this.locationList[0].lat + ',' + this.locationList[0].lng;
+             let that = this;
+ 
+             this.locationList.forEach(function (val) {
+                 if (val.id === userService.get('location')) {
                     location = val.lat + ',' + val.lng;
-                }
-            });
-
-
-            return location;
-        }
-        return '';
-    }
+                 }
+             });
+ 
+ 
+             return location;
+         }
+         return '';
+     }*/
 
     render() {
         return (
             <View style={styles.overlayStyle}>
                 <View>
-                    <HeaderBlock  {...this.props} centerTitle={userService.get('company_info').name} backButton={this.closeModal} showCheck={this.setLocationId} />
+                    <HeaderBlock company_info={this.props.company_info} centerTitle={this.props.company_info.name} backButton={this.closeModal} showCheck={this.setLocationId} />
                 </View>
 
                 <LocationMap setRef={ref => { this.map = ref; }} initialRegion={{
@@ -206,7 +196,7 @@ export default class Location extends Component {
                 }} getMapHeight={() => this.getMapHeight()} locationChooser={this.locationChooser} markers={this.markers} />
 
                 < LocationFooter locationList={this.locationList}
-                    getCurrentAddress={this.getCurrentAddress} isCurrentLocation={(location) => { this.isCurrentLocation(location) }}
+                    getCurrentAddress={this.getCurrentAddress} isCurrentLocation={(location) => { return this.isCurrentLocation(location) }}
                     measureView={this.measureView} getLocationsHeight={this.getLocationsHeight}
                     locationChooser={this.locationChooser} />
             </View>

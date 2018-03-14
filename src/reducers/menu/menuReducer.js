@@ -9,7 +9,7 @@ import {
 const initialState = {
     spinnerShow: false,
     menu: {},
-    company_info: {}
+    location:false
 };
 
 export default function menu(state = initialState, action) {

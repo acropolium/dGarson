@@ -25,9 +25,9 @@ export default class Menu extends Component {
         }
         // userService.setProps(this.props);
         //orderService.setProps(this.props);
-        console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        console.log(this.props.menu)
-        console.log("@@@@@@@@@##########$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+       // console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        //console.log(this.props.company_info)
+        //console.log("@@@@@@@@@##########$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         //routeService.changePage("companies")
     }
 
@@ -106,17 +106,18 @@ export default class Menu extends Component {
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
-                    <HeaderBlock aboutAs={this.aboutAs} {...this.props} centerTitle={this.props.menu.company_info.name} backButton />
+                    <HeaderBlock aboutAs={this.aboutAs} company_info={this.props.company_info}
+                        centerTitle={this.props.company_info.name} currentLocation={this.props.menu.location} backButton />
                 </View>
 
                 <View style={styles.menuItemsContainer}>
                     <RenderMenu data={Object.values(this.props.menu.menu)} {...this.props} />
                 </View>
 
-                {/*<View style={styles.menuFooterContainer}>
-                    <LocationChooser {...this.props} />
-                    <RenderMenuFooter {...this.props}/>
-                </View>  */}
+                <View style={styles.menuFooterContainer}>
+                    <LocationChooser company_info={this.props.company_info} currentLocation={this.props.menu.location} />
+                    {/*<RenderMenuFooter {...this.props}/>*/}
+                </View> 
             </View>
         )
     }

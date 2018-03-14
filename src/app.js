@@ -16,7 +16,7 @@ import Confirm from './conteiners/confirmContainer'
 import Companies from  './conteiners/companyConteiner' 
 import Menu from './conteiners/menuConteiner'
 import Order from './components/Order'
-import Location from './components/Location'
+import Location from './conteiners/locationConteiner'
 import Popage from './components/Popage'
 import Spinner from './components/Spinner'
 import FCMHelper from './helpers/FCMHelper';
@@ -72,7 +72,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const myConnectedLoadingConponent = connect(mapStateToProps, mapDispatchToProps)(Loading);
 const myConnectedOrderConponent = connect(mapStateToProps, mapDispatchToProps)(Order);
-const myConnectedLocationComponent = connect(mapStateToProps, mapDispatchToProps)(Location);
+
 const myConnectedDialogComponent = connect(mapStateToProps, mapDispatchToProps)(Popage);
 const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
 const myConnectedTimerComponent = connect(mapStateToProps, mapDispatchToProps)(ModalPicker);
@@ -87,7 +87,7 @@ const scenes = Actions.create(
             <Scene key="confirm" component={Confirm} panHandlers={null} direction="leftToRight" />
             <Scene key="menu" component={Menu} panHandlers={null} direction="leftToRight" />
             <Scene key="order" component={myConnectedOrderConponent} panHandlers={null} direction="leftToRight" />
-            <Scene key="location" component={myConnectedLocationComponent} panHandlers={null} direction="vertical" />
+            <Scene key="location" component={Location} panHandlers={null} direction="vertical" />
             <Scene key="dialog" component={myConnectedDialogComponent} panHandlers={null} direction="vertical" />
             <Scene key="timer" component={myConnectedTimerComponent} panHandlers={null} direction="vertical" />
             <Scene key="companies" component={Companies} panHandlers={null} direction="leftToRight" />

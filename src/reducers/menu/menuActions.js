@@ -23,14 +23,17 @@ export function getMenuFromStorage() {
     return (dispatch, props) => {
         dispatch({
             type: menuRequest,
-            
+
         })
 
-
+        dispatch({
+            type: 'companySucess',
+            payload: store.getForArray(['company_info'])
+        })
 
         dispatch({
             type: menuSucess,
-            payload: store.getForArray(['company_info', 'company', 'menu'])
+            payload: store.getForArray(['company', 'menu', 'location'])
         })
     }
 }
@@ -42,7 +45,7 @@ export function companysMenu(itemID) {
 
         let request = new api();
 
-
+        const { menu } = props();
         request.setProps({
             user: {
                 lang: store.get('lang'),
@@ -85,21 +88,29 @@ export function companysMenu(itemID) {
 
 
             let save_data = {
-                company_info: response.company,
                 company: response.company.id,
                 menu: response.data || [],
                 menus: []//this.props.user.menus || []
             };
 
-            save_data.menus[response.company.id] = response.data || [];
+            //save_data.menus[response.company.id] = response.data || [];
+            if (!menu.location) {
 
-            if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
-                save_data['location'] = response.company.locations[0].id;
-            } else {
-                save_data['location'] = false;
+                if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
+                    save_data['location'] = response.company.locations[0].id;
+
+                } else {
+                    save_data['location'] = false;
+                }
             }
 
             //????????await orderService.resetOrder(false);
+            dispatch({
+                type: 'companySucess',
+                payload: { company_info: response.company }
+            })
+
+
             dispatch({
                 type: menuSucess,
                 payload: save_data

@@ -10,7 +10,8 @@ import { bindActionCreators } from 'redux'
 function mapStateToProps(state) {
 
     return {
-        company_info: state.menu.company_info
+        company_info: state.companies.company_info,
+        current_location: state.menu.location,
     };
 
 

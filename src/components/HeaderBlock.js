@@ -19,10 +19,6 @@ export default class HeaderBlock extends Component {
     constructor(props) {
         super(props);
 
-        userService.setProps(this.props);
-    }
-
-    componentDidMount() {
 
     }
 
@@ -32,17 +28,21 @@ export default class HeaderBlock extends Component {
              : null;
      }*/
 
-    getCurrentCoordinates() {
-        /*  if (userService.get('company_info').hasOwnProperty('locations') && userService.get('company_info').locations.length > 0) {
-              let location = userService.get('company_info').locations[0].lat + ',' + userService.get('company_info').locations[0].lng;
-              userService.get('company_info').locations.forEach(function (val) {
-                  if (val.id == userService.get('location')) {
-                      location = val.lat + ',' + val.lng;
-                  }
-              });
-  
-              return location;
-          }*/
+    getCurrentCoordinates = () => {
+
+        if (this.props.company_info) {
+
+            if (this.props.company_info.hasOwnProperty('locations') && this.props.company_info.locations.length > 0) {
+                let location = this.props.company_info.locations[0].lat + ',' + this.props.company_info.locations[0].lng;
+                this.props.company_info.locations.forEach((val) => {
+                    if (val.id == this.props.currentLocation) {
+                        location = val.lat + ',' + val.lng;
+                    }
+                });
+
+                return location;
+            }
+        }
         return false;
     }
 
@@ -73,12 +73,12 @@ export default class HeaderBlock extends Component {
 
                 {(this.props.company_info && this.props.company_info.phone && !this.props.showCheck && !this.props.hideRightBlock) &&
 
-                    <TochableHeaderIcon press={() => { this.handleClickUrl('tel:' + userService.get('company_info').phone) }}
+                    <TochableHeaderIcon press={() => { this.handleClickUrl('tel:' + this.props.company_info.phone) }}
                         iconName='mobile' iconFamily="Entypo" typeButton="mobile_button" />
                 }
                 {(this.getCurrentCoordinates() && !this.props.showCheck && !this.props.hideRightBlock) &&
 
-                    <TochableHeaderIcon press={() => { this.handleClickUrl('geo:' + this.getCurrentCoordinates()) }}
+                    <TochableHeaderIcon press={() => { this.handleClickUrl('geo:' + this.getCurrentCoordinates() + '?q=' + this.getCurrentCoordinates()) }}
                         iconName='location-pin' iconFamily="Entypo" typeButton="location_button" />
 
                 }
