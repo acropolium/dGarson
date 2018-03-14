@@ -15,7 +15,7 @@ import Loading from './components/Loading'
 import Confirm from './conteiners/confirmContainer'
 import Companies from  './conteiners/companyConteiner' 
 import Menu from './conteiners/menuConteiner'
-import Order from './components/Order'
+import Order from './conteiners/orderConteiner'
 import Location from './conteiners/locationConteiner'
 import Popage from './components/Popage'
 import Spinner from './components/Spinner'
@@ -51,10 +51,10 @@ const mapStateToProps = (state) => {
 
 
     return {
-        order: state.order,
-        user: state.user,
+       // order: state.order,
+       user: state.user,
         dialog: state.dialog,
-        spinner: state.spinner,
+       // spinner: state.spinner,
 
     }
 };
@@ -71,7 +71,7 @@ const mapDispatchToProps = (dispatch) => {
 
 
 const myConnectedLoadingConponent = connect(mapStateToProps, mapDispatchToProps)(Loading);
-const myConnectedOrderConponent = connect(mapStateToProps, mapDispatchToProps)(Order);
+
 
 const myConnectedDialogComponent = connect(mapStateToProps, mapDispatchToProps)(Popage);
 const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
@@ -86,7 +86,7 @@ const scenes = Actions.create(
             <Scene key="register" component={Home} panHandlers={null} direction="leftToRight" />
             <Scene key="confirm" component={Confirm} panHandlers={null} direction="leftToRight" />
             <Scene key="menu" component={Menu} panHandlers={null} direction="leftToRight" />
-            <Scene key="order" component={myConnectedOrderConponent} panHandlers={null} direction="leftToRight" />
+            <Scene key="order" component={Order} panHandlers={null} direction="leftToRight" />
             <Scene key="location" component={Location} panHandlers={null} direction="vertical" />
             <Scene key="dialog" component={myConnectedDialogComponent} panHandlers={null} direction="vertical" />
             <Scene key="timer" component={myConnectedTimerComponent} panHandlers={null} direction="vertical" />

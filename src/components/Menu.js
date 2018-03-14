@@ -25,7 +25,7 @@ export default class Menu extends Component {
         }
         // userService.setProps(this.props);
         //orderService.setProps(this.props);
-       // console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        // console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         //console.log(this.props.company_info)
         //console.log("@@@@@@@@@##########$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         //routeService.changePage("companies")
@@ -87,6 +87,9 @@ export default class Menu extends Component {
 
     };
 
+    
+
+    
     aboutAs = () => {
         routeService.changePage("about", false);
 
@@ -103,6 +106,9 @@ export default class Menu extends Component {
     }
 
     render() {
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        console.log(this.props.order_draft)
+        console.log("!!!!!!!!!!!!!!!!33333333333333333333!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
@@ -117,7 +123,7 @@ export default class Menu extends Component {
                 <View style={styles.menuFooterContainer}>
                     <LocationChooser company_info={this.props.company_info} currentLocation={this.props.menu.location} />
                     {/*<RenderMenuFooter {...this.props}/>*/}
-                </View> 
+                </View>
             </View>
         )
     }

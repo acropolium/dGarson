@@ -38,9 +38,9 @@ export default class MenuItem extends Component {
         };
 
         let orderItems = [];
-       // if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.keys(orderService.get('draft')[this.props.item.id].items).length > 0) {
-         //   orderItems = Object.values(orderService.get('draft')[this.props.item.id].items);
-        //}
+       /* if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.keys(this.props.order_draft[this.props.item.id].items).length > 0) {
+            orderItems = Object.values(this.props.order_draft[this.props.item.id].items);
+        }*/
         this.state.dataSource = orderItems
 
     }
@@ -52,11 +52,12 @@ export default class MenuItem extends Component {
 
 
     addItem = (item) => {
-        orderService.addItem(item);
+        //orderService.addItem(item);
+        this.props.addOrderItem(item)
     };
 
     componentWillReceiveProps(nextProps) {
-
+alert("soosoo")
        /* let orderItems = [];
         if (nextProps.order.draft.hasOwnProperty(nextProps.item.id) && Object.keys(nextProps.order.draft[nextProps.item.id].items).length > 0) {
             orderItems = Object.values(nextProps.order.draft[nextProps.item.id].items);
@@ -114,13 +115,13 @@ export default class MenuItem extends Component {
                     </View>
                 </TouchableHighlight>
 
-                {/*<FlatList
+                {<FlatList
                     data={this.state.dataSource}
                     renderItem={(orderItem, idx) => {
 
                         return <OrderItem {...this.props} item={orderItem} root_item={this.props.item} root_item_idx={idx} />
                     }}
-                />*/}
+                />}
 
                 {this.isSelected() &&
                     <View style={styles.selected_footer} />

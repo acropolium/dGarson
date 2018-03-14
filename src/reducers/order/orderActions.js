@@ -90,6 +90,7 @@ export function addItem(item) {
             copy.price.total = parseFloat(copy.price.total) + priceTotal
         } else { copy.price.total = priceTotal }
 
+       
 
         return dispatch({
             type: 'add_item',
