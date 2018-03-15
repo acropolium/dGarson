@@ -22,8 +22,6 @@ export default class OrderItem extends Component {
     constructor(props) {
         super(props);
 
-        orderService.setProps(this.props);
-
         this.state = {
             item: false,
             idx: false,
@@ -34,7 +32,7 @@ export default class OrderItem extends Component {
     removeFromOrder = () => {
         const { item, idx, root_item_idx } = this.props;
 
-        orderService.removeItem(item, root_item_idx)
+        this.props.removeOrderItem(item, root_item_idx)
     };
 
     render() {
@@ -47,7 +45,8 @@ export default class OrderItem extends Component {
             const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
             let dataSource = ds.cloneWithRows(Object.values(item.options));
 
-          //  orderItemAdditions = <ListView enableEmptySections={true} dataSource={dataSource} renderRow={(orderItemAddition, idx1, idx) => <OrderItemAddition {...this.props} root_item={root_item} root_item_idx={root_item_idx} itemAddition={orderItemAddition} idx={idx} />} />
+            orderItemAdditions = <ListView enableEmptySections={true} dataSource={dataSource} renderRow={(orderItemAddition, idx1, idx) =>
+                <OrderItemAddition changeOrderItemAddition={this.props.changeOrderItemAddition} root_item={root_item} root_item_idx={root_item_idx} itemAddition={orderItemAddition} idx={idx} />} />
         }
         return (
 
@@ -61,7 +60,7 @@ export default class OrderItem extends Component {
                     options={item.options} press={() => { this.setState({ addition: !this.state.addition }) }}
                     leftText={I18n.t("additions")} rightText={item.countOptions} iconName={this.state.addition ? 'ios-arrow-up' : 'ios-arrow-down'} iconFamily="Ionicons" />
 
-                {/*orderItemAdditions*/}
+                {orderItemAdditions}
                 <View style={styles.order_block_footer} />
 
             </View>

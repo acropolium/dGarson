@@ -51,10 +51,10 @@ const mapStateToProps = (state) => {
 
 
     return {
-       // order: state.order,
+        order: state.order,
        user: state.user,
         dialog: state.dialog,
-       // spinner: state.spinner,
+        spinner: state.spinner,
 
     }
 };

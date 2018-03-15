@@ -9,9 +9,10 @@ export default function order(state = initialState, action) {
         case 'load_data':
             return Object.assign({}, state);
         case 'add_item':
-            
             return Object.assign({}, state, action.payload);
         case 'change_item_addition':
+            return Object.assign({}, state, action.payload);
+        case 'clean_draft_order':
             return Object.assign({}, state, action.payload);
         default:
             return state;

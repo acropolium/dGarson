@@ -46,7 +46,7 @@ export default class OrderStatus extends React.Component {
             });
     };
 
-    
+
     getCurrentAddress() {
 
         let location = userService.get('company_info').address + ', ' + I18n.t("phone") + ':' + userService.get('company_info').phone;
@@ -61,12 +61,12 @@ export default class OrderStatus extends React.Component {
 
 
     renderElement = {
-        'draft': <StatusDraft orderService={this.props.orderService} getFormattedTime={this.getFormattedTime} />,
+        'draft': <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
         'notpicked': <StatusNotPicked handleClickUrl={this.handleClickUrl} userService={userService} />,
         'ready': <StatusReady getCurrentAddress={this.getCurrentAddress} orderService={this.props.orderService} getFormattedTime={this.getFormattedTime} />,
         'payed': <StatusPayed goBack={this.props.goBack} orderService={this.props.orderService} />,
         'false': <StatusEmpty />,
-        'default': <StatusNotDraft orderService={this.props.orderService} getFormattedTime={this.getFormattedTime} />
+        'default': <StatusNotDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />
     };
 
 
@@ -79,7 +79,7 @@ export default class OrderStatus extends React.Component {
 
 
     render() {
-        return this.renderStatusElement(this.props.orderState)
+        return this.renderStatusElement(this.props.order.order.state)
     }
 };
 

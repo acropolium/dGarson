@@ -33,7 +33,7 @@ export default class orderService{
 
     setOrder = async (order) =>{
 
-        console.log(order)
+        
         const { setOrder } = this.props.orderActions;
         setOrder(order);
         await store.save('order', this.get('order'));

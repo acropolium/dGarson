@@ -38,9 +38,11 @@ export default class MenuItem extends Component {
         };
 
         let orderItems = [];
-       /* if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.keys(this.props.order_draft[this.props.item.id].items).length > 0) {
+
+        if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.keys(this.props.order_draft[this.props.item.id].items).length > 0) {
             orderItems = Object.values(this.props.order_draft[this.props.item.id].items);
-        }*/
+        }
+
         this.state.dataSource = orderItems
 
     }
@@ -52,18 +54,17 @@ export default class MenuItem extends Component {
 
 
     addItem = (item) => {
-        //orderService.addItem(item);
         this.props.addOrderItem(item)
     };
 
     componentWillReceiveProps(nextProps) {
-alert("soosoo")
-       /* let orderItems = [];
-        if (nextProps.order.draft.hasOwnProperty(nextProps.item.id) && Object.keys(nextProps.order.draft[nextProps.item.id].items).length > 0) {
-            orderItems = Object.values(nextProps.order.draft[nextProps.item.id].items);
+
+        let orderItems = [];
+        if (nextProps.order_draft.hasOwnProperty(nextProps.item.id) && Object.keys(nextProps.order_draft[nextProps.item.id].items).length > 0) {
+            orderItems = Object.values(nextProps.order_draft[nextProps.item.id].items);
         }
 
-        this.setState({ dataSource: orderItems });*/
+        this.setState({ dataSource: orderItems });
     }
 
     getItemPrice() {
@@ -71,14 +72,14 @@ alert("soosoo")
     }
 
     isSelected() {
-        return false//orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0;
+        return this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.values(this.props.order_draft[this.props.item.id].items).length > 0;
     }
 
     itemsCount() {
         let cnt = 0;
-       /* if (orderService.get('draft').hasOwnProperty(this.props.item.id) && Object.values(orderService.get('draft')[this.props.item.id].items).length > 0) {
-            cnt = Object.values(orderService.get('draft')[this.props.item.id].items).length;
-        }*/
+        if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.values(this.props.order_draft[this.props.item.id].items).length > 0) {
+            cnt = Object.values(this.props.order_draft[this.props.item.id].items).length;
+        }
 
         return cnt;
     }
@@ -119,7 +120,8 @@ alert("soosoo")
                     data={this.state.dataSource}
                     renderItem={(orderItem, idx) => {
 
-                        return <OrderItem {...this.props} item={orderItem} root_item={this.props.item} root_item_idx={idx} />
+                        return <OrderItem changeOrderItemAddition={this.props.changeOrderItemAddition}
+                            removeOrderItem={this.props.removeOrderItem} item={orderItem} root_item={this.props.item} root_item_idx={idx} />
                     }}
                 />}
 

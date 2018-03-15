@@ -12,13 +12,16 @@ const StatusNotDraft = (props) => {
         <View style={styles.wrap}>
         
             <LeftSideStatus  iconFamily="EvilIcons" name='ios-clock-outline' text={I18n.t('take_away')} />
-            <Text style={styles.text}>{props.getFormattedTime(props.orderService.get('desired_time') || 15)}</Text>
+            <Text style={styles.text}>{props.getFormattedTime(props.desired_time || 15)}</Text>
         </View>
     );
 };
 
 StatusNotDraft.propTypes = {
-    orderService: PropTypes.object.isRequired,
+    desired_time: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]).isRequired,
     getFormattedTime: PropTypes.func.isRequired
 };
 

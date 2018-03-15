@@ -9,7 +9,7 @@ import RenderMenu from "./Menu/RenderMenu";
 import RenderMenuFooter from "./Menu/RenderMenuFooter";
 import LocationChooser from "./CustomComponents/LocationChooser";
 import styles from '../styles/components/Menu/MenuStyles';
-import * as routeService from "../services/routeService";
+//import * as routeService from "../services/routeService";
 
 const orderService = new OrderApi();
 const userService = new UserApi();
@@ -25,11 +25,16 @@ export default class Menu extends Component {
         }
         // userService.setProps(this.props);
         //orderService.setProps(this.props);
-        // console.log("#############################@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-        //console.log(this.props.company_info)
-        //console.log("@@@@@@@@@##########$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+
         //routeService.changePage("companies")
     }
+
+    componentWillReceiveProps(nextProps) {
+
+
+
+    }
+
 
     getMenuFromStorage = async (cacheUpdate = false) => {
         if (userService.has('read_from_storage') && userService.get('read_from_storage') == true) {
@@ -87,9 +92,9 @@ export default class Menu extends Component {
 
     };
 
-    
 
-    
+
+
     aboutAs = () => {
         routeService.changePage("about", false);
 
@@ -106,9 +111,7 @@ export default class Menu extends Component {
     }
 
     render() {
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        console.log(this.props.order_draft)
-        console.log("!!!!!!!!!!!!!!!!33333333333333333333!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
@@ -117,12 +120,16 @@ export default class Menu extends Component {
                 </View>
 
                 <View style={styles.menuItemsContainer}>
-                    <RenderMenu data={Object.values(this.props.menu.menu)} {...this.props} />
+                    <RenderMenu removeOrderItem={this.props.removeOrderItem} addOrderItem={this.props.addOrderItem}
+                        changeOrderItemAddition={this.props.changeOrderItemAddition} order_draft={this.props.order_draft}
+                        data={Object.values(this.props.menu.menu)} />
                 </View>
 
                 <View style={styles.menuFooterContainer}>
                     <LocationChooser company_info={this.props.company_info} currentLocation={this.props.menu.location} />
-                    {/*<RenderMenuFooter {...this.props}/>*/}
+                    <RenderMenuFooter setOrder={this.props.setOrder} company_id={this.props.menu.company}
+                        total_price={this.props.total_price} order_draft={this.props.order_draft}
+                        changePage={this.props.changePage} />
                 </View>
             </View>
         )

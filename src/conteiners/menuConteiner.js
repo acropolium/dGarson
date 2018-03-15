@@ -1,4 +1,4 @@
-import * as dialogActions from '../reducers/dialog/dialogActions'
+import * as routeService from "../services/routeService";
 import * as orderActions from '../reducers/order/orderActions'
 import * as menuActions from '../reducers/menu/menuActions'
 import Menu from '../components/Menu'
@@ -10,19 +10,24 @@ function mapDispatchToProps(dispatch) {
 
     return {
 
-       
+
         menuActions: bindActionCreators(menuActions, dispatch),
         addOrderItem: bindActionCreators(orderActions.addItem, dispatch),
+        removeOrderItem: bindActionCreators(orderActions.removeItem, dispatch),
+        changeOrderItemAddition: bindActionCreators(orderActions.changeItemAddition, dispatch),
+        setOrder: bindActionCreators(orderActions.setOrder, dispatch),
+        changePage: routeService.changePage
 
     }
 };
 
 function mapStateToProps(state) {
-    //alert(JSON.stringify(state.order.draft))
+
     return {
         menu: state.menu,
         company_info: state.companies.company_info,
-        order: Object.assign({},state.order.draft)
+        order_draft: Object.assign({}, state.order.draft),
+        total_price: state.order.price
     };
 
 

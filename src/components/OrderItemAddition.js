@@ -25,7 +25,7 @@ export default class OrderItemAddition extends Component {
     }
 
     changeItemAddition = (root_item, root_item_idx, idx, operation) => {
-        orderService.changeItemAddition(root_item, root_item_idx, idx, operation);
+        this.props.changeOrderItemAddition(root_item, root_item_idx, idx, operation);
     };
 
     render() {

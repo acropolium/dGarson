@@ -61,11 +61,16 @@ export function companysMenu(itemID) {
                 switch (response.status) {
                     case 302:
                         //this.props.spinnerActions.hide();
-                        // routeService.changePage('order');
-                        //await orderService.setOrder({ order: orderJson, state: orderJson.state });
-                        //  await userService.changePage('order');
+                       //  routeService.changePage('order');
+                       // await orderService.setOrder({ order: orderJson, state: orderJson.state });
+                         // await userService.changePage('order');
 
-                        alert(302)
+                          dispatch({
+                            type: 'do_order',
+                            payload: { order: orderJson, state: orderJson.state }
+                        })
+                        routeService.changePage('order',false);
+                          //alert(JSON.stringify(orderJson))
                         break;
                     case 401:
                         //this.props.spinnerActions.hide();
@@ -94,7 +99,7 @@ export function companysMenu(itemID) {
             };
 
             //save_data.menus[response.company.id] = response.data || [];
-            if (!menu.location) {
+            if (!menu.location || menu.company != response.company.id) {
 
                 if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
                     save_data['location'] = response.company.locations[0].id;
@@ -105,6 +110,13 @@ export function companysMenu(itemID) {
             }
 
             //????????await orderService.resetOrder(false);
+
+            dispatch({
+                type: 'clean_draft_order',
+                payload: { draft: {}, price: { total: 0 } }
+            })
+
+
             dispatch({
                 type: 'companySucess',
                 payload: { company_info: response.company }

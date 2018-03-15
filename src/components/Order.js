@@ -27,11 +27,15 @@ import OrderElement from "./Order/OrderListElement/OrderElement";
 import OrderStatus from "./Order/OrderStatus";
 import OrderFooter from "./Order/OrderFooter";
 
+
+
 const userService = new UserApi();
 const orderService = new OrderApi();
 
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').height;
+
+import * as routeService from "../services/routeService";
 
 export default class Order extends Component {
 
@@ -42,8 +46,12 @@ export default class Order extends Component {
             dataSource: [],
         };
 
-        orderService.setProps(this.props);
-        userService.setProps(this.props);
+
+        //  routeService.changePage("menu");
+
+       /* console.log("222222222222222222222222222222211111111111111111111333333")
+        console.log(this.props)
+        console.log("22222222222!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")*/
 
         this.orderPending = false;
 
@@ -55,7 +63,11 @@ export default class Order extends Component {
     };
 
     componentWillReceiveProps(nextProps) {
-        if (this.receiveProps) {
+      
+      
+
+      // this.setState({ dataSource: nextProps.order.order.items });
+        /*if (this.receiveProps) {
             const { orderActions, order } = this.props;
 
             if (nextProps.order.hasOwnProperty('read_from_server') && nextProps.order.read_from_server === true) {
@@ -64,17 +76,19 @@ export default class Order extends Component {
 
                 this.getOrder(true);
             }
-        }
+        }*/
 
     }
 
     readOrder = () => {
-        if (orderService.get('order').state == 'draft' && orderService.get('order').hasOwnProperty('items') && orderService.get('order').items.length > 0) {
 
-            this.setState({ dataSource: orderService.get('order').items });
+       
+        if (this.props.order.state == 'draft' && this.props.order.order.hasOwnProperty('items') && this.props.order.order.items.length > 0) {
+
+          //  this.setState({ dataSource: this.props.order.order.items });
 
         } else {
-            this.getOrder();
+             this.getOrder();
         }
     };
 
@@ -90,76 +104,37 @@ export default class Order extends Component {
 
         this.orderPending = true;
 
-        this.props.spinnerActions.show();
+        //this.props.spinnerActions.show();
 
 
-        let desired_time = orderService.get('desired_time');
+        let desired_time =this.props.order.desired_time;
         if (typeof desired_time === 'undefined') {
             desired_time = 15;
         }
 
         let body = {
-            company_id: userService.get('company_info').id,
+            company_id: this.props.company_info.id,
             desired_time,
-            items: orderService.get('order').items,
-            location_id: userService.get('location') || false
+            items: this.props.order.order.items,
+            location_id: this.props.currentLocation || false
         };
 
-
-        let request = (new api()).setProps(this.props);
-
-        request.orders(false, 'POST', body,
-            () => { this.orderPending = false; },
-            async (response) => {
-                if (response.hasOwnProperty('redirect')) {
-                    this.resetOrder();
-                    switch (response.status) {
-                        case 409:
-                            let errorMessages = [];
-                            Object.keys(response.json).forEach(function (key) {
-                                errorMessages.push(response.json[key].join("\r\n"));
-                            });
-
-                            this.props.spinnerActions.hide();
-                            this.props.dialogActions.dialogShow({
-                                title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: async () => {
-                                    await userService.changePage('menu', { read_from_storage: true });
-                                }
-                            });
-
-                            break;
-                        case 401:
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('init', { read_from_storage: true });
-                            break;
-                        case 302:
-                            orderService.set({ order: response.json });
-                            await userService.set({ 'order': response.json });
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('order');
-                            break;
-                    }
-
-                } else {
-                    await userService.set({ 'order': response, company: userService.get('company') });
-                    orderService.set({ order: response, company: userService.get('company') });
-
-                    this.props.spinnerActions.hide();
-                    await userService.changePage('order');
-                }
-
-            },
-            (error) => {
-                this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
-            });
-    };
+        this.props.orderActions.makeOrder(body).catch((error) => {
+            this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
+        });
+};
 
     getOrder = (reload_lister = false) => {
-        if (reload_lister == false)
-            this.props.spinnerActions.show();
+       
+        
+        this.props.orderActions.getOrderForCompany(this.props.order.order.company_id).catch((error)=>{
+            this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
+        });
+       
+        // if (reload_lister == false)
+         //   this.props.spinnerActions.show();
 
-        let request = (new api()).setProps(this.props);
+      /*  let request = (new api()).setProps(this.props);
 
         request.order(userService.get('company_info').id, 'get', false,
             false,
@@ -205,19 +180,21 @@ export default class Order extends Component {
                     this.props.spinnerActions.hide();
                 this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
             });
-
+*/
 
     };
 
     doCancel = () => {
-        if (this.orderPending == true) {
+      
+      
+         /*if (this.orderPending == true) {
             return;
-        }
-
+        }*/
+        this.props.order.order.id;
         this.orderPending = true;
 
-        this.props.spinnerActions.show();
-        let request = (new api()).setProps(this.props);
+        //this.props.spinnerActions.show();
+        /*let request = (new api()).setProps(this.props);
 
         request.orders(orderService.get('order').id, 'PUT', { state: 'cancel' },
             () => { this.orderPending = false; },
@@ -231,7 +208,7 @@ export default class Order extends Component {
             (error) => {
                 this.props.spinnerActions.hide();
                 this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
-            });
+            });*/
 
     };
 
@@ -250,55 +227,54 @@ export default class Order extends Component {
     goBack = async () => {
         let state = 'menu';
 
-        if (orderService.get('order').state == 'cancel' || orderService.get('order').state == 'payed') {
-            await orderService.resetOrder(orderService.get('order').state)
-        } else {
-            if (userService.getCompanyesCount() > 1) {
-                state = 'companies';
-            }
-
-            if (orderService.get('order').state == 'draft') {
+        if (this.props.order.order.state == 'cancel' || this.props.order.order.state == 'payed') {
+            await this.orderActions.setOrder({}, "flush");
+        }
+        /*else {
+            if (this.props.order.order.state == 'draft') {
                 state = 'menu';
             }
         }
-        let data = false;
-        if (orderService.get('order').state == 'payed') {
+      /*  let data = false;
+        if (this.props.order.order.stat == 'payed') {
             data = { read_from_storage: true };
-        }
+        }*/
 
-        await userService.changePage(state, data);
+        // await userService.changePage(state, data);
+
+        this.props.changePage(state);
     };
 
     aboutAs = () => {
 
 
         this.receiveProps = false;
-        userService.changePage("about", false, false);
+        this.props.changePage("about", false);
     }
 
     render() {
 
-        let backButton = (userService.getCompanyesCount() > 1
-            || orderService.get('order').state == 'draft'
-            || orderService.get('order').state == 'payed'
-            || orderService.get('order').state == 'cancel')
-            ? this.goBack
-            : false;
+        /* let backButton = (userService.getCompanyesCount() > 1
+             || orderService.get('order').state == 'draft'
+             || orderService.get('order').state == 'payed'
+             || orderService.get('order').state == 'cancel')
+             ? this.goBack
+             : false;*/
 
         return (
 
             <View style={styles.wrap}>
                 <View>
-                    <HeaderBlock aboutAs={this.aboutAs} {...this.props} centerTitle={I18n.t("your_order") + (orderService.get('order').id ? (' #' + orderService.get('order').id) : '')} backButton={backButton} />
+                    <HeaderBlock currentLocation={this.props.currentLocation} aboutAs={this.aboutAs} company_info={this.props.company_info} centerTitle={I18n.t("your_order") + (this.props.order.order.id ? (' #' + this.props.order.order.id) : '')} backButton={this.goBack} />
                 </View>
 
                 <KeyboardWrapper style={styles.keyboard_wrapper}>
-                    <OrderList data={this.state.dataSource} renderItem={(item) => <OrderElement item={item} />} />
+                    <OrderList data={this.props.order.order.items} renderItem={(item) => <OrderElement item={item} />} />
                 </KeyboardWrapper>
 
-                <OrderStatus {...this.props} goBack={this.goBack} userService={userService} orderService={orderService} orderState={orderService.get('order').state} />
+                <OrderStatus order={this.props.order} goBack={this.goBack} />
 
-                <OrderFooter orderState={orderService.get('order').state} showCancelConfirm={this.showCancelConfirm} makeOrder={this.makeOrder} orderCost={orderService.get('order').cost} />
+                <OrderFooter orderState={this.props.order.order.state} showCancelConfirm={this.showCancelConfirm} makeOrder={this.makeOrder} orderCost={this.props.order.order.cost} />
             </View>
         )
     }
