@@ -18,17 +18,18 @@ export default class OrderFooterWrap extends React.Component {
     };
 
     renderElements = {
-        'draft':(orderState)=> <OrderFooterDraft orderState={orderState} makeOrder={this.props.makeOrder} />,
-        'notpicked': (orderState)=><OrderFooterNotpicked orderState={orderState} />,
-        'ready': (orderState)=><OrderFooterReady orderState={orderState} />,
-        'payed': (orderState)=><OrderFooterPayed orderState={orderState} />,
-        'cancel':(orderState)=> <OrderFooterCancel orderState={orderState} />,
-        'pending': (orderState)=><OrderFooterPending orderState={orderState} showCancelConfirm={this.props.showCancelConfirm} />,
-        'recieved':(orderState)=><OrderFooterRecived orderState={orderState} showCancelConfirm={this.props.showCancelConfirm} />,
+        'draft': (orderState) => <OrderFooterDraft orderState={orderState} makeOrder={this.props.makeOrder} />,
+        'notpicked': (orderState) => <OrderFooterNotpicked orderState={orderState} />,
+        'ready': (orderState) => <OrderFooterReady orderState={orderState} />,
+        'payed': (orderState) => <OrderFooterPayed orderState={orderState} />,
+        'cancel': (orderState) => <OrderFooterCancel orderState={orderState} />,
+        'pending': (orderState) => <OrderFooterPending orderState={orderState} showCancelConfirm={this.props.showCancelConfirm} />,
+        'recieved': (orderState) => <OrderFooterRecived orderState={orderState} showCancelConfirm={this.props.showCancelConfirm} />,
     };
 
     getFooterElement = (orderState) => {
-        
+
+
         return this.renderElements[orderState] ? this.renderElements[orderState](orderState) : this.renderElements['draft'];
     }
 
@@ -43,7 +44,7 @@ export default class OrderFooterWrap extends React.Component {
                     <Text style={[styles.total_color, this.props.orderState == 'payed' || this.props.orderState == 'cancel' || this.props.orderState == 'inprogress' || this.props.orderState == 'notpicked' ? { color: 'black' } : {}]}>{parseFloat(this.props.orderCost).toFixed(2)} {I18n.t("uah")}</Text>
                 </View>
                 <View>
-                    {this.getFooterElement(this.props.orderState)}
+                    {this.props.orderState && this.getFooterElement(this.props.orderState)}
                 </View>
             </View >
         );
@@ -51,7 +52,7 @@ export default class OrderFooterWrap extends React.Component {
 }
 
 OrderFooterWrap.propTypes = {
-    orderState: PropTypes.string.isRequired,
+
     orderCost: PropTypes.oneOfType([
         PropTypes.number.isRequired,
         PropTypes.string.isRequired,

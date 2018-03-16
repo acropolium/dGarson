@@ -20,7 +20,7 @@ export default class OrderFooter extends React.Component {
 
 
 OrderFooter.propTypes = {
-    orderState: PropTypes.string.isRequired,
+
     orderCost: PropTypes.oneOfType([
         PropTypes.number.isRequired,
         PropTypes.string.isRequired,

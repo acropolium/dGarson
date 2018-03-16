@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-
+    
     return {
         menu: state.menu,
         company_info: state.companies.company_info,

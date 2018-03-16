@@ -30,8 +30,7 @@ export default class MenuItem extends Component {
     constructor(props) {
         super(props);
 
-        orderService.setProps(this.props);
-
+        
         this.state = {
             dataSource: {},
 

@@ -99,9 +99,7 @@ export default class apiService {
             headers_authorised = this.headers_authorised();
             headers_authorised['Authorization'] = headers_authorised['Authorization'] + this.user.token;
        
-            console.log("222222222222222222222222222222")
-            console.log(this.user)
-            console.log("#####################################")
+            
         }
 
         let headers = {

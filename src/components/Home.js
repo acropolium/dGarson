@@ -105,9 +105,9 @@ export default class Home extends Component {
 
 
     sendData = async () => {
-        
+
         let phone = '380' + this.props.login.phoneCode + this.props.login.phoneNumber;
-        
+
         if (phone.trim().length != 12) {
             return;
         }
@@ -119,7 +119,7 @@ export default class Home extends Component {
         this.props.loginActions.sendData({
             user: {
                 lang: this.props.login.lang,
-                
+
             }
         }, phone)
             .catch((error) => {

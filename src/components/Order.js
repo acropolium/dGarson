@@ -194,10 +194,9 @@ export default class Order extends Component {
             ? this.goBack
             : false;
 
+          
            
-            
         return (
-
             <View style={styles.wrap}>
                 <View>
                     <HeaderBlock currentLocation={this.props.currentLocation} aboutAs={this.aboutAs} company_info={this.props.company_info} centerTitle={I18n.t("your_order") + (this.props.order.order.id ? (' #' + this.props.order.order.id) : '')} backButton={backButton} />

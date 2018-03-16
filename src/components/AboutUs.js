@@ -23,13 +23,14 @@ import ConfirmButtonBlock from "./ConfirmElement/ConfirmButtonBlock";
 import HeaderBlock from './HeaderBlock';
 import UserApi from '../services/userService';
 import InfoItem from './AboutAsComponents/InfoItem';
-const userService = new UserApi();
+
 
 export default class Home extends Component {
 
     constructor(props) {
         super(props);
-        userService.setProps(this.props);
+        
+        
         this.companyInfo = this.props.company_info
     }
 

@@ -6,16 +6,10 @@ import {
     Easing
 } from 'react-native';
 import I18n from '../services/translate.js'
-
-import UserApi from '../services/userService';
-import OrderApi from '../services/orderService';
-
 import { View } from './BaseComponents';
 import styles from '../styles/screens/LoadingScreenSyle';
-
-const userService = new UserApi();
-const orderService = new OrderApi();
-
+import store from '../utils/storage';
+import * as routeService from "../services/routeService";
 let windowHeight = Dimensions.get('window').height;
 
 export default class Loading extends Component {
@@ -31,8 +25,8 @@ export default class Loading extends Component {
             copyright_visibility: new Animated.Value(0),
         };
 
-        userService.setProps(this.props);
-        orderService.setProps(this.props);
+
+
     }
 
     componentDidMount() {
@@ -53,19 +47,18 @@ export default class Loading extends Component {
                 Animated.timing(this.state.product_visibility, {
                     duration: 400, // milliseconds
                     toValue: 1,
-                }).start(async () => {
-                    await userService.loadInitialState();
-                    await orderService.loadInitialState();
-                    await userService.changePage(userService.get('state', 'init'))
+                }).start(() => {
+                    store.save('lang', I18n.locale);
+                    let page = store.get('state');
+                    routeService.changePage(page ? page : 'init');
+
                 });
             });
-
-
     }
 
     render() {
-        return (            
-                <ImageBackground source={require('../media/backgrounds/splash.png')} style={styles.bg}>
+        return (
+            <ImageBackground source={require('../media/backgrounds/splash.png')} style={styles.bg}>
                 <View>
                     <View style={styles.wrap_animate}>
                         <Animated.Text style={[styles.product_title, { opacity: this.state.product_visibility, transform: this.state.product_position.getTranslateTransform(), }]}>{I18n.t("product_title")}</Animated.Text>
@@ -76,7 +69,7 @@ export default class Loading extends Component {
                         <Animated.Image source={require('../media/backgrounds/company.png')} style={{ opacity: this.state.copyright_visibility, transform: this.state.copyright_position.getTranslateTransform(), }} />
                     </View>
                 </View>
-            </ImageBackground>         
+            </ImageBackground>
         )
     }
 }

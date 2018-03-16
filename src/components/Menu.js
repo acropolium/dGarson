@@ -9,7 +9,7 @@ import RenderMenu from "./Menu/RenderMenu";
 import RenderMenuFooter from "./Menu/RenderMenuFooter";
 import LocationChooser from "./CustomComponents/LocationChooser";
 import styles from '../styles/components/Menu/MenuStyles';
-//import * as routeService from "../services/routeService";
+import * as routeService from "../services/routeService";
 
 const orderService = new OrderApi();
 const userService = new UserApi();

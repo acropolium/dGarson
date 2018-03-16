@@ -76,13 +76,14 @@ export default class ModalPicker extends BaseComponent {
             selected: 'please select'
         };
 
+
         userService.setProps(props);
         orderService.setProps(props);
     }
 
     componentDidMount() {
-        this.setState({ selected: this.props.initValue });
-        this.setState({ cancelText: this.props.cancelText });
+        this.setState({ selected: this.props.initValue ? this.props.initValue : 'Select me!' });
+        this.setState({ cancelText: this.props.cancelText ? this.props.cancelText : 'cancel' });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -92,7 +93,8 @@ export default class ModalPicker extends BaseComponent {
     }
 
     onChange = async (item) => {
-        orderService.set({ read_from_server: false, desired_time: item.value });
+
+        this.props.setOrder({ desired_time: item.value });
         this.close();
     };
 
@@ -114,7 +116,7 @@ export default class ModalPicker extends BaseComponent {
         return (
             <TouchableOpacity key={option.key} onPress={() => this.onChange(option)}>
                 <View style={[styles.optionStyle, this.props.optionStyle]}>
-                    <Text style={[styles.optionTextStyle, this.props.optionTextStyle, this.props.order.desired_time == option.value ? { color: 'white' } : {}]}>{option.label}</Text>
+                    <Text style={[styles.optionTextStyle, this.props.optionTextStyle, this.props.desired_time == option.value ? { color: 'white' } : {}]}>{option.label}</Text>
                 </View>
             </TouchableOpacity>)
     }

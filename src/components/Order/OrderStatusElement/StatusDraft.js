@@ -7,6 +7,7 @@ import LeftSideStatus from './MicroElement/LeftSideStatus';
 import styles from "../../../styles/components/order/OrderStatusStyle";
 
 const StatusDraft = (props) => {
+    
     return (
 
         <View style={styles.wrap_status_draft}>

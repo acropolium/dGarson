@@ -15,8 +15,8 @@ export default class Popage extends Component {
 
     constructor(props) {
         super(props);
-
         this.state = {};
+        
     }
 
     componentWillUnmount() {
@@ -45,7 +45,7 @@ export default class Popage extends Component {
         return (
             <View style={[styles.overlayStyle, this.props.overlayStyle, this.props.dialog.overlayStyle]} >
                 <PopageBlock dialog={this.props.dialog} />
-                <PopageButton {...this.props} approve={this.approve} setModalHidden={this.setModalHidden} />
+                <PopageButton dialog={this.props.dialog} approve={this.approve} setModalHidden={this.setModalHidden} />
             </View>
         )
     }

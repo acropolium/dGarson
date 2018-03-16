@@ -8,7 +8,7 @@ import {
     registerRequestError,
     verifySucess,
     verifyRequest,
-   // companySucess,
+    // companySucess,
     verifyError
 } from './constatntReducer.js';
 
@@ -18,6 +18,7 @@ const initialState = {
     phoneSecondPart: '',
     spinnerShow: false,
     token: false,
+    lang: "ua"
 }
 
 export default function login(state = initialState, action) {
@@ -38,7 +39,7 @@ export default function login(state = initialState, action) {
         case registerRequest:
             return { ...state, spinnerShow: true }
 
-       // case companySucess:
+        // case companySucess:
         case registerRequestSuccess:
             return { ...state, ...action.payload, spinnerShow: false }
 

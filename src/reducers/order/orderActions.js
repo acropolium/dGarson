@@ -148,6 +148,7 @@ export function cancelOrder(order_id) {
             dispatch({
                 type: 'flush',
             })
+            
             //this.props.spinnerActions.hide();
             routeService.changePage('menu');
 
@@ -234,7 +235,7 @@ export function makeOrder(body) {
 export function getOrderForCompany(body) {
     return (dispatch, props) => {
 
-        const { order } = props();
+       // const { order } = props();
 
 
         let request = (new api()).setProps({

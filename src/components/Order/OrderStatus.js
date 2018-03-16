@@ -61,12 +61,12 @@ export default class OrderStatus extends React.Component {
 
 
     renderElement = {
-        'draft': <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
-        'notpicked': <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,
-        'ready': <StatusReady getCurrentAddress={this.getCurrentAddress} orderId={this.props.order.order.id} getFormattedTime={this.getFormattedTime} />,
-        'payed': <StatusPayed goBack={this.props.goBack} orderId={this.props.order.order.id} />,
-        'false': <StatusEmpty />,
-        'default': <StatusNotDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />
+        'draft': () => <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
+        'notpicked': () => <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,
+        'ready': () => <StatusReady getCurrentAddress={this.getCurrentAddress} orderId={this.props.order.order.id} getFormattedTime={this.getFormattedTime} />,
+        'payed': () => <StatusPayed goBack={this.props.goBack} orderId={this.props.order.order.id} />,
+        'false': () => <StatusEmpty />,
+        'default': () => <StatusNotDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />
     };
 
 
@@ -74,11 +74,12 @@ export default class OrderStatus extends React.Component {
     renderStatusElement = (orderState) => {
         let order = orderState == false ? 'false' : orderState;
 
-        return this.renderElement[order] ? this.renderElement[order] : this.renderElement['default'];
+        return this.renderElement[order] ? this.renderElement[order]() : this.renderElement['default']();
     }
 
 
     render() {
+
         return this.renderStatusElement(this.props.order.order.state)
     }
 };

@@ -59,7 +59,7 @@ export default class HeaderBlock extends Component {
     };
 
     goBack = () => {
-
+        
         routeService.changePage('companies');
     };
 
