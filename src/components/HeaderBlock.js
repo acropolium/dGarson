@@ -68,7 +68,6 @@ export default class HeaderBlock extends Component {
 
         return (<View style={[styles.menu_button_wrap, styles.width_value]}>
 
-
             <View style={[styles.menu_button_wrap, (this.props.showCheck || this.props.aboutAs) ? styles.justifyContent_value : {}]}>
 
                 {(this.props.company_info && this.props.company_info.phone && !this.props.showCheck && !this.props.hideRightBlock) &&
@@ -95,7 +94,6 @@ export default class HeaderBlock extends Component {
 
                 }
 
-
             </View>
 
         </View>)
@@ -107,7 +105,8 @@ export default class HeaderBlock extends Component {
         return (
             <View style={styles.header_main}>
                 <View style={[styles.back_button_wrap]}>
-                    {this.props.backButton && <TochableHeaderIcon press={typeof this.props.backButton === "function" ? this.props.backButton : backButton} iconName='ios-arrow-round-back' iconFamily="Ionicons" typeButton="back_button" />}
+                    <TochableHeaderIcon press={typeof this.props.backButton === "function" ? this.props.backButton : backButton} iconName='ios-arrow-round-back' iconFamily="Ionicons" typeButton="back_button" />
+                    {/*this.props.backButton && <TochableHeaderIcon press={typeof this.props.backButton === "function" ? this.props.backButton : backButton} iconName='ios-arrow-round-back' iconFamily="Ionicons" typeButton="back_button" />*/}
                 </View>
                 <View style={[styles.center_title_wrap]}>
                     <Text style={[styles.custom_font, styles.header_text]}>{this.props.centerTitle}</Text>

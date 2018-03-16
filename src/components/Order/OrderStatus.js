@@ -49,9 +49,9 @@ export default class OrderStatus extends React.Component {
 
     getCurrentAddress() {
 
-        let location = userService.get('company_info').address + ', ' + I18n.t("phone") + ':' + userService.get('company_info').phone;
-        userService.get('company_info').locations.forEach(function (val) {
-            if (val.id == userService.get('location')) {
+        let location = this.props.company_info.address + ', ' + I18n.t("phone") + ':' + this.props.company_info.phone;
+        this.props.company_info.address.locations.forEach(function (val) {
+            if (val.id == this.props.currentLocation) {
                 location = val.address + ', ' + I18n.t("phone") + ':' + val.phone;
             }
         });
@@ -62,9 +62,9 @@ export default class OrderStatus extends React.Component {
 
     renderElement = {
         'draft': <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
-        'notpicked': <StatusNotPicked handleClickUrl={this.handleClickUrl} userService={userService} />,
-        'ready': <StatusReady getCurrentAddress={this.getCurrentAddress} orderService={this.props.orderService} getFormattedTime={this.getFormattedTime} />,
-        'payed': <StatusPayed goBack={this.props.goBack} orderService={this.props.orderService} />,
+        'notpicked': <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,
+        'ready': <StatusReady getCurrentAddress={this.getCurrentAddress} orderId={this.props.order.order.id} getFormattedTime={this.getFormattedTime} />,
+        'payed': <StatusPayed goBack={this.props.goBack} orderId={this.props.order.order.id} />,
         'false': <StatusEmpty />,
         'default': <StatusNotDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />
     };
@@ -83,7 +83,7 @@ export default class OrderStatus extends React.Component {
     }
 };
 
-OrderStatus.propTypes = {
+/*OrderStatus.propTypes = {
     orderState: PropTypes.oneOfType([
         PropTypes.string.isRequired,
         PropTypes.bool.isRequired
@@ -91,7 +91,7 @@ OrderStatus.propTypes = {
     ])
 
 
-};
+};*/
 
 
 

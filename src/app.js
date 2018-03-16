@@ -74,7 +74,7 @@ const myConnectedLoadingConponent = connect(mapStateToProps, mapDispatchToProps)
 
 
 const myConnectedDialogComponent = connect(mapStateToProps, mapDispatchToProps)(Popage);
-const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
+//const myConnectedSpinnerComponent = connect(mapStateToProps, mapDispatchToProps)(Spinner);
 const myConnectedTimerComponent = connect(mapStateToProps, mapDispatchToProps)(ModalPicker);
 
 
@@ -93,22 +93,23 @@ const scenes = Actions.create(
             <Scene key="companies" component={Companies} panHandlers={null} direction="leftToRight" />
             <Scene key="about" component={AboutUs} panHandlers={null} direction="vertical" />
         </Scene>
-        <Scene key="spinner" overlay component={myConnectedSpinnerComponent} panHandlers={null} direction="fade" />
+        {/*<Scene key="spinner" overlay component={myConnectedSpinnerComponent} panHandlers={null} direction="fade" />*/}
     </Lightbox>
 );
 
 const store = configureStore();
 
-let globalAction = false;
-let globalState = false;
+/*let globalAction = false;
+let globalState = false;*/
 
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
+        
+        /*this.state = {
             backTimes: 0
-        };
+        };*/
 
         userService.setProps(this.props);
         orderService.setProps(this.props);

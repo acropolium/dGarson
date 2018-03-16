@@ -10,7 +10,7 @@ const StatusPayed = (props) => {
     return (
         <View>
             <View style={styles.wrap}>
-                <Text style={[styles.custom_font, styles.text]}>{I18n.t('your_order_payed_part_1') + ' #' + props.orderService.get('order').id} {I18n.t('payed_info_message')}</Text>
+                <Text style={[styles.custom_font, styles.text]}>{I18n.t('your_order_payed_part_1') + ' #' + props.orderId} {I18n.t('payed_info_message')}</Text>
                 <View style={styles.wrap_button}>
                     <Button buttonBorder="#94979f" iconNameLeft="ios-arrow-round-back" backgroundColor="#2A2A32" style={styles.button} title={I18n.t('menu').toUpperCase()} onPress={props.goBack} />
                 </View>
@@ -21,7 +21,7 @@ const StatusPayed = (props) => {
 
 StatusPayed.propTypes = {
     goBack: PropTypes.func.isRequired,
-    orderService: PropTypes.object.isRequired,
+    
 };
 
 export default StatusPayed;

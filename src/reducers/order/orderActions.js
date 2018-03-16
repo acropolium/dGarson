@@ -131,7 +131,7 @@ export function changeItemAddition(item, idxName, itemAdditionIdx, operation = '
     }
 }
 
-export function cancelOrder(){
+export function cancelOrder(order_id) {
 
     return (dispatch, props) => {
 
@@ -143,16 +143,18 @@ export function cancelOrder(){
             }
         });
 
-       return request.orders(orderService.get('order').id, 'PUT', { state: 'cancel' }).then( () => {
+        return request.orders(order_id, 'PUT', { state: 'cancel' }).then(() => {
 
-                this.resetOrder('cancel');
-                this.props.spinnerActions.hide();
-                userService.changePage('menu', { read_from_storage: true });
+            dispatch({
+                type: 'flush',
+            })
+            //this.props.spinnerActions.hide();
+            routeService.changePage('menu');
 
-            }).catch((error) => {
-                this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
-            });
+        }).catch((error) => {
+
+            Promise.reject(error);
+        });
 
 
 
@@ -208,7 +210,7 @@ export function makeOrder(body) {
 
             } else {
 
-                
+
                 dispatch({
                     type: 'do_order',
                     payload: { 'order': response }
@@ -225,15 +227,15 @@ export function makeOrder(body) {
             Promise.reject(error);
 
         });
-}
+    }
 }
 
 
-export function getOrderForCompany(body){
+export function getOrderForCompany(body) {
     return (dispatch, props) => {
 
-         const {order}=props();
-       
+        const { order } = props();
+
 
         let request = (new api()).setProps({
             user: {
@@ -242,64 +244,62 @@ export function getOrderForCompany(body){
             }
         });
 
-       
 
-      return  request.order(body, 'get', false,false).then((response) => {
-                if (response.hasOwnProperty('redirect')) {
 
-                    /*let errorMessages = [];
-                    Object.keys(response.json).forEach(function (key) {
-                        errorMessages.push(response.json[key].join("\r\n"));
-                    });*/
+        return request.order(body, 'get', false, false).then((response) => {
+            if (response.hasOwnProperty('redirect')) {
 
-                   /* if (reload_lister == false)
-                        this.props.spinnerActions.hide();*/
+                /*let errorMessages = [];
+                Object.keys(response.json).forEach(function (key) {
+                    errorMessages.push(response.json[key].join("\r\n"));
+                });*/
 
-                    switch (response.status) {
-                        case 401:
-                        alert(401)   
+                /* if (reload_lister == false)
+                     this.props.spinnerActions.hide();*/
+
+                switch (response.status) {
+                    case 401:
+                        alert(401)
                         // await userService.changePage('init', { read_from_storage: true });
-                            break;
-                        case 404:
-                        alert(404) 
+                        break;
+                    case 404:
+                        alert(404)
                         //await userService.changePage('menu');
-                            break;
-                    }
-                    return;
+                        break;
                 }
-
-                       
-                       
-               
-                       dispatch({
-                        type: 'do_order',
-                        payload: { state: response.state, order: response, desired_time: response.desired_time }
-                    })
-
-                       /*
-                if ((response.state == 'cancel' || response.state == 'payed')
-                    && orderService.get('order').state !== 'draft') {
-                  //  this.resetOrder();
-
-                    //await userService.changePage('menu');
-                } else {
-
-                    await userService.set({ order: response });
-                    orderService.set({ state: response.state, order: response, desired_time: response.desired_time });
-                    this.setState({ dataSource: orderService.get('order').items });
-                
-                }*/
-
-            }).catch((error) => {
-                
-               // if (reload_lister == false)
-                 //   this.props.spinnerActions.hide();
-                Promise.reject(error)
-
-            });
+                return;
+            }
 
 
 
 
+            dispatch({
+                type: 'do_order',
+                payload: { state: response.state, order: response, desired_time: response.desired_time }
+            })
+
+            /*
+     if ((response.state == 'cancel' || response.state == 'payed')
+         && orderService.get('order').state !== 'draft') {
+       //  this.resetOrder();
+
+         //await userService.changePage('menu');
+     } else {
+
+         await userService.set({ order: response });
+         orderService.set({ state: response.state, order: response, desired_time: response.desired_time });
+         this.setState({ dataSource: orderService.get('order').items });
+     
+     }*/
+
+        }).catch((error) => {
+
+            // if (reload_lister == false)
+            //   this.props.spinnerActions.hide();
+            Promise.reject(error)
+
+        });
     }
 }
+
+

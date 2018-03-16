@@ -33,7 +33,7 @@ function saveStore(data) {
     });
 }
 
-let timeUpdate = 60000;
+let timeUpdate = 1;//60000;
 
 export function getItemsFromStorage(readFromServer = false) {
 

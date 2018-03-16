@@ -48,6 +48,7 @@ export default {
 
         if (data.hasOwnProperty('state')) {
             if (userService.get('token') == false) {
+            
                 await userService.loadInitialState();
                 await orderService.loadInitialState();
                 await userService.changePage(userService.get('state', 'init'));

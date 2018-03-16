@@ -11,8 +11,8 @@ const StatusReady = (props) => {
 
         <View>
             <View style={styles.wrap}>
-                <Text style={[styles.custom_font, styles.top_text]}>{I18n.t('your_order_ready_part_1') + ' #' + props.orderService.get('order').id} {I18n.t('ready_info_message')}:</Text>
-                {/*                                                                                          error from userService*/}
+                <Text style={[styles.custom_font, styles.top_text]}>{I18n.t('your_order_ready_part_1') + ' #' + props.orderId} {I18n.t('ready_info_message')}:</Text>
+               
                 <Text numberOfLines={2} style={[styles.custom_font,styles.medium_text ]}>{props.getCurrentAddress()}</Text>
             </View>
             <View style={styles.wrap_botton_text}>
@@ -26,7 +26,7 @@ const StatusReady = (props) => {
 };
 
 StatusReady.propTypes = {
-    orderService: PropTypes.object.isRequired,
+    
     getFormattedTime: PropTypes.func.isRequired,
     getCurrentAddress: PropTypes.func.isRequired
 };
