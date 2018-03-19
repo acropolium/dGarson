@@ -111,7 +111,9 @@ export default class Menu extends Component {
     }
 
     render() {
-
+        console.log("!!!!!!@@@@@@@@@@@@@@@@@@####################$$$$$$$$$$")
+        console.log(this.props.company_info)
+        console.log("SSSSSSSSSSSSSSSSQQQQQQQQQQQQQQQQQQQQWEEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>

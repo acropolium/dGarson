@@ -54,7 +54,9 @@ export function removeItem(item, idx) {
 
 export function addItem(item) {
     return (dispatch, props) => {
+        
         let { order } = props();
+        
         let copy = Object.assign({}, order);
         let itemCopy = Object.assign({}, item);
 

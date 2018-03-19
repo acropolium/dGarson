@@ -19,7 +19,6 @@ function saveStore(data) {
 
 export function getMenuFromStorage() {
 
-
     return (dispatch, props) => {
         dispatch({
             type: menuRequest,
@@ -28,7 +27,7 @@ export function getMenuFromStorage() {
 
         dispatch({
             type: 'companySucess',
-            payload: store.getForArray(['company_info'])
+            payload: { 'company_info': store.get('company_info')[store.get('company')] }
         })
 
         dispatch({
@@ -40,6 +39,7 @@ export function getMenuFromStorage() {
 
 
 export function companysMenu(itemID) {
+
 
     return (dispatch, props) => {
 
@@ -61,16 +61,27 @@ export function companysMenu(itemID) {
                 switch (response.status) {
                     case 302:
                         //this.props.spinnerActions.hide();
-                       //  routeService.changePage('order');
-                       // await orderService.setOrder({ order: orderJson, state: orderJson.state });
-                         // await userService.changePage('order');
+                        //  routeService.changePage('order');
+                        // await orderService.setOrder({ order: orderJson, state: orderJson.state });
+                        // await userService.changePage('order');
 
-                          dispatch({
+                        dispatch({
                             type: 'do_order',
                             payload: { order: orderJson, state: orderJson.state }
                         })
-                        routeService.changePage('order',false);
-                          //alert(JSON.stringify(orderJson))
+
+                        //const { companies } = props();
+
+
+                        //  alert(JSON.stringify(store.get('company_info')[orderJson.company_id]))
+
+                        // if (!Object.keys(companies.company_info).length || response.company_id != companies.id)
+                        dispatch({
+                            type: 'companySucess',
+                            payload: { company_info: store.get('company_info')[orderJson.company_id] }
+                        })
+
+                        routeService.changePage('order', false);
                         break;
                     case 401:
                         //this.props.spinnerActions.hide();
@@ -90,7 +101,7 @@ export function companysMenu(itemID) {
                 }
                 return;
             }
-
+            //company id company id company id company id company id company idcompany id company id company id 
 
             let save_data = {
                 company: response.company.id,
@@ -117,6 +128,7 @@ export function companysMenu(itemID) {
             })
 
 
+
             dispatch({
                 type: 'companySucess',
                 payload: { company_info: response.company }
@@ -130,6 +142,10 @@ export function companysMenu(itemID) {
 
             saveStore(save_data);
 
+            let allCompanyInfo = store.get('company_info');
+
+            allCompanyInfo[response.company.id] = response.company;
+            saveStore({ company_info: allCompanyInfo });
 
             routeService.changePage('menu');
 

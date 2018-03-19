@@ -6,7 +6,7 @@ import {View, Text, Icon} from '../../BaseComponents';
 import LeftSideStatus from './MicroElement/LeftSideStatus';
 import styles from "../../../styles/components/order/StatusRedyStyle";
 
-const StatusReady = (props) => {
+const  StatusReady = (props) => {
     return (
 
         <View>
@@ -19,7 +19,7 @@ const StatusReady = (props) => {
 
                 <LeftSideStatus  iconFamily="EvilIcons" name='ios-clock-outline' text={I18n.t('take_away')} />
 
-                <Text style={styles.botton_text}>{props.getFormattedTime(props.orderService.get('desired_time'))}</Text>
+                <Text style={styles.botton_text}>{props.getFormattedTime(props.desired_time)}</Text>
             </View>
         </View>
     );

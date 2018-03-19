@@ -12,6 +12,7 @@ export default function order(state = initialState, action) {
 
     switch (action.type) {
         case 'do_order':
+            alert(JSON.stringify(action.payload))
             return Object.assign({}, flush, state, action.payload);
         case 'flush':
             return Object.assign({}, flush);

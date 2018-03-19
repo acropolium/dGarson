@@ -7,12 +7,15 @@ import * as userActions from '../reducers/user/userActions'
 export default {
     getToken: () => {
         return FCM.getFCMToken().then(token => {
+
             return Promise.resolve(token);
         }).catch(err => {
             return Promise.resolve(false);
         });
     },
     sendToken: (token, userService, context) => {
+
+
         if (token) {
             let device_token = userService.get('device_token');
             if (device_token !== token) {
@@ -21,6 +24,7 @@ export default {
                     let request = (new api()).setProps(context.props);
                     request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
                         () => {
+                            
                             userService.set({ device_token: token, device_token_send: 1 })
                         }
                     );
@@ -29,6 +33,9 @@ export default {
         }
     },
     notificationHandler: async (notification, orderService, userService, dialogShow) => {
+       // alert(JSON.stringify(notification))
+       // alert("ssssssssssssssssssssssssssssssssssssss")
+
         let prefix = 'order_';
         let data = {};
 

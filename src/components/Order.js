@@ -194,8 +194,8 @@ export default class Order extends Component {
             ? this.goBack
             : false;
 
-          
-           
+      //alert(this.props.order)
+
         return (
             <View style={styles.wrap}>
                 <View>
@@ -206,7 +206,7 @@ export default class Order extends Component {
                     <OrderList data={this.props.order.order.items} renderItem={(item) => <OrderElement item={item} />} />
                 </KeyboardWrapper>
 
-                <OrderStatus order={this.props.order} companyPhone={this.props.company_info.phone} goBack={this.goBack} />
+                <OrderStatus currentLocation={this.props.currentLocation} company_info={this.props.company_info} order={this.props.order} companyPhone={this.props.company_info.phone} goBack={this.goBack} />
 
                 <OrderFooter orderState={this.props.order.order.state} showCancelConfirm={this.showCancelConfirm} makeOrder={this.makeOrder} orderCost={this.props.order.order.cost} />
             </View>

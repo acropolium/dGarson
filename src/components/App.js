@@ -47,13 +47,16 @@ export default class App extends Component {
 
         FCM.on(FCMEvent.Notification, async (notification) => {
 
-            FCMHelper.notificationHandler(notification, orderService, userService, (data) => that.props.dialogActions.dialogShow(data))
+            this.props.notificationHandler(notification)
         });
         FCMHelper.getToken().then(token => {
+            
             FCMHelper.sendToken(token, userService, that);
         });
 
+        
         FCM.on(FCMEvent.RefreshToken, token => {
+            
             FCMHelper.sendToken(token, userService, that);
         });
 

@@ -18,7 +18,7 @@ const userService = new UserApi();
 export default class OrderStatus extends React.Component {
     constructor(props) {
         super(props);
-        userService.setProps(this.props);
+
     };
 
     getFormattedTime = (desired_time) => {
@@ -47,11 +47,13 @@ export default class OrderStatus extends React.Component {
     };
 
 
-    getCurrentAddress() {
+    getCurrentAddress = () => {
+        
 
         let location = this.props.company_info.address + ', ' + I18n.t("phone") + ':' + this.props.company_info.phone;
-        this.props.company_info.address.locations.forEach(function (val) {
+        this.props.company_info.locations.forEach((val) => {
             if (val.id == this.props.currentLocation) {
+               
                 location = val.address + ', ' + I18n.t("phone") + ':' + val.phone;
             }
         });
@@ -63,7 +65,7 @@ export default class OrderStatus extends React.Component {
     renderElement = {
         'draft': () => <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
         'notpicked': () => <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,
-        'ready': () => <StatusReady getCurrentAddress={this.getCurrentAddress} orderId={this.props.order.order.id} getFormattedTime={this.getFormattedTime} />,
+        'ready': () => <StatusReady desired_time={this.props.order.desired_time} getCurrentAddress={this.getCurrentAddress} orderId={this.props.order.order.id} getFormattedTime={this.getFormattedTime} />,
         'payed': () => <StatusPayed goBack={this.props.goBack} orderId={this.props.order.order.id} />,
         'false': () => <StatusEmpty />,
         'default': () => <StatusNotDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />

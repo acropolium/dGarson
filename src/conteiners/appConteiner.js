@@ -7,10 +7,9 @@ import * as confirmContainer from '../conteiners/confirmContainer'
 import App from '../components/App'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import * as appActions from '../reducers/app/appActions'
 
 const mapStateToProps = (state) => {
-
-
     return {
         order_state:state.order.order.state,
         user: state.user,
@@ -26,7 +25,7 @@ const mapDispatchToProps = (dispatch) => {
         routerActions: bindActionCreators(userActions, dispatch),
         dialogActions: bindActionCreators(dialogActions, dispatch),
         spinnerActions: bindActionCreators(spinnerActions, dispatch),
-
+        notificationHandler: bindActionCreators(appActions.notificationHandler, dispatch),
     }
 };
 
