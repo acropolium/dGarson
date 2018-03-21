@@ -60,8 +60,8 @@ export default class OrderStatus extends React.Component {
 
         return location;
     }
-
-
+ 
+    
     renderElement = {
         'draft': () => <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
         'notpicked': () => <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,

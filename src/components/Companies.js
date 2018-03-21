@@ -18,7 +18,7 @@ import CompanyList from "./Companies/CompanyList";
 import styles from "../styles/components/CompaniesStyle";
 import Spinner from "./Spinner";
 
-const userService = new UserApi();
+
 
 export default class Companies extends Component {
 

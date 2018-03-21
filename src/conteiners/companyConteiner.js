@@ -17,7 +17,7 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-
+    
     return {
         companies: state.companies
     };

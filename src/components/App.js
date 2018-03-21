@@ -20,64 +20,46 @@ import OrderApi from '../services/orderService';
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
 import * as routeService from "../services/routeService";
-const userService = new UserApi();
-const orderService = new OrderApi();
+
 
 
 
 export default class App extends Component {
 
-    constructor(props) {
-        super(props);
-
-        /*this.state = {
-            backTimes: 0
-        };*/
-
-        userService.setProps(this.props);
-        orderService.setProps(this.props);
-        //userService.set({ lang: I18n.locale });
-
-
-    };
-
 
     componentDidMount() {
-        let that = this;
+
 
         FCM.on(FCMEvent.Notification, async (notification) => {
 
-            this.props.notificationHandler(notification)
-        });
-        FCMHelper.getToken().then(token => {
-            
-            FCMHelper.sendToken(token, userService, that);
+            this.props.appAction.notificationHandler(notification, this.props.dialogActions);
         });
 
-        
+        this.props.appAction.getToken();
+
         FCM.on(FCMEvent.RefreshToken, token => {
-            
-            FCMHelper.sendToken(token, userService, that);
+
+            this.props.appAction.sendToken(token);
         });
 
-      //  AppState.addEventListener('change', this.handleAppStateChange);
+        //  AppState.addEventListener('change', this.handleAppStateChange);
     };
 
-   /* handleAppStateChange = (appState) => {
-        if (appState === 'active') {
-            const { orderActions, routerActions } = this.props;
-
-            let read_from_server = orderService.get('order').state == 'draft' ? false : true;
-
-            orderActions.setOrder({ read_from_server: read_from_server });
-            routerActions.loadData({ read_from_server: read_from_server });
-
-            userService.checkUpdateCompanies().then(() => {
-                userService.checkUpdateMenu(userService.get('company_info').id);
-            });
-
-        }
-    };*/
+    /* handleAppStateChange = (appState) => {
+         if (appState === 'active') {
+             const { orderActions, routerActions } = this.props;
+ 
+             let read_from_server = orderService.get('order').state == 'draft' ? false : true;
+ 
+             orderActions.setOrder({ read_from_server: read_from_server });
+             routerActions.loadData({ read_from_server: read_from_server });
+ 
+             userService.checkUpdateCompanies().then(() => {
+                 userService.checkUpdateMenu(userService.get('company_info').id);
+             });
+ 
+         }
+     };*/
 
 
 

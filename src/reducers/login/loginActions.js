@@ -51,8 +51,8 @@ export function sendData(userData, phone) {
 
         dispatch({ type: registerRequest })
 
-        const { user } = props();
-        let device_token = user['device_token'];
+        const { login  } = props();
+        let device_token = login.device_token;
         let request = new api();
 
         return request.setProps(userData).register('POST', {

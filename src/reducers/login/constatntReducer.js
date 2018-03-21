@@ -11,3 +11,4 @@ export const verifySucess = 'verifySucess';
 export const companySucess = 'companySucess';
 export const verifyError = 'verifyError';
 export const loadInitialStateConfirm="loadInitialStateConfirm"
+export const setDeviceToken = "setDeviceToken";

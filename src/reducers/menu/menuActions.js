@@ -143,7 +143,7 @@ export function companysMenu(itemID) {
             saveStore(save_data);
 
             let allCompanyInfo = store.get('company_info');
-
+            allCompanyInfo = allCompanyInfo ? allCompanyInfo : {};
             allCompanyInfo[response.company.id] = response.company;
             saveStore({ company_info: allCompanyInfo });
 

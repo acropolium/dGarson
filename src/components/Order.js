@@ -163,7 +163,7 @@ export default class Order extends Component {
         let state = 'menu';
 
         if (this.props.order.order.state == 'cancel' || this.props.order.order.state == 'payed') {
-            await this.orderActions.setOrder({}, "flush");
+            await this.props.orderActions.setOrder({}, "flush");
         }
         /*else {
             if (this.props.order.order.state == 'draft') {
@@ -193,8 +193,6 @@ export default class Order extends Component {
             || this.props.order.order.state == 'cancel')
             ? this.goBack
             : false;
-
-      //alert(this.props.order)
 
         return (
             <View style={styles.wrap}>

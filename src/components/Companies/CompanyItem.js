@@ -114,6 +114,7 @@ export default class CompanyItem extends Component {
 
     getOrderState() {
         if (this.props.item.hasOwnProperty('latest_order') && this.props.item.latest_order && (this.props.item.latest_order.state !== 'cancel' && this.props.item.latest_order.state !== 'payed')) {
+            
             return this.props.item.latest_order.state;
         }
         return false;

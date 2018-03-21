@@ -11,8 +11,13 @@ export default function order(state = initialState, action) {
     };
 
     switch (action.type) {
+        case 'update_order_state':
+            if (state.order.id == action.payload.orderID) {
+                return Object.assign({}, flush, state, { order: { ...state.order, state: action.payload.state } });
+            } else {
+                return state;
+            }
         case 'do_order':
-            alert(JSON.stringify(action.payload))
             return Object.assign({}, flush, state, action.payload);
         case 'flush':
             return Object.assign({}, flush);
