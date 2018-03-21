@@ -99,7 +99,7 @@ export function notificationHandler(notification, dialogActions) {
              }*/
 
 
-            //alert(JSON.stringify(data['company_id']))
+            alert(JSON.stringify(data))
 
             dispatch({
                 type: "companyOrderState",

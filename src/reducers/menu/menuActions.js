@@ -45,7 +45,7 @@ export function companysMenu(itemID) {
 
         let request = new api();
 
-        const { menu } = props();
+
         request.setProps({
             user: {
                 lang: store.get('lang'),
@@ -110,7 +110,8 @@ export function companysMenu(itemID) {
             };
 
             //save_data.menus[response.company.id] = response.data || [];
-            if (!menu.location || menu.company != response.company.id) {
+            const { menu } = props();
+            if (!menu[response.company.id] || !menu[response.company.id].location || menu[response.company.id].company != response.company.id) {
 
                 if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
                     save_data['location'] = response.company.locations[0].id;
@@ -134,10 +135,15 @@ export function companysMenu(itemID) {
                 payload: { company_info: response.company }
             })
 
+            let allMenuInfo = store.get('menu');
+            allMenuInfo = allMenuInfo ? allMenuInfo : {};
+            allMenuInfo[response.company.id] = save_data;
+            saveStore({ menu: allMenuInfo });
+
 
             dispatch({
                 type: menuSucess,
-                payload: save_data
+                payload: allMenuInfo
             })
 
             saveStore(save_data);

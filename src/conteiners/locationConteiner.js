@@ -9,8 +9,9 @@ function mapStateToProps(state) {
 
     return {
 
+
         company_info: state.companies.company_info,
-        current_location: state.menu.location,
+        current_location: state.menu[state.companies.company_info.id].location,
         changePage: routeService.changePage
     };
 
@@ -27,7 +28,7 @@ function mapDispatchToProps(dispatch) {
             store.save("location", loacationID);
 
             dispatch({
-
+                //write reducer
                 type: 'menuSucess',
                 payload: { location: loacationID }
             })

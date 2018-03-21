@@ -1,22 +1,11 @@
 import React, { Component } from 'react';
-
 import {
     AppState,
     BackAndroid,
-    Platform
-} from 'react-native';
-
+    } from 'react-native';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
-
 import FCMHelper from '../helpers/FCMHelper';
-
-
-import config from "../config"
-import api from '../services/apiService';
 import I18n from '../services/translate.js'
-
-import UserApi from '../services/userService';
-import OrderApi from '../services/orderService';
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
 import * as routeService from "../services/routeService";

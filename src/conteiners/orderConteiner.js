@@ -19,7 +19,7 @@ function mapStateToProps(state) {
     return {
         order: state.order,
         company_info: state.companies.company_info,
-        currentLocation: state.menu.location
+        currentLocation: state.menu[state.companies.company_info.id].location
     };
 
 

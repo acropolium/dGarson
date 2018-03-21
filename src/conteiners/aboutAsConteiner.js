@@ -11,7 +11,7 @@ function mapStateToProps(state) {
 
     return {
         company_info: state.companies.company_info,
-        current_location: state.menu.location,
+        current_location: state.menu[state.companies.company_info.id].location,
     };
 
 

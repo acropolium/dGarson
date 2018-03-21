@@ -197,16 +197,27 @@ export default class Order extends Component {
         return (
             <View style={styles.wrap}>
                 <View>
-                    <HeaderBlock currentLocation={this.props.currentLocation} aboutAs={this.aboutAs} company_info={this.props.company_info} centerTitle={I18n.t("your_order") + (this.props.order.order.id ? (' #' + this.props.order.order.id) : '')} backButton={backButton} />
+                    <HeaderBlock currentLocation={this.props.currentLocation}
+                        aboutAs={this.aboutAs}
+                        company_info={this.props.company_info}
+                        centerTitle={I18n.t("your_order") + (this.props.order.order.id ? (' #' + this.props.order.order.id) : '')}
+                        backButton={backButton} />
                 </View>
 
                 <KeyboardWrapper style={styles.keyboard_wrapper}>
                     <OrderList data={this.props.order.order.items} renderItem={(item) => <OrderElement item={item} />} />
                 </KeyboardWrapper>
 
-                <OrderStatus currentLocation={this.props.currentLocation} company_info={this.props.company_info} order={this.props.order} companyPhone={this.props.company_info.phone} goBack={this.goBack} />
+                <OrderStatus currentLocation={this.props.currentLocation}
+                    company_info={this.props.company_info}
+                    order={this.props.order}
+                    companyPhone={this.props.company_info.phone}
+                    goBack={this.goBack} />
 
-                <OrderFooter orderState={this.props.order.order.state} showCancelConfirm={this.showCancelConfirm} makeOrder={this.makeOrder} orderCost={this.props.order.order.cost} />
+                <OrderFooter orderState={this.props.order.order.state}
+                    showCancelConfirm={this.showCancelConfirm}
+                    makeOrder={this.makeOrder}
+                    orderCost={this.props.order.order.cost} />
             </View>
         )
     }

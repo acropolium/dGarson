@@ -20,9 +20,9 @@ export default class Menu extends Component {
         this.state = {};
 
 
-        if (!Object.keys(this.props.menu.menu).length) {
+       /* if (!Object.keys(this.props.menu.menu).length) {
             this.props.menuActions.getMenuFromStorage()
-        }
+        }*/
         // userService.setProps(this.props);
         //orderService.setProps(this.props);
 
@@ -36,7 +36,7 @@ export default class Menu extends Component {
     }
 
 
-    getMenuFromStorage = async (cacheUpdate = false) => {
+    /*getMenuFromStorage = async (cacheUpdate = false) => {
         if (userService.has('read_from_storage') && userService.get('read_from_storage') == true) {
             userService.set({ read_from_storage: false }, false);
             cacheUpdate = true;
@@ -90,7 +90,7 @@ export default class Menu extends Component {
                 this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
             });
 
-    };
+    };*/
 
 
 
@@ -111,9 +111,7 @@ export default class Menu extends Component {
     }
 
     render() {
-        console.log("!!!!!!@@@@@@@@@@@@@@@@@@####################$$$$$$$$$$")
-        console.log(this.props.company_info)
-        console.log("SSSSSSSSSSSSSSSSQQQQQQQQQQQQQQQQQQQQWEEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+        
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
