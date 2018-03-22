@@ -1,5 +1,6 @@
 export default {
     en: {
+        order_no:"",
         greeting: 'Hi',
         title: 'Menu',
         total: 'Total',
@@ -57,6 +58,7 @@ export default {
         address:"Address",
     },
     ua: {
+        order_no:"",
         address:"Адреса",
         phone:"Телефон",
         aboutus_title:"Про нас",

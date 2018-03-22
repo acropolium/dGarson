@@ -25,63 +25,79 @@ export function getMenuFromStorage() {
 
         })
 
+        /*dispatch({
+            type: 'companySucess',
+            payload: { companies: store.get('companies') }
+        })
+
+
         dispatch({
             type: 'companySucess',
             payload: { 'company_info': store.get('company_info')[store.get('company')] }
         })
 
+
         dispatch({
             type: menuSucess,
-            payload: store.getForArray(['company', 'menu', 'location'])
-        })
+            payload: store.get('menu')
+        })*/
     }
 }
+let timeUpdate = 20000;
 
-
-export function companysMenu(itemID) {
+export function companysMenu(companyID) {
 
 
     return (dispatch, props) => {
 
-        let request = new api();
 
+        let orderCompany = store.get("order_company");
+
+        let updatesTimes = store.get('menuUpdate');
+        alert(JSON.stringify(updatesTimes))
+         updatesTimes = updatesTimes || {};
+        let lastTime = updatesTimes[companyID] || 0;
+
+        let currentTime = new Date().getTime();
+        let needUpdate = currentTime - lastTime > timeUpdate;
+
+        if (orderCompany && orderCompany[companyID] || needUpdate) {
+           // alert("readFromServer")
+
+            let updatesTime = store.get("order_company");
+            updatesTime = updatesTime ? updatesTime : {};
+            updatesTime[companyID] = currentTime;
+            store.save('menuUpdate', updatesTime);
+        }
+
+        let request = new api();
 
         request.setProps({
             user: {
                 lang: store.get('lang'),
                 token: store.get('token')
             }
-        }).menu(itemID, 'get').then((response) => {
+        }).menu(companyID, 'get').then((response) => {
 
 
-            // alert(JSON.stringify(response))
             if (response.hasOwnProperty('redirect')) {
                 let orderJson = response.json;
 
                 switch (response.status) {
                     case 302:
-                        //this.props.spinnerActions.hide();
-                        //  routeService.changePage('order');
-                        // await orderService.setOrder({ order: orderJson, state: orderJson.state });
-                        // await userService.changePage('order');
 
                         dispatch({
                             type: 'do_order',
                             payload: { order: orderJson, state: orderJson.state }
                         })
 
-                        //const { companies } = props();
-
-
-                        //  alert(JSON.stringify(store.get('company_info')[orderJson.company_id]))
-
-                        // if (!Object.keys(companies.company_info).length || response.company_id != companies.id)
                         dispatch({
                             type: 'companySucess',
                             payload: { company_info: store.get('company_info')[orderJson.company_id] }
                         })
 
-                        routeService.changePage('order', false);
+                        store.save('company', orderJson.company_id)
+                        routeService.changePage('order');
                         break;
                     case 401:
                         //this.props.spinnerActions.hide();
@@ -91,7 +107,7 @@ export function companysMenu(itemID) {
                         break;
 
                     case 404:
-                        alert(404)
+                        alert(404 + "sdlkf")
                         //this.props.spinnerActions.hide();
                         //await userService.changePage('companies', { read_from_storage: true });
                         // routeService.changePage('companies');
@@ -101,57 +117,58 @@ export function companysMenu(itemID) {
                 }
                 return;
             }
-            //company id company id company id company id company id company idcompany id company id company id 
+
 
             let save_data = {
                 company: response.company.id,
                 menu: response.data || [],
-                menus: []//this.props.user.menus || []
+                // menus: []//this.props.user.menus || []
             };
 
-            //save_data.menus[response.company.id] = response.data || [];
             const { menu } = props();
-            if (!menu[response.company.id] || !menu[response.company.id].location || menu[response.company.id].company != response.company.id) {
+            let allMenuInfo = store.get('menu');
+            allMenuInfo = allMenuInfo ? allMenuInfo : {};
+            if (!allMenuInfo[response.company.id] || !allMenuInfo[response.company.id].location) {
 
                 if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
                     save_data['location'] = response.company.locations[0].id;
 
                 } else {
                     save_data['location'] = false;
+
                 }
+            } else {
+
+                save_data['location'] = allMenuInfo[response.company.id].location;
+
             }
 
-            //????????await orderService.resetOrder(false);
+
 
             dispatch({
                 type: 'clean_draft_order',
                 payload: { draft: {}, price: { total: 0 } }
             })
 
-
-
             dispatch({
                 type: 'companySucess',
                 payload: { company_info: response.company }
             })
 
-            let allMenuInfo = store.get('menu');
-            allMenuInfo = allMenuInfo ? allMenuInfo : {};
             allMenuInfo[response.company.id] = save_data;
-            saveStore({ menu: allMenuInfo });
-
+            saveStore({ 'menu': allMenuInfo, 'company': response.company.id, });
 
             dispatch({
                 type: menuSucess,
                 payload: allMenuInfo
             })
 
-            saveStore(save_data);
+            //saveStore(save_data);
 
             let allCompanyInfo = store.get('company_info');
             allCompanyInfo = allCompanyInfo ? allCompanyInfo : {};
             allCompanyInfo[response.company.id] = response.company;
-            saveStore({ company_info: allCompanyInfo });
+            saveStore({ 'company_info': allCompanyInfo });
 
             routeService.changePage('menu');
 

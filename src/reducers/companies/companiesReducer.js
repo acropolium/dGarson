@@ -5,7 +5,7 @@ import {
     companyError
 } from './constatntReducer.js';
 
-
+import store from "../../utils/storage";
 const initialState = {
     spinnerShow: false,
     companies: {},
@@ -17,25 +17,25 @@ export default function company(state = initialState, action) {
 
         case "companyOrderState":
 
-            return {
-                ...state, ...{
-                    "companies": {
-                        ...state.companies,
-                        ...{
-                            [action.payload.company_id]: {
-                                ...state.companies[action.payload.company_id],
-                                ...{
-                                    latest_order: {
-                                        ...state.companies[action.payload.company_id].latest_order,
-                                        state: action.payload.data
-                                    }
+            let companies =
+                {
+                    ...state.companies,
+                    ...{
+                        [action.payload.company_id]: {
+                            ...state.companies[action.payload.company_id],
+                            ...{
+                                latest_order: {
+                                    ...state.companies[action.payload.company_id].latest_order,
+                                    state: action.payload.data
                                 }
                             }
                         }
-
                     }
                 }
-            }
+
+
+            store.save('companies', companies)
+            return { ...state, ...{ "companies": companies } };
         case companySucess:
             return { ...state, ...action.payload, spinnerShow: false }
         case companyRequest:

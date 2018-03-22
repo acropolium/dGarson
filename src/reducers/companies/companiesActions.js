@@ -15,7 +15,7 @@ const initialCompaniesStateKeys = [
 ];
 
 
-export function loadInitialStateAct(type, payload) {
+/*export function loadInitialStateAct(type, payload) {
 
     return (dispatch, props) => {
         dispatch({
@@ -24,7 +24,7 @@ export function loadInitialStateAct(type, payload) {
         })
     }
 
-}
+}*/
 
 function saveStore(data) {
 
@@ -33,7 +33,7 @@ function saveStore(data) {
     });
 }
 
-let timeUpdate = 1;//60000;
+let timeUpdate = 6000000;
 
 export function getItemsFromStorage(readFromServer = false) {
 

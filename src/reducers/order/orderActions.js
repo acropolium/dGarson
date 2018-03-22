@@ -54,9 +54,9 @@ export function removeItem(item, idx) {
 
 export function addItem(item) {
     return (dispatch, props) => {
-        
+
         let { order } = props();
-        
+
         let copy = Object.assign({}, order);
         let itemCopy = Object.assign({}, item);
 
@@ -133,7 +133,7 @@ export function changeItemAddition(item, idxName, itemAdditionIdx, operation = '
     }
 }
 
-export function cancelOrder(order_id) {
+export function cancelOrder(order_id, company_id) {
 
     return (dispatch, props) => {
 
@@ -150,8 +150,16 @@ export function cancelOrder(order_id) {
             dispatch({
                 type: 'flush',
             })
-            
-            //this.props.spinnerActions.hide();
+
+            let order_company = store.get("order_company");
+            order_company = order_company ? order_company : {};
+            order_company[company_id] = false;
+            store.save("order_company", order_company);
+
+            dispatch({
+                type: "companyOrderState",
+                payload: { company_id: company_id, data: "no" }
+            })
             routeService.changePage('menu');
 
         }).catch((error) => {
@@ -166,7 +174,7 @@ export function cancelOrder(order_id) {
 }
 
 
-export function makeOrder(body) {
+export function makeOrder(body, company_id) {
     return (dispatch, props) => {
 
         let request = (new api()).setProps({
@@ -218,6 +226,22 @@ export function makeOrder(body) {
                     type: 'do_order',
                     payload: { 'order': response }
                 })
+
+
+                dispatch({
+                    type: "companyOrderState",
+                    payload: { company_id: company_id, data: "pending" }
+                })
+
+
+                let order_company = store.get("order_company");
+
+                order_company = order_company ? order_company : {};
+
+                order_company[company_id] = true;
+
+                store.save("order_company", order_company);
+
                 //await userService.set({ 'order': response, company: userService.get('company') });
                 //orderService.set({ order: response, company: userService.get('company') });
 
@@ -237,7 +261,7 @@ export function makeOrder(body) {
 export function getOrderForCompany(body) {
     return (dispatch, props) => {
 
-       // const { order } = props();
+        // const { order } = props();
 
 
         let request = (new api()).setProps({

@@ -119,7 +119,7 @@ export default class Location extends Component {
         }
 
 
-        this.props.setCurrentLocation(location.id)
+        this.props.setCurrentLocation(location.id, this.props.current_company_id)
 
     };
 

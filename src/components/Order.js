@@ -53,9 +53,7 @@ export default class Order extends Component {
          console.log(this.props)
          console.log("22222222222!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")*/
 
-        this.orderPending = false;
 
-        this.receiveProps = true;
     }
 
     componentDidMount() {
@@ -92,20 +90,8 @@ export default class Order extends Component {
         }
     };
 
-    resetOrder = async (state = 'cancel') => {
-        await orderService.resetOrder(state);
-    };
 
     makeOrder = async () => {
-
-        if (this.orderPending == true) {
-            return;
-        }
-
-        this.orderPending = true;
-
-        //this.props.spinnerActions.show();
-
 
         let desired_time = this.props.order.desired_time;
         if (typeof desired_time === 'undefined') {
@@ -119,7 +105,7 @@ export default class Order extends Component {
             location_id: this.props.currentLocation || false
         };
 
-        this.props.orderActions.makeOrder(body).catch((error) => {
+        this.props.orderActions.makeOrder(body, this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
         });
     };
@@ -127,7 +113,7 @@ export default class Order extends Component {
     getOrder = (reload_lister = false) => {
 
 
-        this.props.orderActions.getOrderForCompany(this.props.order.order.company_id).catch((error) => {
+        this.props.orderActions.getOrderForCompany(this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
         });
 
@@ -136,12 +122,7 @@ export default class Order extends Component {
     doCancel = () => {
 
 
-        /*if (this.orderPending == true) {
-           return;
-       }*/
-
-        this.orderPending = true;
-        this.props.orderActions.cancelOrder(this.props.order.order.id).catch((error) => {
+        this.props.orderActions.cancelOrder(this.props.order.order.id, this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
         });
 

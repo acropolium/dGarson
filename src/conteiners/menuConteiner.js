@@ -24,9 +24,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
     let id_company = state.companies.company_info ? state.companies.company_info.id ? state.companies.company_info.id : 0 : 0
 
-    alert(state.menu[id_company])
+    
     return {
-        menu: state.menu[id_company],
+        menu: state.menu[id_company] ? state.menu[id_company] : {},
         company_info: state.companies.company_info,
         order_draft: Object.assign({}, state.order.draft),
         total_price: state.order.price

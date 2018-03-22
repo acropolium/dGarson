@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import {
     AppState,
     BackAndroid,
-    } from 'react-native';
+} from 'react-native';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
-import FCMHelper from '../helpers/FCMHelper';
 import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
@@ -15,9 +14,12 @@ import * as routeService from "../services/routeService";
 
 export default class App extends Component {
 
+    constructor(props) {
+        super(props);
+    }
 
     componentDidMount() {
-
+        this.props.appAction.loadInitialState();
 
         FCM.on(FCMEvent.Notification, async (notification) => {
 

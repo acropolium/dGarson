@@ -40,10 +40,9 @@ export default class RenderMenuFooter extends Component {
             cost: this.props.total_price.total
         };
 
-        // await userService.set({order: orderData, company: userService.get('company')});
         this.props.setOrder({ order: orderData, state: 'draft' });
 
-        this.props.changePage('previewOrder', false);
+        this.props.changePage('previewOrder');
     };
 
     render() {

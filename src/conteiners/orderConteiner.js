@@ -17,6 +17,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 
     return {
+        current_company_id: state.companies.company_info.id,
         order: state.order,
         company_info: state.companies.company_info,
         currentLocation: state.menu[state.companies.company_info.id].location

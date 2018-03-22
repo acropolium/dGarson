@@ -9,7 +9,6 @@ import Order from '../conteiners/orderConteiner'
 import Location from '../conteiners/locationConteiner'
 import Popage from '../conteiners/dialogConteiner'
 import Spinner from '../components/Spinner'
-import FCMHelper from '../helpers/FCMHelper';
 import AboutUs from '../conteiners/aboutAsConteiner';
 import ModalPicker from '../conteiners/ModalPickerConteiner';
 

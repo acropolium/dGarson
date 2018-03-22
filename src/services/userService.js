@@ -146,7 +146,7 @@ export default class userService {
     };
 
     saveLastUpdateMenu = async (companyId) => {
-        await store.save('lastUpdatedMenu_' + companyId, moment.utc().format());
+        //await store.save('lastUpdatedMenu_' + companyId, moment.utc().format());
     };
 
     saveLastUpdateCompanies = async () => {

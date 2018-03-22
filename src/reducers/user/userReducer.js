@@ -13,7 +13,7 @@ const initialState = {
     company_info: {},
     verify_code: '',
     loaded: false,
-    menu: [],
+    menu: {},
     lang: 'ua'
 };
 

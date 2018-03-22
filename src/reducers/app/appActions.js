@@ -20,6 +20,39 @@ export function sendToken(token) {
     }
 }
 
+
+export function loadInitialState() {
+
+    return (dispatch, props) => {
+
+        let companies = store.get('companies')
+        if (companies)
+            dispatch({
+                type: 'companySucess',
+                payload: { companies: companies }
+            })
+
+        let companyID = store.get('company')
+        let companyInfo = false;
+        if (companyID)
+            companyInfo = store.get('company_info')[companyID];
+
+        if (companyInfo)
+            dispatch({
+                type: 'companySucess',
+                payload: { 'company_info': companyInfo }
+            })
+
+        let menu = store.get('menu')
+        if (menu)
+            dispatch({
+                type: 'menuSucess',
+                payload: menu
+            })
+    }
+
+}
+
 function sendTokenRequest(token, currentToken, dispatch) {
 
     if (token) {
@@ -53,7 +86,7 @@ export function getToken() {
 
     return (dispatch, props) => {
         return FCM.getFCMToken().then(token => {
-            
+
             let device_token = store.get('device_token');
 
             dispatch({
@@ -99,7 +132,7 @@ export function notificationHandler(notification, dialogActions) {
              }*/
 
 
-            alert(JSON.stringify(data))
+
 
             dispatch({
                 type: "companyOrderState",
@@ -120,6 +153,12 @@ export function notificationHandler(notification, dialogActions) {
                     dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(219, 194, 78, 0.8)' }, image: 'icon_ready' });
                     break;
                 case 'payed':
+
+                    let order_company = store.get("order_company");
+                    order_company = order_company ? order_company : {};
+                    order_company[data['company_id']] = false;
+                    store.save("order_company", order_company);
+
                     textMessage += I18n.t('your_order_payed_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_payed_part_2');
                     dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(131, 187, 112, 0.8)' }, image: 'icon_payed' });
                     break;

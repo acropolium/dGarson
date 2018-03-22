@@ -17,25 +17,20 @@ const userService = new UserApi();
 export default class Menu extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        //  this.state = {};
 
 
-       /* if (!Object.keys(this.props.menu.menu).length) {
+        if (!this.props.menu.menu || !Object.keys(this.props.menu.menu).length) {
+            
             this.props.menuActions.getMenuFromStorage()
-        }*/
+        }
         // userService.setProps(this.props);
         //orderService.setProps(this.props);
 
         //routeService.changePage("companies")
     }
 
-    componentWillReceiveProps(nextProps) {
-
-
-
-    }
-
-
+    
     /*getMenuFromStorage = async (cacheUpdate = false) => {
         if (userService.has('read_from_storage') && userService.get('read_from_storage') == true) {
             userService.set({ read_from_storage: false }, false);
@@ -112,6 +107,7 @@ export default class Menu extends Component {
 
     render() {
         
+       
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
@@ -122,7 +118,7 @@ export default class Menu extends Component {
                 <View style={styles.menuItemsContainer}>
                     <RenderMenu removeOrderItem={this.props.removeOrderItem} addOrderItem={this.props.addOrderItem}
                         changeOrderItemAddition={this.props.changeOrderItemAddition} order_draft={this.props.order_draft}
-                        data={Object.values(this.props.menu.menu)} />
+                        data={Object.values(this.props.menu.menu || {})} />
                 </View>
 
                 <View style={styles.menuFooterContainer}>
