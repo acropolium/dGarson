@@ -42,7 +42,7 @@ export default class RenderMenuFooter extends Component {
 
         this.props.setOrder({ order: orderData, state: 'draft' });
 
-        this.props.changePage('previewOrder');
+        this.props.changePage('previewOrder',false);
     };
 
     render() {
