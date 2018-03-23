@@ -2,6 +2,7 @@ import api from '../../services/apiService';
 import { Actions, ActionConst } from 'react-native-router-flux';
 import * as routeService from "../../services/routeService";
 import store from "../../utils/storage";
+import I18n from '../../services/translate.js'
 
 export function getDataByKey(key, defaultValue = false) {
     return (dispatch, props) => {
@@ -186,36 +187,45 @@ export function makeOrder(body, company_id) {
 
         return request.orders(false, 'POST', body).then((response) => {
             if (response.hasOwnProperty('redirect')) {
-                //!!!!!!!!!!!!!!!!!!!!!!this.resetOrder();
+
                 dispatch({
                     type: 'flush',
                 })
                 switch (response.status) {
                     case 409:
-                        /*  let errorMessages = [];
-                          Object.keys(response.json).forEach(function (key) {
-                              errorMessages.push(response.json[key].join("\r\n"));
-                          });
-  
-                          this.props.spinnerActions.hide();
-                          this.props.dialogActions.dialogShow({
-                              title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: async () => {
-                                  await userService.changePage('menu', { read_from_storage: true });
-                              }
-                          });*/
-                        alert(409)
+                        let errorMessages = [];
+                        Object.keys(response.json).forEach(function (key) {
+                            errorMessages.push(response.json[key].join("\r\n"));
+                        });
+
+                        let updatesTime = store.get("menuUpdate");
+                        updatesTime = updatesTime ? updatesTime : {};
+                        updatesTime[company_id] = 0;
+                        store.save('menuUpdate', updatesTime);
+
+                        dispatch({
+                            type: 'show',
+                            payload: {
+                                title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: async () => {
+                                    await routeService.changePage('companies');
+                                }
+                            }
+                        })
+
                         break;
                     case 401:
-                        //   this.props.spinnerActions.hide();
-                        // await userService.changePage('init', { read_from_storage: true });
-                        alert(401)
+                        routeService.changePage('init');
                         break;
+
                     case 302:
-                        /*orderService.set({ order: response.json });
-                        await userService.set({ 'order': response.json });
-                        this.props.spinnerActions.hide();
-                        await userService.changePage('order');*/
-                        alert(302)
+
+                        dispatch({
+                            type: 'do_order',
+                            payload: { 'order': response.json }
+                        })
+
+                        routeService.changePage('order');
+                        
                         break;
                 }
 
@@ -241,16 +251,11 @@ export function makeOrder(body, company_id) {
                 order_company[company_id] = true;
 
                 store.save("order_company", order_company);
-
-                //await userService.set({ 'order': response, company: userService.get('company') });
-                //orderService.set({ order: response, company: userService.get('company') });
-
-                // this.props.spinnerActions.hide();
-                //routeService.changePage('order');
+                routeService.changePage('order');
             }
 
         }).catch((error) => {
-            //this.props.spinnerActions.hide();
+
             Promise.reject(error);
 
         });
@@ -261,9 +266,6 @@ export function makeOrder(body, company_id) {
 export function getOrderForCompany(body) {
     return (dispatch, props) => {
 
-        // const { order } = props();
-
-
         let request = (new api()).setProps({
             user: {
                 lang: store.get('lang'),
@@ -271,58 +273,30 @@ export function getOrderForCompany(body) {
             }
         });
 
-
-
         return request.order(body, 'get', false, false).then((response) => {
             if (response.hasOwnProperty('redirect')) {
 
-                /*let errorMessages = [];
-                Object.keys(response.json).forEach(function (key) {
-                    errorMessages.push(response.json[key].join("\r\n"));
-                });*/
-
-                /* if (reload_lister == false)
-                     this.props.spinnerActions.hide();*/
-
+                dispatch({
+                    type: 'flush',
+                })
                 switch (response.status) {
                     case 401:
-                        alert(401)
-                        // await userService.changePage('init', { read_from_storage: true });
+                        routeService.changePage('init');
                         break;
                     case 404:
-                        alert(404)
-                        //await userService.changePage('menu');
+
+                        routeService.changePage('menu');
                         break;
                 }
                 return;
             }
-
-
-
 
             dispatch({
                 type: 'do_order',
                 payload: { state: response.state, order: response, desired_time: response.desired_time }
             })
 
-            /*
-     if ((response.state == 'cancel' || response.state == 'payed')
-         && orderService.get('order').state !== 'draft') {
-       //  this.resetOrder();
-
-         //await userService.changePage('menu');
-     } else {
-
-         await userService.set({ order: response });
-         orderService.set({ state: response.state, order: response, desired_time: response.desired_time });
-         this.setState({ dataSource: orderService.get('order').items });
-     
-     }*/
-
         }).catch((error) => {
-
-            // if (reload_lister == false)
-            //   this.props.spinnerActions.hide();
             Promise.reject(error)
 
         });

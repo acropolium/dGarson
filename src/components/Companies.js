@@ -25,30 +25,21 @@ export default class Companies extends Component {
     constructor(props) {
         super(props);
 
-
-
-        // userService.setProps(this.props);
         this.state = {
-            //   dataSource: Object.values(userService.get('companies')),
             showClear: false,
-            searchValue: ''
+            searchValue: '',
+            dataSource: ""
         };
 
         this.getItemsFromStorage();
-
-
 
     }
 
     componentWillReceiveProps(nextProps) {
 
-        /* if (nextProps.user.hasOwnProperty('read_from_server') && nextProps.user.read_from_server === true) {
-             userService.set({ read_from_server: false });
-             this.getItemsFromStorage(false);
-         } else if (nextProps.user.hasOwnProperty('read_from_storage') && nextProps.user.read_from_storage === true) {
-             userService.set({ read_from_storage: false });
-             this.getItemsFromStorage(true);
-         }*/
+        if (nextProps.companies.needUpdate) {
+            this.getItemsFromStorage();
+        }
     }
 
 
@@ -63,13 +54,12 @@ export default class Companies extends Component {
         } else {
             this.setState({ showClear: true, searchValue: value });
         }
-        this.companiesList(value);
     };
 
 
     companiesList = (value) => {
 
-        let list = Object.values(userService.get('companies'));
+        let list = Object.values(this.props.companies.companies);
 
         if (value != '') {
             let patt = new RegExp(value, "gi");
@@ -78,9 +68,8 @@ export default class Companies extends Component {
                 return item.name.match(patt);
             });
         }
+        return list;
 
-
-        this.setState({ dataSource: list });
     };
 
     getItemsFromStorage = (readFromServer = false) => {
@@ -95,10 +84,10 @@ export default class Companies extends Component {
 
         return (
             <View style={styles.bg}>
-                <HeaderBlock   centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
+                <HeaderBlock centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
                 <Spinner show={this.props.companies.spinnerShow} />
                 <CompanyList getCompanyMenu={this.props.getCompanyMenu}
-                    data={Object.values(this.props.companies.companies)}
+                    data={this.companiesList(this.state.searchValue)}
                     onRefresh={() => this.getItemsFromStorage(true)}
                 />
 

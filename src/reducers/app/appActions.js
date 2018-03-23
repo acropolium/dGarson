@@ -104,8 +104,7 @@ export function getToken() {
 
 
 export function notificationHandler(notification, dialogActions) {
-    // alert(JSON.stringify(notification))
-    // alert("ssssssssssssssssssssssssssssssssssssss")
+
     return (dispatch, props) => {
         let prefix = 'order_';
         let data = {};
@@ -125,14 +124,14 @@ export function notificationHandler(notification, dialogActions) {
         }
 
         if (data.hasOwnProperty('state')) {
-            /* if (userService.get('token') == false) {
- 
-                 let page = store.get('state');
-                 routeService.changePage(page ? page : 'init');
-             }*/
 
+            let { login } = props();
 
+           /* if (!login.token) {
 
+                let page = store.get('state');
+                routeService.changePage(page ? page : 'init');
+            }*/
 
             dispatch({
                 type: "companyOrderState",
@@ -163,23 +162,6 @@ export function notificationHandler(notification, dialogActions) {
                     dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(131, 187, 112, 0.8)' }, image: 'icon_payed' });
                     break;
             }
-
-            /*  let companies = userService.get('companies');
-              let textMessage = '';
-              if (companies.hasOwnProperty(data.company_id)) {
-                  textMessage += companies[data.company_id].name + "\r\n";
-              }
-              
-            
-              if (companies.hasOwnProperty(data.company_id)) {
-                  companies[data.company_id].orders = [{ id: data.id, state: data.state }]
-              }*/
-            // userService.set({ companies: companies, read_from_storage: true });
-
-            /* if (orderService.get('order').id == data.id && userService.get('state') != 'order') {
-                 //changePage({state: 'order'})
-             }
-         }*/
         }
     }
 }

@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import {
-    AppState,
-    BackAndroid,
-} from 'react-native';
+import { BackAndroid } from 'react-native';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
 import * as routeService from "../services/routeService";
-
-
-
 
 export default class App extends Component {
 
@@ -33,38 +27,12 @@ export default class App extends Component {
             this.props.appAction.sendToken(token);
         });
 
-        //  AppState.addEventListener('change', this.handleAppStateChange);
+
     };
-
-    /* handleAppStateChange = (appState) => {
-         if (appState === 'active') {
-             const { orderActions, routerActions } = this.props;
- 
-             let read_from_server = orderService.get('order').state == 'draft' ? false : true;
- 
-             orderActions.setOrder({ read_from_server: read_from_server });
-             routerActions.loadData({ read_from_server: read_from_server });
- 
-             userService.checkUpdateCompanies().then(() => {
-                 userService.checkUpdateMenu(userService.get('company_info').id);
-             });
- 
-         }
-     };*/
-
-
 
     handleAndroidBack = async () => {
         const { dialogActions } = this.props;
-        /* alert(Actions.currentRouter())
-         let currentAction = false;
-         let currentState = userService.get('state');
- 
-         if (globalAction.hasOwnProperty('scene')) {
-             currentState = globalAction.scene.children[globalAction.scene.index].sceneKey;
-         } else if (globalAction.hasOwnProperty('key')) {
-             currentState = globalAction.key;
-         }*/
+
         let currentAction = false;
         switch (this.currentPage) {
             case 'confirm':
@@ -73,7 +41,6 @@ export default class App extends Component {
                 break;
             case 'location':
                 Actions.pop();
-                //await userService.set({ state: 'menu' }, false);
                 currentAction = true;
                 break;
             case 'dialog':
@@ -97,7 +64,6 @@ export default class App extends Component {
                 currentAction = true;
                 break;
             case 'order':
-                // let pagePayload = false;
                 let newState = 'companies';
                 currentAction = true;
 
@@ -105,30 +71,10 @@ export default class App extends Component {
                     || this.props.order_state == 'cancel'
                     || this.props.order_state == 'payed') {
 
-                    /*    switch (orderService.get('order').state) {
-                            case 'cancel':
-                            case 'payed':
-                                pagePayload = { read_from_storage: true };
-                                break;
-                            case 'draft':
-    
-                                break;
-                        }*/
-
                     newState = 'menu';
-
-
                 }
                 routeService.changePage(newState);
 
-                /*else {
-                //if (await userService.getCompanyesCount() > 1) {
-                    newState = 'companies';
-                    await routeService.changePage(newState);
-               // } else {
-                 //   currentAction = false;
-                //}
-            }*/
                 break;
         }
 
@@ -158,8 +104,6 @@ export default class App extends Component {
             return defaultReducer(state, action);
         };
     };
-
-
 
     render() {
         return <Router createReducer={this.reducerCreate} scenes={scene} backAndroidHandler={this.handleAndroidBack} />

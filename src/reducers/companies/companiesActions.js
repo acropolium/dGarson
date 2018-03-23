@@ -33,26 +33,26 @@ function saveStore(data) {
     });
 }
 
-let timeUpdate = 6000000;
+let timeUpdate = 60000000000;
 
 export function getItemsFromStorage(readFromServer = false) {
 
     return (dispatch, props) => {
 
-        dispatch({ type: companyRequest })
+       // dispatch({ type: companyRequest })
 
         let lastTime = store.get('companyUpdate');
         let currentTime = new Date().getTime();
         let needUpdate = currentTime - lastTime > timeUpdate;
 
         if (!Number.isInteger(lastTime) || needUpdate || readFromServer) {
-
+            
             return serverReqestCompanys(dispatch);
         } else {
 
             dispatch({
                 type: companySucess,
-                payload: { companies: store.get('companies') }
+                payload: { companies: store.get('companies')}
             })
 
             return Promise.resolve();
@@ -77,7 +77,7 @@ function serverReqestCompanys(dispatch) {
                 companies[item.id] = item;
             });
 
-            let data = { companies: companies, companyUpdate: new Date().getTime() }
+            let data = { companies: companies, companyUpdate: new Date().getTime(), needUpdate: false }
 
             dispatch({
                 type: companySucess,

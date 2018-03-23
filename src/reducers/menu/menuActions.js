@@ -17,35 +17,8 @@ function saveStore(data) {
 }
 
 
-export function getMenuFromStorage() {
 
-    return (dispatch, props) => {
-        dispatch({
-            type: menuRequest,
-
-        })
-
-        /*dispatch({
-            type: 'companySucess',
-            payload: { companies: store.get('companies') }
-        })
-
-
-        dispatch({
-            type: 'companySucess',
-            payload: { 'company_info': store.get('company_info')[store.get('company')] }
-        })
-
-
-        dispatch({
-            type: menuSucess,
-            payload: store.get('menu')
-        })*/
-    }
-}
-
-
-function readFromServerMenu(companyID, props, dispatch) {
+function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
 
     let request = new api();
@@ -78,35 +51,41 @@ function readFromServerMenu(companyID, props, dispatch) {
                     routeService.changePage('order');
                     break;
                 case 401:
-                    //this.props.spinnerActions.hide();
-                    //await userService.changePage('init', { read_from_storage: true });
-                    alert(401)
-                    // routeService.changePage('init');
+
+                    routeService.changePage('init');
                     break;
 
                 case 404:
-                    alert(404 + "sdlkf")
-                    //this.props.spinnerActions.hide();
-                    //await userService.changePage('companies', { read_from_storage: true });
-                    // routeService.changePage('companies');
+
+                    store.save('companyUpdate', 0);
+
+                    dispatch({
+                        type: 'companySucess',
+                        payload: { needUpdate: true }
+                    })
+                    routeService.changePage('companies');
+
+
                     break;
-
-
             }
+
             return;
         }
 
+        let updatesTime = store.get("menuUpdate");
+        updatesTime = updatesTime ? updatesTime : {};
+        updatesTime[companyID] = currentTime;
+        store.save('menuUpdate', updatesTime);
 
         let save_data = {
             company: response.company.id,
             menu: response.data || [],
-            // menus: []//this.props.user.menus || []
         };
 
         const { menu } = props();
         let allMenuInfo = store.get('menu');
         allMenuInfo = allMenuInfo ? allMenuInfo : {};
-        if (!allMenuInfo[response.company.id] || !allMenuInfo[response.company.id].location) {
+        if (!menu[response.company.id] || !menu[response.company.id].location) {
 
             if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
                 save_data['location'] = response.company.locations[0].id;
@@ -127,6 +106,8 @@ function readFromServerMenu(companyID, props, dispatch) {
             type: 'clean_draft_order',
             payload: { draft: {}, price: { total: 0 } }
         })
+
+
 
         dispatch({
             type: 'companySucess',
@@ -169,16 +150,13 @@ export function companysMenu(companyID) {
 
     let currentTime = new Date().getTime();
     return (dispatch, props) => {
-       
+
         let orderCompany = store.get("order_company");
-       
+
         if (orderCompany && orderCompany[companyID] || needUpdate(companyID, currentTime)) {
-            alert("readFromServer")
-            readFromServerMenu(companyID, props, dispatch)
-            let updatesTime = store.get("menuUpdate");
-            updatesTime = updatesTime ? updatesTime : {};
-            updatesTime[companyID] = currentTime;
-            store.save('menuUpdate', updatesTime);
+
+            readFromServerMenu(companyID, props, dispatch, currentTime)
+
         } else {
 
 

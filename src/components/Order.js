@@ -41,42 +41,13 @@ export default class Order extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            dataSource: [],
-        };
-
-
-        //  routeService.changePage("menu");
-
-        /* console.log("222222222222222222222222222222211111111111111111111333333")
-         console.log(this.props)
-         console.log("22222222222!!!!!!!!!!!!!!!!!!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")*/
-
-
     }
 
     componentDidMount() {
         this.readOrder();
     };
 
-    componentWillReceiveProps(nextProps) {
 
-
-
-        // this.setState({ dataSource: nextProps.order.order.items });
-        /*if (this.receiveProps) {
-            const { orderActions, order } = this.props;
-
-            if (nextProps.order.hasOwnProperty('read_from_server') && nextProps.order.read_from_server === true) {
-
-                orderActions.setOrder({ read_from_server: false });
-
-                this.getOrder(true);
-            }
-        }*/
-
-    }
 
     readOrder = () => {
 
@@ -146,17 +117,6 @@ export default class Order extends Component {
         if (this.props.order.order.state == 'cancel' || this.props.order.order.state == 'payed') {
             await this.props.orderActions.setOrder({}, "flush");
         }
-        /*else {
-            if (this.props.order.order.state == 'draft') {
-                state = 'menu';
-            }
-        }
-      /*  let data = false;
-        if (this.props.order.order.stat == 'payed') {
-            data = { read_from_storage: true };
-        }*/
-
-        // await userService.changePage(state, data);
 
         this.props.changePage(state);
     };

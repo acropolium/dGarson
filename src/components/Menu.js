@@ -17,77 +17,8 @@ const userService = new UserApi();
 export default class Menu extends Component {
     constructor(props) {
         super(props);
-        //  this.state = {};
 
-
-        if (!this.props.menu.menu || !Object.keys(this.props.menu.menu).length) {
-            
-            this.props.menuActions.getMenuFromStorage()
-        }
-        // userService.setProps(this.props);
-        //orderService.setProps(this.props);
-
-        //routeService.changePage("companies")
     }
-
-    
-    /*getMenuFromStorage = async (cacheUpdate = false) => {
-        if (userService.has('read_from_storage') && userService.get('read_from_storage') == true) {
-            userService.set({ read_from_storage: false }, false);
-            cacheUpdate = true;
-        }
-
-        if (cacheUpdate == false) {
-            this.props.spinnerActions.show();
-        }
-
-        let request = new api();
-
-        request.setProps(this.props).menu(userService.get('company_info').id, 'get', false,
-            false,
-            async (response) => {
-                if (response.hasOwnProperty('redirect')) {
-                    let orderJson = response.json;
-
-                    switch (response.status) {
-                        case 302:
-                            await userService.set({ order: orderJson });
-                            orderService.set({ order: orderJson, state: orderJson.state }, false);
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('order');
-
-                            break;
-                        case 401:
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('init', { read_from_storage: true });
-                            break
-                    }
-                } else {
-
-                    let save_data = { company_info: response.company, company: response.company.id, menu: response.data || [] };
-                    if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
-                        save_data['location'] = response.company.locations[0].id;
-                    } else {
-                        save_data['location'] = false;
-                    }
-
-                    await userService.set(save_data);
-
-                    if (cacheUpdate == false)
-                        this.props.spinnerActions.hide();
-                }
-
-                await userService.saveLastUpdateMenu(userService.get('company_info').id);
-            },
-            (error) => {
-                if (cacheUpdate == false)
-                    this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
-            });
-
-    };*/
-
-
 
 
     aboutAs = () => {
@@ -95,19 +26,9 @@ export default class Menu extends Component {
 
     }
 
-    componentDidMount() {
-        /*if (userService.has('read_from_storage') && userService.get('read_from_storage') == true){
-            this.getMenuFromStorage(true);
-        }else if (!userService.has('menu')){
-            this.getMenuFromStorage(true);
-        }else if (userService.has('menu') && userService.get('menu').length==0){
-            this.getMenuFromStorage(true);
-        }*/
-    }
-
     render() {
-        
-       
+
+
         return (
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>

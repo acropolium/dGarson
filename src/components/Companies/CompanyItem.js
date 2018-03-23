@@ -25,96 +25,18 @@ export default class CompanyItem extends Component {
 
         this.state = {};
 
-       // orderService.setProps(this.props);
+        // orderService.setProps(this.props);
         //userService.setProps(this.props);
     }
 
     getMenu = async (item) => {
 
-
         this.props.getCompanyMenu(item.id);
-
-       /* this.props.spinnerActions.show();
-
-
-        let request = new api();
-
-        let save_data = { company_info: item, company: item.id, menu: userService.get('menus')[item.id] || [] };
-
-        if (item.hasOwnProperty('locations') && item.locations.length > 0) {
-            save_data['location'] = item.locations[0].id;
-        } else {
-            save_data['location'] = false;
-        }
-
-        await userService.set(save_data);
-
-
-        request.setProps(this.props).menu(item.id, 'get', false,
-            false,
-            async (response) => {
-               
-                if (response.hasOwnProperty('redirect')) {
-                    let orderJson = response.json;
-
-                    switch (response.status) {
-                        case 302:
-                            this.props.spinnerActions.hide();
-
-                            await orderService.setOrder({ order: orderJson, state: orderJson.state });
-                            await userService.changePage('order');
-
-                            break;
-                        case 401:
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('init', { read_from_storage: true });
-                            break;
-
-                        case 404:
-                            this.props.spinnerActions.hide();
-                            await userService.changePage('companies', { read_from_storage: true });
-                            break;
-
-
-                    }
-                    return;
-                }
-
-
-                let save_data = {
-                    company_info: response.company,
-                    company: response.company.id,
-                    menu: response.data || [],
-                    menus: []//this.props.user.menus || []
-                };
-
-                save_data.menus[response.company.id] = response.data || [];
-
-                if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
-                    save_data['location'] = response.company.locations[0].id;
-                } else {
-                    save_data['location'] = false;
-                }
-                await userService.set(save_data);
-                await orderService.resetOrder(false);
-
-                this.props.spinnerActions.hide();
-
-                await userService.changePage('menu');
-
-            },
-            (error) => {
-                this.props.spinnerActions.hide();
-                this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
-            });*/
-
-
-
     };
 
     getOrderState() {
         if (this.props.item.hasOwnProperty('latest_order') && this.props.item.latest_order && (this.props.item.latest_order.state !== 'cancel' && this.props.item.latest_order.state !== 'payed')) {
-            
+
             return this.props.item.latest_order.state;
         }
         return false;
