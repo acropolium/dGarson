@@ -6,7 +6,7 @@ import styles from "../styles/components/PopageStyles";
 import PopageButton from './PopageComponent/PopageButton';
 import PopageBlock from './PopageComponent/PopageBlock';
 import { Image, Text, View } from './BaseComponents';
-import Button from '../widgets/buttons/styledButton';
+
 
 
 

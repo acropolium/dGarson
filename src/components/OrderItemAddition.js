@@ -1,14 +1,7 @@
-import React, { PropTypes, Component} from 'react'
-import {
-    ListView,
-} from 'react-native';
-
+import React, { Component} from 'react'
 import {CheckBox} from '../components/BaseComponents';
 import I18n from '../services/translate.js'
 import {Icon, View, Text} from './BaseComponents';
-import config from '../config';
-import OrderApi from '../services/orderService';
-const orderService = new OrderApi();
 import  styles from "../styles/components/OrderItemAdditionStyles";
 
 
@@ -20,9 +13,7 @@ export default class OrderItemAddition extends Component {
             itemAddition: false,
             idx:false
         };
-
-        orderService.setProps(this.props);
-    }
+}
 
     changeItemAddition = (root_item, root_item_idx, idx, operation) => {
         this.props.changeOrderItemAddition(root_item, root_item_idx, idx, operation);

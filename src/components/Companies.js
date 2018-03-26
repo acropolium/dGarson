@@ -1,18 +1,7 @@
-import React, { PropTypes, Component } from 'react'
-import {
-    StyleSheet,
-    Platform,
-    PixelRatio
-} from 'react-native';
-import config from '../config'
-
+import React, { Component } from 'react'
 import HeaderBlock from './HeaderBlock';
-
 import I18n from '../services/translate.js'
-import * as routeService from "../services/routeService";
-import api from '../services/apiService';
 import { View } from './BaseComponents';
-import UserApi from '../services/userService';
 import SearchBlock from "./Companies/SearchBlock";
 import CompanyList from "./Companies/CompanyList";
 import styles from "../styles/components/CompaniesStyle";

@@ -1,32 +1,18 @@
 import React, { PropTypes, Component } from 'react'
-import {
-    StyleSheet,
-    Platform,
-    ImageBackground
-} from 'react-native';
-
-import { Icon, Image, View, TouchableHighlight } from '../BaseComponents';
-
-import I18n from '../../services/translate.js'
-import api from '../../services/apiService';
-import OrderApi from '../../services/orderService';
-import UserApi from '../../services/userService';
-import config from '../../config';
+import { ImageBackground } from 'react-native';
+import { Icon, View, TouchableHighlight } from '../BaseComponents';
 import ItemInnerBlock from "./ItemInnerBlock";
 import styles from "../../styles/components/companies/CompanyItemStyle";
-import { Actions, ActionConst } from 'react-native-router-flux';
 
-const orderService = new OrderApi();
-const userService = new UserApi();
+
+
+
 
 export default class CompanyItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {};
-
-        // orderService.setProps(this.props);
-        //userService.setProps(this.props);
     }
 
     getMenu = async (item) => {

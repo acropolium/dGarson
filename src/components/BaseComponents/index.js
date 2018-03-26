@@ -7,6 +7,7 @@ import TouchableHighlight from './Components/TouchableHighlight';
 import Icon from "./Components/Icon";
 import Image from "./Components/Image";
 import CheckBox from "./Components/CheckBox";
+import Button from "./Components/Button";
 
 
 module.exports = {
@@ -18,5 +19,6 @@ module.exports = {
     TouchableHighlight: TouchableHighlight,
     Icon: Icon,
     Image: Image,
-    CheckBox: CheckBox
+    CheckBox: CheckBox,
+    Button:Button
 };

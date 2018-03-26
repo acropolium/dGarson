@@ -1,27 +1,10 @@
 import React, { PropTypes, Component } from 'react'
-import {
-    TextInput,
-    StyleSheet,
-    AsyncStorage,
-    Animated,
-    Easing,
-    Dimensions,
-    Platform,
-    ImageBackground,
-    ScrollView
-} from 'react-native';
-
-import config from '../config'
-import Button from '../widgets/buttons/styledButton';
-import { Text, View, Image, TouchableHighlight, FlatList } from './BaseComponents';
+import {ScrollView} from 'react-native';
+import { Text, View, Image,FlatList } from './BaseComponents';
 import { Actions } from 'react-native-router-flux';
-import api from '../services/apiService';
 import I18n from '../services/translate.js';
 import styles from "../styles/components/AboutUsStyle";
-import ConfirmInputBlock from "./ConfirmElement/ConfirmInputBlock";
-import ConfirmButtonBlock from "./ConfirmElement/ConfirmButtonBlock";
 import HeaderBlock from './HeaderBlock';
-import UserApi from '../services/userService';
 import InfoItem from './AboutAsComponents/InfoItem';
 
 

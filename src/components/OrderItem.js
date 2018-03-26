@@ -1,22 +1,12 @@
-import React, { PropTypes, Component } from 'react'
-import {
-    TextInput,
-    ListView,
-    TouchableNativeFeedback,
-    StyleSheet, AsyncStorage, Platform, TouchableHighlight
-} from 'react-native';
-
+import React, { Component } from 'react'
+import {ListView} from 'react-native';
 import I18n from '../services/translate.js'
-import config from '../config';
 import OrderItemAddition from './OrderItemAddition';
-import OrderApi from '../services/orderService';
 import OrderItemOptions from './OrderItemComponents/OrderItemOptios';
 import OrderItemElement from './OrderItemComponents/OrderItemElement';
-
-import { Icon, View, Text, FlatList } from './BaseComponents';
-
+import {  View} from './BaseComponents';
 import styles from "../styles/components/OrderItemStyles";
-const orderService = new OrderApi();
+
 
 export default class OrderItem extends Component {
     constructor(props) {

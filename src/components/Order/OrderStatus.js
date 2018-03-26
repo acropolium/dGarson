@@ -1,7 +1,5 @@
 import React from 'react';
-import { Dimensions } from 'react-native';
-import PropTypes from 'prop-types';
-import { Text, View, Icon, TouchableHighlight } from '../BaseComponents';
+import { Linking } from 'react-native';
 import styles from "../../styles/components/order/OrderStatusStyle";
 import I18n from '../../services/translate.js';
 import StatusDraft from './OrderStatusElement/StatusDraft';
@@ -10,10 +8,6 @@ import StatusReady from './OrderStatusElement/StatusReady';
 import StatusPayed from './OrderStatusElement/StatusPayed';
 import StatusEmpty from './OrderStatusElement/StatusEmpty';
 import StatusNotPicked from './OrderStatusElement/StatusNotPicked';
-
-import Button from '../../widgets/buttons/styledButton';
-import UserApi from '../../services/userService';
-const userService = new UserApi();
 
 export default class OrderStatus extends React.Component {
     constructor(props) {
@@ -48,20 +42,20 @@ export default class OrderStatus extends React.Component {
 
 
     getCurrentAddress = () => {
-        
+
 
         let location = this.props.company_info.address + ', ' + I18n.t("phone") + ':' + this.props.company_info.phone;
         this.props.company_info.locations.forEach((val) => {
             if (val.id == this.props.currentLocation) {
-               
+
                 location = val.address + ', ' + I18n.t("phone") + ':' + val.phone;
             }
         });
 
         return location;
     }
- 
-    
+
+
     renderElement = {
         'draft': () => <StatusDraft desired_time={this.props.order.desired_time} getFormattedTime={this.getFormattedTime} />,
         'notpicked': () => <StatusNotPicked handleClickUrl={this.handleClickUrl} companyPhone={this.props.companyPhone} />,
@@ -85,16 +79,4 @@ export default class OrderStatus extends React.Component {
         return this.renderStatusElement(this.props.order.order.state)
     }
 };
-
-/*OrderStatus.propTypes = {
-    orderState: PropTypes.oneOfType([
-        PropTypes.string.isRequired,
-        PropTypes.bool.isRequired
-
-    ])
-
-
-};*/
-
-
 

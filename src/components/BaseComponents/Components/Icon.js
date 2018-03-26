@@ -13,8 +13,9 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 const ICON_FAMILY = ["Ionicons", "Entypo", "FontAwesome", "Foundation", "MaterialIcons", "Octicons", "Zocial", "SimpleLineIcons"];
 
 const Icon = (props) => {
+    
     let Icon;
-    switch (props.iconFamily){
+    switch (props.iconFamily) {
         case "Ionicons":
             Icon = Ionicons;
             break;
@@ -42,7 +43,7 @@ const Icon = (props) => {
         default:
             Icon = Ionicons;
     }
-    return <Icon {...props}/>
+    return <Icon {...props} />
 };
 
 PropTypes.propTypes = {

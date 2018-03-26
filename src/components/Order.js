@@ -11,31 +11,19 @@ import {
     Dimensions,
     RefreshControl,
 } from 'react-native';
-import { Actions, ActionConst } from 'react-native-router-flux';
 
-import Button from '../widgets/buttons/styledButton';
-import config from '../config';
+
 import api from '../services/apiService';
 import I18n from '../services/translate.js'
 import HeaderBlock from './HeaderBlock';
-import UserApi from '../services/userService';
-import OrderApi from '../services/orderService';
+
+
 import { KeyboardWrapper, Text, View, Image } from './BaseComponents';
 import styles from "../styles/components/OrderStyle";
 import OrderList from "./Order/OrderList";
 import OrderElement from "./Order/OrderListElement/OrderElement";
 import OrderStatus from "./Order/OrderStatus";
 import OrderFooter from "./Order/OrderFooter";
-
-
-
-const userService = new UserApi();
-const orderService = new OrderApi();
-
-let windowWidth = Dimensions.get('window').width;
-let windowHeight = Dimensions.get('window').height;
-
-import * as routeService from "../services/routeService";
 
 export default class Order extends Component {
 

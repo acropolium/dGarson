@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-
-import PropTypes from 'prop-types';
-import { FlatList, KeyboardWrapper, Icon, Text, View, TouchableHighlight } from "../BaseComponents";
-import MenuItem from './MenuItem';
-import config from '../../config';
+import { Icon, Text, View, TouchableHighlight } from "../BaseComponents";
 import I18n from '../../services/translate.js'
-import OrderApi from '../../services/orderService';
-import UserApi from '../../services/userService';
 import styles from "../../styles/components/Menu/RenderMenuFooterStyle";
 
-const userService = new UserApi();
-const orderService = new OrderApi();
+
 
 export default class RenderMenuFooter extends Component {
     constructor(props) {

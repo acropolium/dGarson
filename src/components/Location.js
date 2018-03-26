@@ -1,20 +1,10 @@
 import React, { Component } from 'react';
-import { Linking, AsyncStorage, Animated, Modal, Dimensions, StyleSheet, Platform, Button, ScrollView } from 'react-native';
-
-import { Actions, ActionConst } from 'react-native-router-flux';
-
-
-import config from '../config';
-import I18n from '../services/translate.js'
+import {Dimensions, Platform} from 'react-native';
 import HeaderBlock from './HeaderBlock';
-import { Text, View, Image, TouchableHighlight } from './BaseComponents';
-
-import UserApi from '../services/userService';
+import {View} from './BaseComponents';
 import styles from "../styles/components/LocationStyle";
 import LocationFooter from "./LocationComponents/LocationFooter"
 import LocationMap from "./LocationComponents/LocationMap"
-
-const userService = new UserApi();
 
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').height;
@@ -163,23 +153,6 @@ export default class Location extends Component {
             return undefined;
         }
     }
-
-    /* getCurrentCoordinates() {
-         if (this.locationList.length > 0) {
-             let location = this.locationList[0].lat + ',' + this.locationList[0].lng;
-             let that = this;
- 
-             this.locationList.forEach(function (val) {
-                 if (val.id === userService.get('location')) {
-                    location = val.lat + ',' + val.lng;
-                 }
-             });
- 
- 
-             return location;
-         }
-         return '';
-     }*/
 
     render() {
         return (

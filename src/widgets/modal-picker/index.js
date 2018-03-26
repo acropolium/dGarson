@@ -14,15 +14,11 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import styles from "../../styles/widgets/modal-picker/style";
 import BaseComponent from './BaseComponent';
 
-import { Icon } from '../../theme';
+import { Icon } from '../../components/BaseComponents';
 import Button from '../../widgets/buttons/styledButton';
 import { View, Text } from '../../components/BaseComponents';
 import I18n from '../../services/translate.js'
 
-import UserApi from '../../services/userService';
-const userService = new UserApi();
-import OrderApi from '../../services/orderService';
-const orderService = new OrderApi();
 
 
 let windowWidth = Dimensions.get('window').width;
@@ -77,8 +73,8 @@ export default class ModalPicker extends BaseComponent {
         };
 
 
-        userService.setProps(props);
-        orderService.setProps(props);
+        
+       
     }
 
     componentDidMount() {

@@ -17,16 +17,14 @@ import I18n from '../services/translate.js'
 import config from '../config'
 import api from '../services/apiService';
 
-import Button from '../widgets/buttons/styledButton';
 
-//import UserApi from '../services/userService';
 import Spinner from "./Spinner";
 
 import { Text, View, Image } from './BaseComponents';
 import styles from "../styles/components/HomeStyles";
 
 import InputBlock from './HomeComponents/InputBlock'
-//const userService = new UserApi();
+
 
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').height;

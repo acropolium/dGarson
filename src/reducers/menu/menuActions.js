@@ -176,7 +176,7 @@ export function companysMenu(companyID) {
             })
             routeService.changePage('menu');
 
-
+            saveStore({ 'company': companyID });
         }
 
 

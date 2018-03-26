@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import HeaderBlock from './HeaderBlock';
-import I18n from '../services/translate.js'
-import api from '../services/apiService';
-import UserApi from '../services/userService';
-import OrderApi from '../services/orderService';
 import { View } from './BaseComponents';
 import RenderMenu from "./Menu/RenderMenu";
 import RenderMenuFooter from "./Menu/RenderMenuFooter";
@@ -11,8 +7,8 @@ import LocationChooser from "./CustomComponents/LocationChooser";
 import styles from '../styles/components/Menu/MenuStyles';
 import * as routeService from "../services/routeService";
 
-const orderService = new OrderApi();
-const userService = new UserApi();
+
+
 
 export default class Menu extends Component {
     constructor(props) {

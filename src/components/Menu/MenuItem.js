@@ -11,15 +11,13 @@ import {
 
 import { TouchableHighlight, Icon } from '../BaseComponents';
 import I18n from '../../services/translate.js'
-import OrderApi from '../../services/orderService';
+
 import {
     FlatList,
     Image,
     View,
     Text
 } from '../BaseComponents';
-const orderService = new OrderApi();
-
 
 import OrderItem from '../OrderItem';
 import config from '../../config';

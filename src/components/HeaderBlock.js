@@ -1,17 +1,8 @@
-import React, { PropTypes, Component } from 'react';
-import {
-    StyleSheet,
-    ActivityIndicator,
-    Dimensions,
-    Linking
-} from 'react-native';
-
-import config from '../config';
+import React, { Component } from 'react';
+import {Linking} from 'react-native';
 import styles from "../styles/components/HeaderBlockStyle";
 import TochableHeaderIcon from "./HeaderElement/TochableHeaderIcon"
-import { Text, TouchableHighlight, View, Icon, } from './BaseComponents'
-import UserApi from '../services/userService';
-const userService = new UserApi();
+import { Text, View } from './BaseComponents'
 import * as routeService from "../services/routeService";
 
 export default class HeaderBlock extends Component {
@@ -22,11 +13,7 @@ export default class HeaderBlock extends Component {
 
     }
 
-    /* setBackButtonStatus = () => {
-         return userService.getCompanyesCount() > 1
-             ? this.goBack
-             : null;
-     }*/
+    
 
     getCurrentCoordinates = () => {
 
@@ -106,7 +93,6 @@ export default class HeaderBlock extends Component {
             <View style={styles.header_main}>
                 <View style={[styles.back_button_wrap]}>
                     <TochableHeaderIcon press={typeof this.props.backButton === "function" ? this.props.backButton : backButton} iconName='ios-arrow-round-back' iconFamily="Ionicons" typeButton="back_button" />
-                    {/*this.props.backButton && <TochableHeaderIcon press={typeof this.props.backButton === "function" ? this.props.backButton : backButton} iconName='ios-arrow-round-back' iconFamily="Ionicons" typeButton="back_button" />*/}
                 </View>
                 <View style={[styles.center_title_wrap]}>
                     <Text style={[styles.custom_font, styles.header_text]}>{this.props.centerTitle}</Text>

@@ -33,6 +33,7 @@ export function loadInitialState() {
             })
 
         let companyID = store.get('company')
+        
         let companyInfo = false;
         if (companyID)
             companyInfo = store.get('company_info')[companyID];

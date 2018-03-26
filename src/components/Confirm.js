@@ -1,31 +1,13 @@
 import React, { PropTypes, Component } from 'react'
-import {
-    TextInput,
-    StyleSheet,
-    AsyncStorage,
-    Animated,
-    Easing,
-    Dimensions,
-    Platform,
-    ImageBackground,
-} from 'react-native';
+import {ImageBackground} from 'react-native';
 import * as routeService from "../services/routeService";
-import config from '../config'
-import Button from '../widgets/buttons/styledButton';
-import { Text, View, Image, TouchableHighlight } from './BaseComponents';
-
-import api from '../services/apiService';
+import { Text, View } from './BaseComponents';
 import I18n from '../services/translate.js';
 import styles from "../styles/components/ConfirmStyle";
 import ConfirmInputBlock from "./ConfirmElement/ConfirmInputBlock";
 import ConfirmButtonBlock from "./ConfirmElement/ConfirmButtonBlock";
 import Spinner from "./Spinner";
-import UserApi from '../services/userService';
-const userService = new UserApi();
 
-
-let windowWidth = Dimensions.get('window').width;
-let windowHeight = Dimensions.get('window').height;
 
 export default class Home extends Component {
 

@@ -61,7 +61,7 @@ export default class InputBlock extends Component {
                 </Animated.View>
                 <View style={styles.wrap_view_button}>
                     <View style={styles.wrap_button}>
-                        <Button title={I18n.t("register_button").toUpperCase()} onPress={this.props.sendData} iconName="ios-arrow-round-forward" />
+                        <Button title={I18n.t("register_button").toUpperCase()} onPress={this.props.sendData} iconFamily={'Ionicons'} iconName="ios-arrow-round-forward" />
                     </View>
                 </View>
 
