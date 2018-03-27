@@ -16,121 +16,116 @@ function saveStore(data) {
     });
 }
 
+function dispatchHelp(dispatch, type, payload) {
 
+    dispatch({
+        type: type,
+        payload: payload
+    })
+}
+
+function ifRedirect(response, dispatch) {
+
+    if (response.hasOwnProperty('redirect')) {
+        let orderJson = response.json;
+
+        switch (response.status) {
+            case 302:
+
+                dispatchHelp(dispatch, 'do_order', { order: orderJson, state: orderJson.state })
+                dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[orderJson.company_id] })
+
+                store.save('company', orderJson.company_id)
+                routeService.changePage('order');
+
+                return true;
+            case 401:
+
+                routeService.changePage('init');
+
+                return true;
+            case 404:
+
+                store.save('companyUpdate', 0);
+                dispatchHelp(dispatch, 'companySucess', { needUpdate: true })
+                routeService.changePage('companies');
+
+                return true;
+        }
+        return false;
+    }
+}
+
+function updateStore(companyID, storeName, updateData) {
+
+    let updates = store.get(storeName);
+    updates = updates ? updates : {};
+    updates[companyID] = updateData;
+    store.save(storeName, updates);
+
+}
+
+function getResponseData(response, menu, allMenuInfo) {
+
+    let save_data = {
+        company: response.company.id,
+        menu: response.data || [],
+    };
+
+    if (!menu[response.company.id] || !menu[response.company.id].location) {
+
+        if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
+            save_data['location'] = response.company.locations[0].id;
+
+        } else {
+            save_data['location'] = false;
+
+        }
+    } else {
+
+        save_data['location'] = allMenuInfo[response.company.id].location;
+
+    }
+
+    return save_data;
+
+}
 
 function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
-
     let request = new api();
 
-    request.setProps({
+    let user = {
         user: {
             lang: store.get('lang'),
             token: store.get('token')
         }
-    }).menu(companyID, 'get').then((response) => {
+    }
 
+    return request.setProps(user).menu(companyID, 'get').then((response) => {
 
-        if (response.hasOwnProperty('redirect')) {
-            let orderJson = response.json;
-
-            switch (response.status) {
-                case 302:
-
-                    dispatch({
-                        type: 'do_order',
-                        payload: { order: orderJson, state: orderJson.state }
-                    })
-
-                    dispatch({
-                        type: 'companySucess',
-                        payload: { company_info: store.get('company_info')[orderJson.company_id] }
-                    })
-
-                    store.save('company', orderJson.company_id)
-                    routeService.changePage('order');
-                    break;
-                case 401:
-
-                    routeService.changePage('init');
-                    break;
-
-                case 404:
-
-                    store.save('companyUpdate', 0);
-
-                    dispatch({
-                        type: 'companySucess',
-                        payload: { needUpdate: true }
-                    })
-                    routeService.changePage('companies');
-
-
-                    break;
-            }
-
-            return;
-        }
-
-        let updatesTime = store.get("menuUpdate");
-        updatesTime = updatesTime ? updatesTime : {};
-        updatesTime[companyID] = currentTime;
-        store.save('menuUpdate', updatesTime);
-
-        let save_data = {
-            company: response.company.id,
-            menu: response.data || [],
-        };
+        if (ifRedirect(response, dispatch)) { return Promise.resolve(); }
 
         const { menu } = props();
-        let allMenuInfo = store.get('menu');
-        allMenuInfo = allMenuInfo ? allMenuInfo : {};
-        if (!menu[response.company.id] || !menu[response.company.id].location) {
+        let allMenuInfo = store.get('menu') || {};
+        let save_data = getResponseData(response, menu, allMenuInfo)
 
-            if (response.company.hasOwnProperty('locations') && response.company.locations.length > 0) {
-                save_data['location'] = response.company.locations[0].id;
-
-            } else {
-                save_data['location'] = false;
-
-            }
-        } else {
-
-            save_data['location'] = allMenuInfo[response.company.id].location;
-
-        }
-
-
-
-        dispatch({
-            type: 'clean_draft_order',
-            payload: { draft: {}, price: { total: 0 } }
-        })
-
-
-
-        dispatch({
-            type: 'companySucess',
-            payload: { company_info: response.company }
-        })
-
+        dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } });
+        dispatchHelp(dispatch, 'companySucess', { company_info: response.company })
         allMenuInfo[response.company.id] = save_data;
-        saveStore({ 'menu': allMenuInfo, 'company': response.company.id, });
+        dispatchHelp(dispatch, menuSucess, allMenuInfo)
 
-        dispatch({
-            type: menuSucess,
-            payload: allMenuInfo
-        })
-
-        //saveStore(save_data);
-
-        let allCompanyInfo = store.get('company_info');
-        allCompanyInfo = allCompanyInfo ? allCompanyInfo : {};
-        allCompanyInfo[response.company.id] = response.company;
-        saveStore({ 'company_info': allCompanyInfo });
+        saveStore({ 'company': response.company.id, });
+        updateStore(response.company.id, "menuUpdate", currentTime);
+        updateStore(response.company.id, 'menu', save_data);
+        updateStore(response.company.id, 'company_info', response.company)
 
         routeService.changePage('menu');
+        return Promise.resolve();
 
+    }).catch((error) => {
+
+        return Promise.reject(error);
     })
 
 }
@@ -146,39 +141,26 @@ function needUpdate(companyID, currentTime) {
     return currentTime - lastTime > timeUpdate;
 }
 
-export function companysMenu(companyID) {
-
-    let currentTime = new Date().getTime();
+export function companysMenu(companyID, readFromServer) {
     return (dispatch, props) => {
 
         let orderCompany = store.get("order_company");
+        let currentTime = new Date().getTime();
 
-        if (orderCompany && orderCompany[companyID] || needUpdate(companyID, currentTime)) {
+        if (readFromServer || (orderCompany && orderCompany[companyID]) || needUpdate(companyID, currentTime)) {
 
-            readFromServerMenu(companyID, props, dispatch, currentTime)
+            return readFromServerMenu(companyID, props, dispatch, currentTime)
 
         } else {
 
-
-            dispatch({
-                type: 'clean_draft_order',
-                payload: { draft: {}, price: { total: 0 } }
-            })
-
-            dispatch({
-                type: 'companySucess',
-                payload: { company_info: store.get('company_info')[companyID] }
-            })
-
-            dispatch({
-                type: menuSucess,
-                payload: store.get('menu')
-            })
-            routeService.changePage('menu');
+            dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } })
+            dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[companyID] })
+            dispatchHelp(dispatch, menuSucess, store.get('menu'))
 
             saveStore({ 'company': companyID });
+            routeService.changePage('menu');
+
+            return Promise.resolve();
         }
-
-
     }
 }

@@ -20,16 +20,14 @@ export default class Companies extends Component {
         };
 
         this.getItemsFromStorage();
-
     }
 
     componentWillReceiveProps(nextProps) {
 
-        if (nextProps.companies.needUpdate) {
+        if (nextProps.needUpdate) {
             this.getItemsFromStorage();
         }
     }
-
 
     clearSearch = () => {
         this.setState({ showClear: false, searchValue: '' });
@@ -44,7 +42,6 @@ export default class Companies extends Component {
         }
     };
 
-
     companiesList = (value) => {
 
         let list = Object.values(this.props.companies);
@@ -56,8 +53,8 @@ export default class Companies extends Component {
                 return item.name.match(patt);
             });
         }
-        return list;
 
+        return list;
     };
 
     getItemsFromStorage = (readFromServer = false) => {
@@ -66,17 +63,17 @@ export default class Companies extends Component {
         });
     };
 
-
-
     render() {
 
         return (
             <View style={styles.bg}>
                 <HeaderBlock centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
                 <Spinner show={this.props.spinnerShow} />
+
                 <CompanyList getCompanyMenu={this.props.getCompanyMenu}
                     data={this.companiesList(this.state.searchValue)}
                     onRefresh={() => this.getItemsFromStorage(true)}
+                    dialogActions={this.props.dialogActions}
                 />
 
                 <SearchBlock

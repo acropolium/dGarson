@@ -21,17 +21,21 @@ function saveStore(data) {
 
 let timeUpdate = 60000000000;
 
+function needUpdate() {
+
+    let lastTime = store.get('companyUpdate');
+    let currentTime = new Date().getTime();
+
+    return !Number.isInteger(lastTime) || (currentTime - lastTime > timeUpdate);
+}
+
 export function getItemsFromStorage(readFromServer = false) {
 
     return (dispatch, props) => {
 
-        // dispatch({ type: companyRequest })
+        dispatch({ type: companyRequest })
 
-        let lastTime = store.get('companyUpdate');
-        let currentTime = new Date().getTime();
-        let needUpdate = currentTime - lastTime > timeUpdate;
-
-        if (!Number.isInteger(lastTime) || needUpdate || readFromServer) {
+        if (needUpdate() || readFromServer) {
 
             return serverReqestCompanys(dispatch);
         } else {
@@ -40,7 +44,6 @@ export function getItemsFromStorage(readFromServer = false) {
                 type: companySucess,
                 payload: { companies: store.get('companies') }
             })
-
             return Promise.resolve();
         }
     }
@@ -58,12 +61,14 @@ function serverReqestCompanys(dispatch) {
     }).companies('GET', false).then((response) => {
 
         let companies = {};
+
         if (response.data) {
+
             response.data.forEach((item) => {
                 companies[item.id] = item;
             });
 
-            let data = { companies: companies, companyUpdate: new Date().getTime(), needUpdate: false }
+            let data = { companies: companies, companyUpdate: new Date().getTime() }
 
             dispatch({
                 type: companySucess,
@@ -73,7 +78,6 @@ function serverReqestCompanys(dispatch) {
             saveStore(data);
         } else {
             routeService.changePage('home');
-
         }
     }).catch((error) => {
 

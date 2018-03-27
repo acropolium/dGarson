@@ -6,7 +6,7 @@ import {
     setLocation
 } from './constatntReducer.js';
 import store from "../../utils/storage";
-//
+
 const initialState = {
     spinnerShow: false,
     menu: {},

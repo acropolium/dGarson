@@ -3,7 +3,7 @@ import { ImageBackground } from 'react-native';
 import { Icon, View, TouchableHighlight } from '../BaseComponents';
 import ItemInnerBlock from "./ItemInnerBlock";
 import styles from "../../styles/components/companies/CompanyItemStyle";
-
+import I18n from '../../services/translate.js'
 
 
 
@@ -17,7 +17,9 @@ export default class CompanyItem extends Component {
 
     getMenu = async (item) => {
 
-        this.props.getCompanyMenu(item.id);
+        this.props.getCompanyMenu(item.id).catch((error) => {
+            this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
+        });;
     };
 
     getOrderState() {

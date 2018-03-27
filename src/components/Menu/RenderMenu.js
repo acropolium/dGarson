@@ -13,6 +13,7 @@ export default class RenderMenu extends Component {
         return (
             <KeyboardWrapper>
                 <FlatList
+                    onRefresh={this.props.onRefresh}
                     data={this.props.data}
                     renderItem={(item) => <MenuItem removeOrderItem={this.props.removeOrderItem} addOrderItem={this.props.addOrderItem}
                         changeOrderItemAddition={this.props.changeOrderItemAddition} order_draft={this.props.order_draft} item={item} />}

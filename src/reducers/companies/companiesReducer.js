@@ -39,7 +39,7 @@ export default function company(state = initialState, action) {
         case companySucess:
             return { ...state, ...action.payload, spinnerShow: false }
         case companyRequest:
-            return { ...state, spinnerShow: true }
+            return { ...state, spinnerShow: true, needUpdate: false }
         case companyError:
             return { ...state, spinnerShow: false }
         default:

@@ -11,7 +11,11 @@ const CompanyList = (props) => {
             data={props.data}
             refreshing={false}
             extraData={props.data}
-            renderItem={(item, key) => { return <CompanyItem getCompanyMenu={props.getCompanyMenu} key={key} item={item} /> }}
+            renderItem={(item, key) => {
+                return <CompanyItem dialogActions={props.dialogActions}
+                    getCompanyMenu={props.getCompanyMenu}
+                    key={key} item={item} />
+            }}
             onRefresh={props.onRefresh}
             renderEmptyComponent={() => { return <EmptyList /> }}
         />

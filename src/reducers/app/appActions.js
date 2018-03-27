@@ -88,7 +88,7 @@ function sendTokenRequest(token, currentToken, dispatch) {
                 });
                 request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
                     () => {
-                        alert(token)
+                        
                         store.save('device_token', token);
                         dispatch({
                             type: "setDeviceToken",

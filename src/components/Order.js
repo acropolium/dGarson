@@ -39,12 +39,7 @@ export default class Order extends Component {
 
     readOrder = () => {
 
-
-        if (this.props.order.state == 'draft' && this.props.order.order.hasOwnProperty('items') && this.props.order.order.items.length > 0) {
-
-            //  this.setState({ dataSource: this.props.order.order.items });
-
-        } else {
+        if (this.props.order.state != 'draft' && this.props.order_item && this.props.order_item.length > 0) {
             this.getOrder();
         }
     };
@@ -53,14 +48,14 @@ export default class Order extends Component {
     makeOrder = async () => {
 
         let desired_time = this.props.order.desired_time;
-        if (typeof desired_time === 'undefined') {
+        if (!desired_time) {
             desired_time = 15;
         }
 
         let body = {
-            company_id: this.props.company_info.id,
+            company_id: this.props.current_company_id,
             desired_time,
-            items: this.props.order.order.items,
+            items: this.props.order_item,
             location_id: this.props.currentLocation || false
         };
 
@@ -71,7 +66,6 @@ export default class Order extends Component {
 
     getOrder = (reload_lister = false) => {
 
-
         this.props.orderActions.getOrderForCompany(this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
         });
@@ -80,14 +74,14 @@ export default class Order extends Component {
 
     doCancel = () => {
 
-
-        this.props.orderActions.cancelOrder(this.props.order.order.id, this.props.current_company_id).catch((error) => {
+        this.props.orderActions.cancelOrder(this.props.order_id, this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
         });
 
     };
 
     showCancelConfirm = () => {
+
         this.props.dialogActions.dialogShow({
             type: 'confirm',
             title: I18n.t("order_cancel_title"),
@@ -99,27 +93,23 @@ export default class Order extends Component {
     };
 
 
-    goBack = async () => {
-        let state = 'menu';
+    goBack = () => {
 
-        if (this.props.order.order.state == 'cancel' || this.props.order.order.state == 'payed') {
-            await this.props.orderActions.setOrder({}, "flush");
+        if (this.props.order_state == 'cancel' || this.props.order_state == 'payed') {
+            this.props.orderActions.setOrder({}, "flush");
         }
 
-        this.props.changePage(state);
+        this.props.changePage('menu');
     };
 
     aboutAs = () => {
 
-        this.receiveProps = false;
         this.props.changePage("about", false);
     }
 
     render() {
 
-        let backButton = (this.props.order.order.state == 'draft'
-            || this.props.order.order.state == 'payed'
-            || this.props.order.order.state == 'cancel')
+        let backButton = (['draft', 'cancel', 'payed'].indexOf(this.props.order_state) !== -1)
             ? this.goBack
             : false;
 
@@ -129,12 +119,12 @@ export default class Order extends Component {
                     <HeaderBlock currentLocation={this.props.currentLocation}
                         aboutAs={this.aboutAs}
                         company_info={this.props.company_info}
-                        centerTitle={I18n.t("your_order") + (this.props.order.order.id ? (' #' + this.props.order.order.id) : '')}
+                        centerTitle={I18n.t("your_order") + (this.props.order_id ? (' #' + this.props.order_id) : '')}
                         backButton={backButton} />
                 </View>
 
                 <KeyboardWrapper style={styles.keyboard_wrapper}>
-                    <OrderList data={this.props.order.order.items} renderItem={(item) => <OrderElement item={item} />} />
+                    <OrderList data={this.props.order_item} renderItem={(item) => <OrderElement item={item} />} />
                 </KeyboardWrapper>
 
                 <OrderStatus currentLocation={this.props.currentLocation}
@@ -143,10 +133,10 @@ export default class Order extends Component {
                     companyPhone={this.props.company_info.phone}
                     goBack={this.goBack} />
 
-                <OrderFooter orderState={this.props.order.order.state}
+                <OrderFooter orderState={this.props.order_state}
                     showCancelConfirm={this.showCancelConfirm}
                     makeOrder={this.makeOrder}
-                    orderCost={this.props.order.order.cost} />
+                    orderCost={this.props.order_cost} />
             </View>
         )
     }

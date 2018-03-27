@@ -206,8 +206,8 @@ export function makeOrder(body, company_id) {
                         dispatch({
                             type: 'show',
                             payload: {
-                                title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: async () => {
-                                    await routeService.changePage('companies');
+                                title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: () => {
+                                     routeService.changePage('companies');
                                 }
                             }
                         })
@@ -255,8 +255,7 @@ export function makeOrder(body, company_id) {
             }
 
         }).catch((error) => {
-
-            Promise.reject(error);
+           return Promise.reject(error);
 
         });
     }
