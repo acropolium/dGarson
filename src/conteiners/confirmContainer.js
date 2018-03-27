@@ -17,7 +17,11 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 
     return {
-        login: state.login
+        
+        spinnerShow: state.login.spinnerShow,
+        phone: state.login.phone,
+        lang: state.login.lang,
+        token: state.login.token
     };
 
 

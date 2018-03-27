@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as routeService from "../services/routeService";
 import * as dialogActions from '../reducers/dialog/dialogActions'
-
+ 
 function mapDispatchToProps(dispatch) {
 
     return {

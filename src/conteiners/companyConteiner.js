@@ -17,9 +17,10 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    
+
     return {
-        companies: state.companies
+        companies: state.companies.companies,
+        spinnerShow: state.companies.spinnerShow
     };
 
 

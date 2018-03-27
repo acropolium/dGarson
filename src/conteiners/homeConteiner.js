@@ -14,11 +14,14 @@ function mapDispatchToProps(dispatch) {
 };
 
 function mapStateToProps(state) {
-    
-    
+
+
     return {
-        
-        login: state.login
+
+        phoneCode: state.login.phoneCode,
+        phoneNumber: state.login.phoneNumber,
+        spinnerShow: state.login.spinnerShow,
+        lang: state.login.lang
     };
 
 }

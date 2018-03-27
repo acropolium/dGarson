@@ -25,6 +25,25 @@ export function loadInitialState() {
 
     return (dispatch, props) => {
 
+        const initialLoginStateKeys = [
+            'token',
+            'phone',
+            'lang',
+            'device_token',
+            'device_token_sent'
+        ];
+
+        let initialLogin = store.getForArray(initialLoginStateKeys);
+        dispatch({
+            type: 'loadInitialState',
+            payload: initialLogin
+        })
+
+        dispatch({
+            type: 'loadInitialStateConfirm',
+            payload: initialLogin
+        })
+
         let companies = store.get('companies')
         if (companies)
             dispatch({
@@ -33,7 +52,7 @@ export function loadInitialState() {
             })
 
         let companyID = store.get('company')
-        
+
         let companyInfo = false;
         if (companyID)
             companyInfo = store.get('company_info')[companyID];
@@ -128,11 +147,11 @@ export function notificationHandler(notification, dialogActions) {
 
             let { login } = props();
 
-           /* if (!login.token) {
-
-                let page = store.get('state');
-                routeService.changePage(page ? page : 'init');
-            }*/
+            /* if (!login.token) {
+ 
+                 let page = store.get('state');
+                 routeService.changePage(page ? page : 'init');
+             }*/
 
             dispatch({
                 type: "companyOrderState",

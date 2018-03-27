@@ -29,18 +29,18 @@ export default class Menu extends Component {
             <View style={styles.menuContainer}>
                 <View style={styles.menuHeaderContainer}>
                     <HeaderBlock aboutAs={this.aboutAs} company_info={this.props.company_info}
-                        centerTitle={this.props.company_info.name} currentLocation={this.props.menu.location} backButton />
+                        centerTitle={this.props.company_info.name} currentLocation={this.props.current_location} backButton />
                 </View>
 
                 <View style={styles.menuItemsContainer}>
                     <RenderMenu removeOrderItem={this.props.removeOrderItem} addOrderItem={this.props.addOrderItem}
                         changeOrderItemAddition={this.props.changeOrderItemAddition} order_draft={this.props.order_draft}
-                        data={Object.values(this.props.menu.menu || {})} />
+                        data={Object.values(this.props.menu || {})} />
                 </View>
 
                 <View style={styles.menuFooterContainer}>
-                    <LocationChooser company_info={this.props.company_info} currentLocation={this.props.menu.location} />
-                    <RenderMenuFooter setOrder={this.props.setOrder} company_id={this.props.menu.company}
+                    <LocationChooser company_info={this.props.company_info} currentLocation={this.props.current_location} />
+                    <RenderMenuFooter setOrder={this.props.setOrder} company_id={this.props.company_id}
                         total_price={this.props.total_price} order_draft={this.props.order_draft}
                         changePage={this.props.changePage} />
                 </View>

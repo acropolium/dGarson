@@ -3,8 +3,6 @@ import api from '../../services/apiService';
 import { Platform } from 'react-native';
 import store from '../../utils/storage';
 import {
-
-    loadInitialState,
     registerRequest,
     registerRequestSuccess,
     registerRequestError,
@@ -12,16 +10,9 @@ import {
     verifySucess,
     companySucess,
     verifyError,
-    loadInitialStateConfirm
 } from './constatntReducer.js';
 
-const initialLognStateKeys = [
-    'token',
-    'phone',
-    'lang',
-    'device_token',
-    'device_token_sent'
-];
+
 
 
 export function loadDataHome(type, data) {
@@ -34,24 +25,13 @@ export function loadDataHome(type, data) {
     }
 }
 
-export function loadInitialStateAct() {
-
-    return (dispatch, props) => {
-        dispatch({
-            type: loadInitialState,
-            payload: store.getForArray(initialLognStateKeys)
-        })
-    }
-}
-
-
 export function sendData(userData, phone) {
 
     return (dispatch, props) => {
 
         dispatch({ type: registerRequest })
 
-        const { login  } = props();
+        const { login } = props();
         let device_token = login.device_token;
         let request = new api();
 
@@ -67,9 +47,7 @@ export function sendData(userData, phone) {
                     device_token: device_token,
                     device_token_sent: true
                 };
-                Object.keys(data).forEach(async key => {
-                    await store.save(key, data[key]);
-                });
+                saveStore(data);
 
 
                 dispatch({ type: registerRequestSuccess, payload: data })
@@ -85,17 +63,7 @@ export function sendData(userData, phone) {
     }
 }
 
-export function loadInitialStateConfirmAct() {
-
-    return (dispatch, props) => {
-        dispatch({
-            type: loadInitialStateConfirm,
-            payload: store.getForArray(initialLognStateKeys)
-        })
-    }
-}
-
-function saveSrore(data) {
+function saveStore(data) {
 
     Object.keys(data).forEach(async key => {
         await store.save(key, data[key]);
@@ -116,44 +84,26 @@ export function sendConfirm(userData, confirmData) {
                 state: 'companies'
             };
 
-            
+
             dispatch({ type: verifySucess, payload: data })
-            saveSrore(data);
+            saveStore(data);
 
             userData.user.token = api_token;
 
             return (new api()).setProps(userData).companies('GET', false);
 
         }).then((response) => {
-           
-            if (response.data.length == 1) {
 
-                let data = {
-                    company_info: response.data[0],
-                    company: response.data[0].id,
-                };
+            let companies = {};
+            response.data.forEach((item) => {
+                companies[item.id] = item;
+            });
 
-               
+            let data = { companies: companies };
+            dispatch({ type: companySucess, payload: data })
+            saveStore(data);
+            routeService.changePage('companies');
 
-                if (response.data[0].hasOwnProperty('locations')) {
-                    data['location'] = response.data[0].locations[0].id;
-                }
-
-                dispatch({ type: 'loadDataConfirm', payload: data })
-                saveSrore(data);
-                routeService.changePage('menu');
-            } else {
-
-                let companies = {};
-                response.data.forEach((item) => {
-                    companies[item.id] = item;
-                });
-
-                let data = { companies: companies };
-                dispatch({ type: companySucess, payload: data })
-                saveSrore(data);
-                routeService.changePage('companies');
-            }
         }).catch((error) => {
 
             dispatch({ type: verifyError });

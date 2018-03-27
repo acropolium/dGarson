@@ -28,8 +28,8 @@ export default class Location extends Component {
         this.locationList = [];
         let cords = [];
 
-        if (this.props.company_info.hasOwnProperty('locations')) {
-            this.locationList = this.props.company_info.locations;
+        if (this.props.locations) {
+            this.locationList = this.props.locations;
 
         }
 
@@ -158,7 +158,7 @@ export default class Location extends Component {
         return (
             <View style={styles.overlayStyle}>
                 <View>
-                    <HeaderBlock company_info={this.props.company_info} centerTitle={this.props.company_info.name} backButton={this.closeModal} showCheck={this.setLocationId} />
+                    <HeaderBlock company_info={this.props.company_info}  centerTitle={this.props.company_info.name} backButton={this.closeModal} showCheck={this.setLocationId} />
                 </View>
 
                 <LocationMap setRef={ref => { this.map = ref; }} initialRegion={{

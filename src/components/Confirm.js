@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react'
-import {ImageBackground} from 'react-native';
+import { ImageBackground } from 'react-native';
 import * as routeService from "../services/routeService";
 import { Text, View } from './BaseComponents';
 import I18n from '../services/translate.js';
@@ -16,27 +16,22 @@ export default class Home extends Component {
         this.state = {
             code: []
         };
-
-
-        if (!this.props.phone) {
-            this.props.loginActions.loadInitialStateConfirmAct();
-        }
     }
 
     sendData = async () => {
 
 
-        if (this.props.login.spinnerShow) {
+        if (this.props.spinnerShow) {
             return;
         }
 
         let code = this.state.code.join('');
-        let confirmData = { phone: this.props.login.phone, code: code };
-        
+        let confirmData = { phone: this.props.phone, code: code };
+
         this.props.loginActions.sendConfirm({
             user: {
-                lang: this.props.login.lang,
-                token: this.props.login.token
+                lang: this.props.lang,
+                token: this.props.token
             }
         }, confirmData).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
@@ -56,7 +51,7 @@ export default class Home extends Component {
 
         return (
             <ImageBackground source={require('../media/backgrounds/splash.png')} style={styles.bg}>
-                <Spinner show={this.props.login.spinnerShow} />
+                <Spinner show={this.props.spinnerShow} />
                 <View>
                     <View style={styles.wrap_text}>
                         <Text style={[styles.product_title]}>{I18n.t("product_title")}</Text>

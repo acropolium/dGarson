@@ -14,9 +14,9 @@ export default class App extends Component {
 
     componentDidMount() {
         this.props.appAction.loadInitialState();
-       
+
         FCM.on(FCMEvent.Notification, async (notification) => {
-           
+
             this.props.appAction.notificationHandler(notification, this.props.dialogActions);
         });
 
@@ -67,9 +67,7 @@ export default class App extends Component {
                 let newState = 'companies';
                 currentAction = true;
 
-                if (this.props.order_state == 'draft'
-                    || this.props.order_state == 'cancel'
-                    || this.props.order_state == 'payed') {
+                if (['draft', 'cancel', 'payed'].indexOf(this.props.order_state) !== -1) {
 
                     newState = 'menu';
                 }

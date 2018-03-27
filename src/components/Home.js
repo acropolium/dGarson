@@ -56,10 +56,6 @@ export default class Home extends Component {
             }
         };
 
-        if (!this.props.lang) {
-            this.props.loginActions.loadInitialStateAct();
-        }
-
     }
 
     componentDidMount() {
@@ -104,19 +100,19 @@ export default class Home extends Component {
 
     sendData = async () => {
 
-        let phone = '380' + this.props.login.phoneCode + this.props.login.phoneNumber;
+        let phone = '380' + this.props.phoneCode + this.props.phoneNumber;
 
         if (phone.trim().length != 12) {
             return;
         }
 
-        if (this.props.login.spinnerShow) {
+        if (this.props.spinnerShow) {
             return;
         }
 
         this.props.loginActions.sendData({
             user: {
-                lang: this.props.login.lang,
+                lang: this.props.lang,
 
             }
         }, phone)
@@ -132,7 +128,7 @@ export default class Home extends Component {
         return (
 
             <ImageBackground source={require('../media/backgrounds/splash.png')} style={styles.bg}>
-                <Spinner show={this.props.login.spinnerShow} />
+                <Spinner show={this.props.spinnerShow} />
                 <View>
                     <View style={styles.wrap_view_text}>
                         <Animated.Text style={[styles.product_title, { transform: this.state.product.position.getTranslateTransform(), }]}>{I18n.t("product_title")}</Animated.Text>
@@ -148,8 +144,8 @@ export default class Home extends Component {
                 <Animated.View style={[styles.container, { transform: this.state.form.position.getTranslateTransform() }]}>
                     <InputBlock sendData={this.sendData} home={this} userInputPhone={this.props.loginActions.loadDataHome}
                         phone={{
-                            phoneCode: this.props.login.phoneCode,
-                            phoneNumber: this.props.login.phoneNumber
+                            phoneCode: this.props.phoneCode,
+                            phoneNumber: this.props.phoneNumber
                         }} />
                 </Animated.View>
             </ImageBackground>

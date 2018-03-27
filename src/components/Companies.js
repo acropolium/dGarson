@@ -17,7 +17,6 @@ export default class Companies extends Component {
         this.state = {
             showClear: false,
             searchValue: '',
-            dataSource: ""
         };
 
         this.getItemsFromStorage();
@@ -48,7 +47,7 @@ export default class Companies extends Component {
 
     companiesList = (value) => {
 
-        let list = Object.values(this.props.companies.companies);
+        let list = Object.values(this.props.companies);
 
         if (value != '') {
             let patt = new RegExp(value, "gi");
@@ -74,7 +73,7 @@ export default class Companies extends Component {
         return (
             <View style={styles.bg}>
                 <HeaderBlock centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
-                <Spinner show={this.props.companies.spinnerShow} />
+                <Spinner show={this.props.spinnerShow} />
                 <CompanyList getCompanyMenu={this.props.getCompanyMenu}
                     data={this.companiesList(this.state.searchValue)}
                     onRefresh={() => this.getItemsFromStorage(true)}
