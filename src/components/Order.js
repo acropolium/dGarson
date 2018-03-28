@@ -38,9 +38,10 @@ export default class Order extends Component {
 
 
     readOrder = () => {
-
-        if (this.props.order.state != 'draft' && this.props.order_item && this.props.order_item.length > 0) {
+        
+        if (this.props.order.state != 'draft') {
             this.getOrder();
+            
         }
     };
 

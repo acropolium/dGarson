@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { BackAndroid } from 'react-native';
+import { BackAndroid, AppState, } from 'react-native';
 import { Actions, Router, Reducer } from 'react-native-router-flux';
 import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
 import * as routeService from "../services/routeService";
+
 
 export default class App extends Component {
 
@@ -20,14 +21,13 @@ export default class App extends Component {
             this.props.appAction.notificationHandler(notification, this.props.dialogActions);
         });
 
+
         this.props.appAction.getToken();
 
         FCM.on(FCMEvent.RefreshToken, token => {
 
             this.props.appAction.sendToken(token);
         });
-
-
     };
 
     handleAndroidBack = async () => {

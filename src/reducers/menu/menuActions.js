@@ -9,6 +9,32 @@ import {
     menuError
 } from './constatntReducer.js';
 
+
+
+export function companysMenu(companyID, readFromServer) {
+    return (dispatch, props) => {
+
+        let orderCompany = store.get("order_company");
+        let currentTime = new Date().getTime();
+
+        if (readFromServer || (orderCompany && orderCompany[companyID]) || needUpdate(companyID, currentTime)) {
+
+            return readFromServerMenu(companyID, props, dispatch, currentTime)
+
+        } else {
+
+            dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } })
+            dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[companyID] })
+            dispatchHelp(dispatch, menuSucess, store.get('menu'))
+
+            saveStore({ 'company': companyID });
+            routeService.changePage('menu');
+
+            return Promise.resolve();
+        }
+    }
+}
+
 function saveStore(data) {
 
     Object.keys(data).forEach(async key => {
@@ -141,26 +167,3 @@ function needUpdate(companyID, currentTime) {
     return currentTime - lastTime > timeUpdate;
 }
 
-export function companysMenu(companyID, readFromServer) {
-    return (dispatch, props) => {
-
-        let orderCompany = store.get("order_company");
-        let currentTime = new Date().getTime();
-
-        if (readFromServer || (orderCompany && orderCompany[companyID]) || needUpdate(companyID, currentTime)) {
-
-            return readFromServerMenu(companyID, props, dispatch, currentTime)
-
-        } else {
-
-            dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } })
-            dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[companyID] })
-            dispatchHelp(dispatch, menuSucess, store.get('menu'))
-
-            saveStore({ 'company': companyID });
-            routeService.changePage('menu');
-
-            return Promise.resolve();
-        }
-    }
-}

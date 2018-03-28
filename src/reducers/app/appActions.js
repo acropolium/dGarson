@@ -5,7 +5,7 @@ import * as routeService from "../../services/routeService";
 import company from '../companies/companiesReducer';
 import I18n from '../../services/translate.js'
 import FCM from 'react-native-fcm';
-import { Platform } from 'react-native';
+import { Platform, AppState } from 'react-native';
 
 
 export function sendToken(token) {
@@ -88,7 +88,7 @@ function sendTokenRequest(token, currentToken, dispatch) {
                 });
                 request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
                     () => {
-                        
+
                         store.save('device_token', token);
                         dispatch({
                             type: "setDeviceToken",
@@ -121,7 +121,28 @@ export function getToken() {
     }
 
 }
+let currentState;
 
+AppState.addEventListener('change', (appState) => {
+    currentState = appState;
+    if (currentState == 'active') {
+        FCM.removeAllDeliveredNotifications()
+    }
+});
+
+function sendLocalNotification(message) {
+
+    if (currentState != 'active') {
+        FCM.presentLocalNotification({
+            body: message,
+            large_icon: "ic_notif",
+            icon: "ic_notif",
+            show_in_foreground: true,
+        });
+
+    }
+
+}
 
 export function notificationHandler(notification, dialogActions) {
 
@@ -143,15 +164,10 @@ export function notificationHandler(notification, dialogActions) {
             });
         }
 
+
         if (data.hasOwnProperty('state')) {
 
-            let { login } = props();
-
-            /* if (!login.token) {
- 
-                 let page = store.get('state');
-                 routeService.changePage(page ? page : 'init');
-             }*/
+            sendLocalNotification(notification.message);
 
             dispatch({
                 type: "companyOrderState",
@@ -185,3 +201,11 @@ export function notificationHandler(notification, dialogActions) {
         }
     }
 }
+
+/* let { login } = props();
+
+            if (!login.token) {
+ 
+                 let page = store.get('state');
+                 routeService.changePage(page ? page : 'init');
+             }*/
