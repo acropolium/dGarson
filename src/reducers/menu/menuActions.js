@@ -3,11 +3,13 @@ import moment from "moment/moment";
 import store from "../../utils/storage";
 import * as routeService from "../../services/routeService";
 import {
-
+    doOrder,
     menuRequest,
     menuSucess,
-    menuError
-} from './constatntReducer.js';
+    menuError,
+    cleanDraftOrder,
+    companySucess
+} from '../constAction.js';
 
 
 
@@ -23,8 +25,8 @@ export function companysMenu(companyID, readFromServer) {
 
         } else {
 
-            dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } })
-            dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[companyID] })
+            dispatchHelp(dispatch, cleanDraftOrder, { draft: {}, price: { total: 0 } })
+            dispatchHelp(dispatch, companySucess, { company_info: store.get('company_info')[companyID] })
             dispatchHelp(dispatch, menuSucess, store.get('menu'))
 
             saveStore({ 'company': companyID });
@@ -58,8 +60,8 @@ function ifRedirect(response, dispatch) {
         switch (response.status) {
             case 302:
 
-                dispatchHelp(dispatch, 'do_order', { order: orderJson, state: orderJson.state })
-                dispatchHelp(dispatch, 'companySucess', { company_info: store.get('company_info')[orderJson.company_id] })
+                dispatchHelp(dispatch, doOrder, { order: orderJson, state: orderJson.state })
+                dispatchHelp(dispatch, companySucess, { company_info: store.get('company_info')[orderJson.company_id] })
 
                 store.save('company', orderJson.company_id)
                 routeService.changePage('order');
@@ -73,7 +75,7 @@ function ifRedirect(response, dispatch) {
             case 404:
 
                 store.save('companyUpdate', 0);
-                dispatchHelp(dispatch, 'companySucess', { needUpdate: true })
+                dispatchHelp(dispatch, companySucess, { needUpdate: true })
                 routeService.changePage('companies');
 
                 return true;
@@ -136,8 +138,9 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
         let allMenuInfo = store.get('menu') || {};
         let save_data = getResponseData(response, menu, allMenuInfo)
 
-        dispatchHelp(dispatch, 'clean_draft_order', { draft: {}, price: { total: 0 } });
-        dispatchHelp(dispatch, 'companySucess', { company_info: response.company })
+        dispatchHelp(dispatch, cleanDraftOrder, { draft: {}, price: { total: 0 } });
+        dispatchHelp(dispatch, companySucess, { company_info: response.company })
+        
         allMenuInfo[response.company.id] = save_data;
         dispatchHelp(dispatch, menuSucess, allMenuInfo)
 

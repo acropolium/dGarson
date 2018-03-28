@@ -1,10 +1,9 @@
 import {
-
     menuRequest,
     menuSucess,
     menuError,
     setLocation
-} from './constatntReducer.js';
+} from '../constAction.js';
 import store from "../../utils/storage";
 
 const initialState = {

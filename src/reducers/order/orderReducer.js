@@ -1,5 +1,15 @@
 import initialState from './orderInitialState'
 
+import {
+    updateOrderState,
+    doOrder,
+    flushOrder,
+    loadDataOrder,
+    addItemOrder,
+    changeItemAdditionOrder,
+    cleanDraftOrder
+} from '../constAction.js';
+
 export default function order(state = initialState, action) {
 
     let flush = {
@@ -11,23 +21,23 @@ export default function order(state = initialState, action) {
     };
 
     switch (action.type) {
-        case 'update_order_state':
+        case updateOrderState:
             if (state.order.id == action.payload.orderID) {
                 return Object.assign({}, flush, state, { order: { ...state.order, state: action.payload.state } });
             } else {
                 return state;
             }
-        case 'do_order':
+        case doOrder:
             return Object.assign({}, flush, state, action.payload);
-        case 'flush':
+        case flushOrder:
             return Object.assign({}, flush);
-        case 'load_data':
+        case loadDataOrder:
             return Object.assign({}, state);
-        case 'add_item':
+        case addItemOrder:
             return Object.assign({}, state, action.payload);
-        case 'change_item_addition':
+        case changeItemAdditionOrder:
             return Object.assign({}, state, action.payload);
-        case 'clean_draft_order':
+        case cleanDraftOrder:
             return Object.assign({}, state, action.payload);
         default:
             return state;

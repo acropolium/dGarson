@@ -3,31 +3,88 @@ import { Actions, ActionConst } from 'react-native-router-flux';
 import * as routeService from "../../services/routeService";
 import store from "../../utils/storage";
 import I18n from '../../services/translate.js'
+import {
+    companyOrderState,
+    doOrder,
+    addItemOrder,
+    changeItemAdditionOrder,
+    dialogShowing,
+    flushOrder
+} from '../constAction.js';
 
-export function getDataByKey(key, defaultValue = false) {
+
+export function cancelOrder(order_id, company_id) {
+
     return (dispatch, props) => {
-        const { order } = props();
 
-        if (order.hasOwnProperty(key)) {
-            return order[key];
-        } else {
-            return defaultValue || null;
-        }
+        let request = (new api()).setProps({
+            user: {
+                lang: store.get('lang'),
+                token: store.get('token')
+            }
+        });
+
+        return request.orders(order_id, 'PUT', { state: 'cancel' }).then(() => {
+            routeService.changePage('menu');
+
+            updateStore(company_id, "order_company", false)
+
+            dispatchHelp(dispatch, flushOrder)
+            dispatchHelp(dispatch, companyOrderState, { company_id: company_id, data: "no" })
+        }).catch((error) => {
+
+            Promise.reject(error);
+        });
     }
 }
 
-export function hasKey(key) {
+export function makeOrder(body, company_id) {
     return (dispatch, props) => {
-        return props().user.hasOwnProperty(key);
+
+        let request = (new api()).setProps({
+            user: {
+                lang: store.get('lang'),
+                token: store.get('token')
+            }
+        });
+
+        return request.orders(false, 'POST', body).then((response) => {
+
+            if (!ifRedirectMakeOrder(response, company_id, dispatch)) {
+
+                dispatchHelp(dispatch, doOrder, { 'order': response })
+                dispatchHelp(dispatch, companyOrderState, { company_id: company_id, data: "pending" })
+
+                updateStore(company_id, "order_company", true)
+                routeService.changePage('order');
+            }
+
+        }).catch((error) => {
+            return Promise.reject(error);
+        });
     }
 }
 
-export function setOrder(new_state, action = 'do_order') {
+
+export function getOrderForCompany(body) {
     return (dispatch, props) => {
-        dispatch({
-            type: action,
-            payload: new_state
-        })
+
+        let request = (new api()).setProps({
+            user: {
+                lang: store.get('lang'),
+                token: store.get('token')
+            }
+        });
+
+        return request.order(body, 'get', false, false).then((response) => {
+            if (!ifRedirectOrderCompany(response)) {
+
+                let order = { state: response.state, order: response, desired_time: response.desired_time };
+                dispatchHelp(dispatch, doOrder, order)
+            }
+        }).catch((error) => {
+            Promise.reject(error)
+        });
     }
 }
 
@@ -45,11 +102,7 @@ export function removeItem(item, idx) {
         if (index)
             delete copy.draft[item.id].items[index.toString()];
 
-
-        return dispatch({
-            type: 'add_item',
-            payload: copy
-        })
+        dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
 
@@ -97,11 +150,7 @@ export function addItem(item) {
         } else { copy.price.total = priceTotal }
 
 
-
-        return dispatch({
-            type: 'add_item',
-            payload: copy
-        })
+        dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
 
@@ -127,179 +176,89 @@ export function changeItemAddition(item, idxName, itemAdditionIdx, operation = '
             }
         }
 
-        return dispatch({
-            type: 'change_item_addition',
-            payload: copy
+        dispatchHelp(dispatch, changeItemAdditionOrder, copy)
+    }
+}
+
+export function setOrder(new_state, action = 'do_order') {
+    return (dispatch, props) => {
+        dispatch({
+            type: action,
+            payload: new_state
         })
     }
 }
 
-export function cancelOrder(order_id, company_id) {
 
-    return (dispatch, props) => {
+function ifRedirectMakeOrder(response, company_id, dispatch) {
 
+    if (response.hasOwnProperty('redirect')) {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
+        dispatchHelp(dispatch, flushOrder)
 
-        return request.orders(order_id, 'PUT', { state: 'cancel' }).then(() => {
+        switch (response.status) {
+            case 409:
+                let errorMessages = [];
+                Object.keys(response.json).forEach(function (key) {
+                    errorMessages.push(response.json[key].join("\r\n"));
+                });
 
-            dispatch({
-                type: 'flush',
-            })
+                updateStore(company_id, "menuUpdate", 0);
 
-            let order_company = store.get("order_company");
-            order_company = order_company ? order_company : {};
-            order_company[company_id] = false;
-            store.save("order_company", order_company);
-
-            dispatch({
-                type: "companyOrderState",
-                payload: { company_id: company_id, data: "no" }
-            })
-            routeService.changePage('menu');
-
-        }).catch((error) => {
-
-            Promise.reject(error);
-        });
-
-
-
-    }
-
-}
-
-
-export function makeOrder(body, company_id) {
-    return (dispatch, props) => {
-
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
-
-        return request.orders(false, 'POST', body).then((response) => {
-            if (response.hasOwnProperty('redirect')) {
-
-                dispatch({
-                    type: 'flush',
-                })
-                switch (response.status) {
-                    case 409:
-                        let errorMessages = [];
-                        Object.keys(response.json).forEach(function (key) {
-                            errorMessages.push(response.json[key].join("\r\n"));
-                        });
-
-                        let updatesTime = store.get("menuUpdate");
-                        updatesTime = updatesTime ? updatesTime : {};
-                        updatesTime[company_id] = 0;
-                        store.save('menuUpdate', updatesTime);
-
-                        dispatch({
-                            type: 'show',
-                            payload: {
-                                title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: () => {
-                                     routeService.changePage('companies');
-                                }
-                            }
-                        })
-
-                        break;
-                    case 401:
-                        routeService.changePage('init');
-                        break;
-
-                    case 302:
-
-                        dispatch({
-                            type: 'do_order',
-                            payload: { 'order': response.json }
-                        })
-
-                        routeService.changePage('order');
-                        
-                        break;
-                }
-
-            } else {
-
-
-                dispatch({
-                    type: 'do_order',
-                    payload: { 'order': response }
+                dispatchHelp(dispatch, dialogShowing, {
+                    title: I18n.t("dialog_warning_title"), message: errorMessages.join("\r\n"), callback: () => {
+                        routeService.changePage('companies');
+                    }
                 })
 
+                return true;
+            case 401:
 
-                dispatch({
-                    type: "companyOrderState",
-                    payload: { company_id: company_id, data: "pending" }
-                })
+                routeService.changePage('init');
+                return true;
+            case 302:
 
-
-                let order_company = store.get("order_company");
-
-                order_company = order_company ? order_company : {};
-
-                order_company[company_id] = true;
-
-                store.save("order_company", order_company);
+                dispatchHelp(dispatch, doOrder, { 'order': response.json });
                 routeService.changePage('order');
-            }
-
-        }).catch((error) => {
-           return Promise.reject(error);
-
-        });
+                return true;
+        }
     }
+    return false;
 }
 
 
-export function getOrderForCompany(body) {
-    return (dispatch, props) => {
+function ifRedirectOrderCompany(response) {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
+    if (response.hasOwnProperty('redirect')) {
 
-        return request.order(body, 'get', false, false).then((response) => {
-            if (response.hasOwnProperty('redirect')) {
+        dispatchHelp(dispatch, flushOrder)
 
-                dispatch({
-                    type: 'flush',
-                })
-                switch (response.status) {
-                    case 401:
-                        routeService.changePage('init');
-                        break;
-                    case 404:
+        switch (response.status) {
+            case 401:
+                routeService.changePage('init');
+                return true
+            case 404:
 
-                        routeService.changePage('menu');
-                        break;
-                }
-                return;
-            }
-
-            dispatch({
-                type: 'do_order',
-                payload: { state: response.state, order: response, desired_time: response.desired_time }
-            })
-
-        }).catch((error) => {
-            Promise.reject(error)
-
-        });
+                routeService.changePage('menu');
+                return true
+        }
     }
+    return false;
 }
 
+function updateStore(companyID, storeName, updateData) {
 
+    let updates = store.get(storeName);
+    updates = updates ? updates : {};
+    updates[companyID] = updateData;
+    store.save(storeName, updates);
+
+}
+
+function dispatchHelp(dispatch, type, payload = {}) {
+
+    dispatch({
+        type: type,
+        payload: payload
+    })
+}

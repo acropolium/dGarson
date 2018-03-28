@@ -10,7 +10,7 @@ import {
     verifyRequest,
     setDeviceToken,
     verifyError
-} from './constatntReducer.js';
+} from '../constAction.js';
 
 const initialState = {
     phone: '',
@@ -40,8 +40,6 @@ export default function login(state = initialState, action) {
         case verifyRequest:
         case registerRequest:
             return { ...state, spinnerShow: true }
-
-        // case companySucess:
         case registerRequestSuccess:
             return { ...state, ...action.payload, spinnerShow: false }
 

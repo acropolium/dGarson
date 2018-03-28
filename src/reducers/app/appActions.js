@@ -1,11 +1,19 @@
 import api from '../../services/apiService';
-
 import store from "../../utils/storage";
 import * as routeService from "../../services/routeService";
 import company from '../companies/companiesReducer';
 import I18n from '../../services/translate.js'
 import FCM from 'react-native-fcm';
 import { Platform, AppState } from 'react-native';
+import {
+    loadInitialState,
+    loadInitialStateConfirm,
+    companySucess,
+    menuSucess,
+    setDeviceToken,
+    companyOrderState, 
+    updateOrderState
+} from '../constAction.js';
 
 
 export function sendToken(token) {
@@ -20,8 +28,7 @@ export function sendToken(token) {
     }
 }
 
-
-export function loadInitialState() {
+export function loadInitialStateApp() {
 
     return (dispatch, props) => {
 
@@ -34,22 +41,13 @@ export function loadInitialState() {
         ];
 
         let initialLogin = store.getForArray(initialLoginStateKeys);
-        dispatch({
-            type: 'loadInitialState',
-            payload: initialLogin
-        })
 
-        dispatch({
-            type: 'loadInitialStateConfirm',
-            payload: initialLogin
-        })
+        dispatchHelp(dispatch, loadInitialState, initialLogin)
+        dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
 
         let companies = store.get('companies')
         if (companies)
-            dispatch({
-                type: 'companySucess',
-                payload: { companies: companies }
-            })
+            dispatchHelp(dispatch, companySucess, { companies: companies })
 
         let companyID = store.get('company')
 
@@ -58,19 +56,62 @@ export function loadInitialState() {
             companyInfo = store.get('company_info')[companyID];
 
         if (companyInfo)
-            dispatch({
-                type: 'companySucess',
-                payload: { 'company_info': companyInfo }
-            })
+            dispatchHelp(dispatch, companySucess, { 'company_info': companyInfo })
 
         let menu = store.get('menu')
         if (menu)
-            dispatch({
-                type: 'menuSucess',
-                payload: menu
-            })
+            dispatchHelp(dispatch, menuSucess, menu)
+
+    }
+}
+
+export function getToken() {
+
+    return (dispatch, props) => {
+        return FCM.getFCMToken().then(token => {
+
+            let device_token = store.get('device_token');
+
+            dispatchHelp(dispatch, setDeviceToken , { device_token: store.get('device_token') })
+            sendTokenRequest(token, device_token, dispatch)
+
+        }).catch(err => {
+            return Promise.resolve(false);
+        });
     }
 
+}
+
+export function notificationHandler(notification, dialogActions) {
+
+    return (dispatch, props) => {
+
+        let data = getNotificationData(notification);
+
+        if (data.hasOwnProperty('state')) {
+
+            sendLocalNotification(notification.message);
+
+            dispatchHelp(dispatch, companyOrderState, { company_id: data['company_id'], data: data.state })
+            dispatchHelp(dispatch, updateOrderState, { orderID: data.id, state: data.state })
+
+            let { companies } = props();
+            let textMessage = companies.companies[data.company_id].name + "\r\n";;
+
+            switch (data.state) {
+                case 'ready':
+                    textMessage += I18n.t('your_order_ready_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_ready_part_2');
+                    dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(219, 194, 78, 0.8)' }, image: 'icon_ready' });
+                    break;
+                case 'payed':
+
+                    updateStore(data['company_id'], "order_company", false)
+                    textMessage += I18n.t('your_order_payed_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_payed_part_2');
+                    dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(131, 187, 112, 0.8)' }, image: 'icon_payed' });
+                    break;
+            }
+        }
+    }
 }
 
 function sendTokenRequest(token, currentToken, dispatch) {
@@ -90,10 +131,7 @@ function sendTokenRequest(token, currentToken, dispatch) {
                     () => {
 
                         store.save('device_token', token);
-                        dispatch({
-                            type: "setDeviceToken",
-                            payload: { device_token: token, device_token_send: true }
-                        })
+                        dispatchHelp(dispatch, setDeviceToken, { device_token: token, device_token_send: true })
                     }
                 );
             }
@@ -102,37 +140,40 @@ function sendTokenRequest(token, currentToken, dispatch) {
 
 }
 
-export function getToken() {
+function getNotificationData(notification) {
 
-    return (dispatch, props) => {
-        return FCM.getFCMToken().then(token => {
+    let prefix = 'order_';
+    let data = {};
 
-            let device_token = store.get('device_token');
+    Object.keys(notification).forEach((key) => {
+        if (key.indexOf(prefix) > -1) {
+            data[key.substr(prefix.length)] = notification[key]
+        }
+    });
 
-            dispatch({
-                type: "setDeviceToken",
-                payload: { device_token: store.get('device_token') }
-            })
-            sendTokenRequest(token, device_token, dispatch)
-
-        }).catch(err => {
-            return Promise.resolve(false);
+    if (notification.hasOwnProperty('data') && Platform.OS === 'ios') {
+        Object.keys(notification.data).forEach((key) => {
+            if (key.indexOf(prefix) > -1) {
+                data[key.substr(prefix.length)] = notification.data[key]
+            }
         });
     }
 
+    return data;
 }
-let currentState;
+
+let currentAppState;
 
 AppState.addEventListener('change', (appState) => {
-    currentState = appState;
-    if (currentState == 'active') {
+    currentAppState = appState;
+    if (currentAppState == 'active') {
         FCM.removeAllDeliveredNotifications()
     }
 });
 
 function sendLocalNotification(message) {
 
-    if (currentState != 'active') {
+    if (currentAppState != 'active') {
         FCM.presentLocalNotification({
             body: message,
             large_icon: "ic_notif",
@@ -144,68 +185,19 @@ function sendLocalNotification(message) {
 
 }
 
-export function notificationHandler(notification, dialogActions) {
+function updateStore(companyID, storeName, updateData) {
 
-    return (dispatch, props) => {
-        let prefix = 'order_';
-        let data = {};
+    let updates = store.get(storeName);
+    updates = updates ? updates : {};
+    updates[companyID] = updateData;
+    store.save(storeName, updates);
 
-        Object.keys(notification).forEach((key) => {
-            if (key.indexOf(prefix) > -1) {
-                data[key.substr(prefix.length)] = notification[key]
-            }
-        });
-
-        if (notification.hasOwnProperty('data') && Platform.OS === 'ios') {
-            Object.keys(notification.data).forEach((key) => {
-                if (key.indexOf(prefix) > -1) {
-                    data[key.substr(prefix.length)] = notification.data[key]
-                }
-            });
-        }
-
-
-        if (data.hasOwnProperty('state')) {
-
-            sendLocalNotification(notification.message);
-
-            dispatch({
-                type: "companyOrderState",
-                payload: { company_id: data['company_id'], data: data.state }
-            })
-
-            dispatch({
-                type: 'update_order_state',
-                payload: { orderID: data.id, state: data.state },
-
-            })
-
-            let { companies } = props();
-            let textMessage = companies.companies[data.company_id].name + "\r\n";;
-            switch (data.state) {
-                case 'ready':
-                    textMessage += I18n.t('your_order_ready_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_ready_part_2');
-                    dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(219, 194, 78, 0.8)' }, image: 'icon_ready' });
-                    break;
-                case 'payed':
-
-                    let order_company = store.get("order_company");
-                    order_company = order_company ? order_company : {};
-                    order_company[data['company_id']] = false;
-                    store.save("order_company", order_company);
-
-                    textMessage += I18n.t('your_order_payed_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_payed_part_2');
-                    dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(131, 187, 112, 0.8)' }, image: 'icon_payed' });
-                    break;
-            }
-        }
-    }
 }
 
-/* let { login } = props();
+function dispatchHelp(dispatch, type, payload) {
 
-            if (!login.token) {
- 
-                 let page = store.get('state');
-                 routeService.changePage(page ? page : 'init');
-             }*/
+    dispatch({
+        type: type,
+        payload: payload
+    })
+}

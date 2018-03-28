@@ -1,9 +1,9 @@
 import {
-
+    companyOrderState,
     companyRequest,
     companySucess,
     companyError
-} from './constatntReducer.js';
+} from '../constAction.js';
 
 import store from "../../utils/storage";
 const initialState = {
@@ -15,7 +15,7 @@ const initialState = {
 export default function company(state = initialState, action) {
     switch (action.type) {
 
-        case "companyOrderState":
+        case companyOrderState:
 
             let companies =
                 {

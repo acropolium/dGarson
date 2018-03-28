@@ -5,18 +5,25 @@ import {
     companyRequest,
     companySucess,
     companyError
-} from './constatntReducer.js';
+} from '../constAction.js';
 
-const initialCompaniesStateKeys = [
-    'token',
-    'lang',
-];
 
-function saveStore(data) {
+export function getItemsFromStorage(readFromServer = false) {
 
-    Object.keys(data).forEach(async key => {
-        await store.save(key, data[key]);
-    });
+    return (dispatch, props) => {
+
+        dispatchHelp(dispatch, companyRequest, {})
+
+        if (needUpdate() || readFromServer) {
+
+            return serverReqestCompanys(dispatch);
+        } else {
+
+            dispatchHelp(dispatch, companySucess, { companies: store.get('companies') })
+
+            return Promise.resolve();
+        }
+    }
 }
 
 let timeUpdate = 60000000000;
@@ -27,26 +34,6 @@ function needUpdate() {
     let currentTime = new Date().getTime();
 
     return !Number.isInteger(lastTime) || (currentTime - lastTime > timeUpdate);
-}
-
-export function getItemsFromStorage(readFromServer = false) {
-
-    return (dispatch, props) => {
-
-        dispatch({ type: companyRequest })
-
-        if (needUpdate() || readFromServer) {
-
-            return serverReqestCompanys(dispatch);
-        } else {
-
-            dispatch({
-                type: companySucess,
-                payload: { companies: store.get('companies') }
-            })
-            return Promise.resolve();
-        }
-    }
 }
 
 function serverReqestCompanys(dispatch) {
@@ -70,12 +57,10 @@ function serverReqestCompanys(dispatch) {
 
             let data = { companies: companies, companyUpdate: new Date().getTime() }
 
-            dispatch({
-                type: companySucess,
-                payload: data
-            })
+            dispatchHelp(dispatch, companySucess, data);
 
             saveStore(data);
+
         } else {
             routeService.changePage('home');
         }
@@ -86,4 +71,19 @@ function serverReqestCompanys(dispatch) {
 
     });
 
+}
+
+function dispatchHelp(dispatch, type, payload) {
+
+    dispatch({
+        type: type,
+        payload: payload
+    })
+}
+
+function saveStore(data) {
+
+    Object.keys(data).forEach(async key => {
+        await store.save(key, data[key]);
+    });
 }

@@ -10,7 +10,7 @@ import {
     verifySucess,
     companySucess,
     verifyError,
-} from './constatntReducer.js';
+} from '../constAction.js';
 
 
 
@@ -63,13 +63,6 @@ export function sendData(userData, phone) {
     }
 }
 
-function saveStore(data) {
-
-    Object.keys(data).forEach(async key => {
-        await store.save(key, data[key]);
-    });
-}
-
 export function sendConfirm(userData, confirmData) {
     return (dispatch, props) => {
 
@@ -83,7 +76,6 @@ export function sendConfirm(userData, confirmData) {
                 token: api_token,
                 state: 'companies'
             };
-
 
             dispatch({ type: verifySucess, payload: data })
             saveStore(data);
@@ -111,6 +103,11 @@ export function sendConfirm(userData, confirmData) {
 
         });
     }
-
 }
 
+function saveStore(data) {
+
+    Object.keys(data).forEach(async key => {
+        await store.save(key, data[key]);
+    });
+}
