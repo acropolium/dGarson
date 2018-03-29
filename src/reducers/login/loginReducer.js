@@ -11,7 +11,7 @@ import {
     setDeviceToken,
     verifyError
 } from '../constAction.js';
-
+ 
 const initialState = {
     phone: '',
     phoneFirstPart: '',

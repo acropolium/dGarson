@@ -9,7 +9,9 @@ import {
     addItemOrder,
     changeItemAdditionOrder,
     dialogShowing,
-    flushOrder
+    flushOrder,
+    orderRequest,
+    ordeError
 } from '../constAction.js';
 
 
@@ -23,6 +25,7 @@ export function cancelOrder(order_id, company_id) {
                 token: store.get('token')
             }
         });
+        dispatchHelp(dispatch, orderRequest)
 
         return request.orders(order_id, 'PUT', { state: 'cancel' }).then(() => {
             routeService.changePage('menu');
@@ -32,11 +35,12 @@ export function cancelOrder(order_id, company_id) {
             dispatchHelp(dispatch, flushOrder)
             dispatchHelp(dispatch, companyOrderState, { company_id: company_id, data: "no" })
         }).catch((error) => {
-
+            dispatchHelp(dispatch, ordeError)
             Promise.reject(error);
         });
     }
 }
+
 
 export function makeOrder(body, company_id) {
     return (dispatch, props) => {
@@ -47,6 +51,7 @@ export function makeOrder(body, company_id) {
                 token: store.get('token')
             }
         });
+        dispatchHelp(dispatch, orderRequest)
 
         return request.orders(false, 'POST', body).then((response) => {
 
@@ -60,6 +65,7 @@ export function makeOrder(body, company_id) {
             }
 
         }).catch((error) => {
+            dispatchHelp(dispatch, ordeError)
             return Promise.reject(error);
         });
     }
@@ -75,18 +81,20 @@ export function getOrderForCompany(body) {
                 token: store.get('token')
             }
         });
-
+        dispatchHelp(dispatch, orderRequest)
         return request.order(body, 'get', false, false).then((response) => {
-            if (!ifRedirectOrderCompany(response)) {
+            if (!ifRedirectOrderCompany(response,dispatch)) {
 
                 let order = { state: response.state, order: response, desired_time: response.desired_time };
                 dispatchHelp(dispatch, doOrder, order)
             }
         }).catch((error) => {
-            Promise.reject(error)
+            dispatchHelp(dispatch, ordeError)
+            return Promise.reject(error)
         });
     }
 }
+
 
 export function removeItem(item, idx) {
     return (dispatch, props) => {
@@ -105,6 +113,7 @@ export function removeItem(item, idx) {
         dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
+
 
 export function addItem(item) {
     return (dispatch, props) => {
@@ -154,6 +163,7 @@ export function addItem(item) {
     }
 }
 
+
 export function changeItemAddition(item, idxName, itemAdditionIdx, operation = 'add') {
     return (dispatch, props) => {
         let { order } = props();
@@ -179,6 +189,7 @@ export function changeItemAddition(item, idxName, itemAdditionIdx, operation = '
         dispatchHelp(dispatch, changeItemAdditionOrder, copy)
     }
 }
+
 
 export function setOrder(new_state, action = 'do_order') {
     return (dispatch, props) => {
@@ -227,7 +238,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
 }
 
 
-function ifRedirectOrderCompany(response) {
+function ifRedirectOrderCompany(response,dispatch) {
 
     if (response.hasOwnProperty('redirect')) {
 

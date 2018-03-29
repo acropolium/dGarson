@@ -13,7 +13,7 @@ export default StyleSheet.create({
         right: 0
     },
     background: {
-        
+        zIndex:999999,
         position: 'absolute',
         top: 0,
         bottom: 0,

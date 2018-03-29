@@ -12,17 +12,11 @@ import {
 } from 'react-native';
 import Util from '../helpers/Util';
 import I18n from '../services/translate.js'
-
-
 import config from '../config'
 import api from '../services/apiService';
-
-
 import Spinner from "./Spinner";
-
 import { Text, View, Image } from './BaseComponents';
 import styles from "../styles/components/HomeStyles";
-
 import InputBlock from './HomeComponents/InputBlock'
 
 

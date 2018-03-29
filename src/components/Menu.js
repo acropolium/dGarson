@@ -5,10 +5,6 @@ import RenderMenu from "./Menu/RenderMenu";
 import RenderMenuFooter from "./Menu/RenderMenuFooter";
 import LocationChooser from "./CustomComponents/LocationChooser";
 import styles from '../styles/components/Menu/MenuStyles';
-import * as routeService from "../services/routeService";
-
-
-
 
 export default class Menu extends Component {
     constructor(props) {
@@ -17,7 +13,7 @@ export default class Menu extends Component {
 
 
     aboutAs = () => {
-        routeService.changePage("about", false);
+        this.props.changePage("about", false);
     }
 
     render() {
@@ -25,6 +21,7 @@ export default class Menu extends Component {
 
         return (
             <View style={styles.menuContainer}>
+            
                 <View style={styles.menuHeaderContainer}>
                     <HeaderBlock aboutAs={this.aboutAs}
                         company_info={this.props.company_info}
@@ -42,7 +39,8 @@ export default class Menu extends Component {
                 </View>
 
                 <View style={styles.menuFooterContainer}>
-                    <LocationChooser company_info={this.props.company_info}
+                    <LocationChooser changePage={this.props.changePage}
+                        company_info={this.props.company_info}
                         currentLocation={this.props.current_location} />
                     <RenderMenuFooter setOrder={this.props.setOrder}
                         company_id={this.props.company_id}

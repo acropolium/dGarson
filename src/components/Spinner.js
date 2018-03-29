@@ -14,23 +14,18 @@ export default class Spinner extends Component {
     }
 
     render() {
-        
-        if(this.props.show){
 
-        return (
+        if (this.props.show) {
+            return (
                 <View style={[styles.background]}>
                     <ActivityIndicator
                         size='large'
                         style={styles.activiti_indicator}
                     />
                 </View>
-                
-        )
+            )
+        }
+        return null;
     }
-    return null;
-
-    }
-
-
 }
 

@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import I18n from '../../services/translate.js';
 import { Text, View, TouchableHighlight, Icon } from '../BaseComponents';
 import styles from "../../styles/components/CustomComponents/LocationChooserCss";
-import * as routeService from "../../services/routeService";
-
-
 
 export default class LocationChooser extends Component {
     constructor(props) {
@@ -14,7 +11,7 @@ export default class LocationChooser extends Component {
     locationChooser = () => {
         if (this.props.company_info.hasOwnProperty('locations') && (this.props.currentLocation !== false)) {
 
-            routeService.changePage('location', false);
+            this.props.changePage('location', false);
         }
     };
 

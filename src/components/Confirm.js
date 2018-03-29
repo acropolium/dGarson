@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react'
 import { ImageBackground } from 'react-native';
-import * as routeService from "../services/routeService";
 import { Text, View } from './BaseComponents';
 import I18n from '../services/translate.js';
 import styles from "../styles/components/ConfirmStyle";
@@ -39,7 +38,7 @@ export default class Home extends Component {
     };
 
     goBack = async () => {
-        routeService.changePage('home');
+        this.props.changePage('home');
     };
 
     setComfirmNumber = (code) => {

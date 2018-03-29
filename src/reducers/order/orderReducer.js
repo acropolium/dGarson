@@ -7,7 +7,9 @@ import {
     loadDataOrder,
     addItemOrder,
     changeItemAdditionOrder,
-    cleanDraftOrder
+    cleanDraftOrder,
+    orderRequest,
+    ordeError
 } from '../constAction.js';
 
 export default function order(state = initialState, action) {
@@ -18,6 +20,7 @@ export default function order(state = initialState, action) {
         desired_time: 15,
         draft: {},
         order: {},
+        spinnerShow: false
     };
 
     switch (action.type) {
@@ -28,7 +31,7 @@ export default function order(state = initialState, action) {
                 return state;
             }
         case doOrder:
-            return Object.assign({}, flush, state, action.payload);
+            return Object.assign({}, flush, state, action.payload, { spinnerShow: false });
         case flushOrder:
             return Object.assign({}, flush);
         case loadDataOrder:
@@ -39,6 +42,10 @@ export default function order(state = initialState, action) {
             return Object.assign({}, state, action.payload);
         case cleanDraftOrder:
             return Object.assign({}, state, action.payload);
+        case orderRequest:
+            return Object.assign({}, state, { spinnerShow: true });
+        case ordeError:
+            return Object.assign({}, state, { spinnerShow: false });
         default:
             return state;
     }

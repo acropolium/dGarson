@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {ImageBackground,Dimensions } from 'react-native';
-import {Text, View} from '../../BaseComponents';
+import { ImageBackground, Dimensions } from 'react-native';
+import { Text, View } from '../../BaseComponents';
 import styles from "../../../styles/components/order/OrderFooterInprogressStyle";
 import I18n from '../../../services/translate.js';
 let windowWidth = Dimensions.get('window').width;
@@ -10,7 +10,7 @@ let windowWidth = Dimensions.get('window').width;
 const OrderFooterInprogress = (props) => {
     return (
 
-        <ImageBackground source={require('../../../media/elements/inprogress.gif')} style={{ width: windowWidth, backgroundColor: '#2a2a32' }}>
+        <ImageBackground source={require('../../../media/elements/inprogress.gif')} style={styles.background}>
             <View style={[styles.footer_main, { backgroundColor: 'transparent' }]}>
                 <View style={styles.total_block}>
                     <Text style={[styles.total_color]}>{I18n.t("total")}: </Text>
@@ -31,8 +31,8 @@ OrderFooterInprogress.propTypes = {
     orderCost: PropTypes.oneOfType([
         PropTypes.string.isRequired,
         PropTypes.number.isRequired
-       
-      ])
+
+    ])
 
 };
 

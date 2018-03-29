@@ -8,9 +8,10 @@ import {
     menuSucess,
     menuError,
     cleanDraftOrder,
-    companySucess
+    companySucess,
+    companyRequest,
+    companyError
 } from '../constAction.js';
-
 
 
 export function companysMenu(companyID, readFromServer) {
@@ -18,6 +19,8 @@ export function companysMenu(companyID, readFromServer) {
 
         let orderCompany = store.get("order_company");
         let currentTime = new Date().getTime();
+
+        dispatchHelp(dispatch, companyRequest)
 
         if (readFromServer || (orderCompany && orderCompany[companyID]) || needUpdate(companyID, currentTime)) {
 
@@ -37,12 +40,14 @@ export function companysMenu(companyID, readFromServer) {
     }
 }
 
+
 function saveStore(data) {
 
     Object.keys(data).forEach(async key => {
         await store.save(key, data[key]);
     });
 }
+
 
 function dispatchHelp(dispatch, type, payload) {
 
@@ -52,6 +57,7 @@ function dispatchHelp(dispatch, type, payload) {
     })
 }
 
+
 function ifRedirect(response, dispatch) {
 
     if (response.hasOwnProperty('redirect')) {
@@ -60,7 +66,7 @@ function ifRedirect(response, dispatch) {
         switch (response.status) {
             case 302:
 
-                dispatchHelp(dispatch, doOrder, { order: orderJson, state: orderJson.state })
+                dispatchHelp(dispatch, doOrder, { order: orderJson, state: orderJson.state, from_company: true })
                 dispatchHelp(dispatch, companySucess, { company_info: store.get('company_info')[orderJson.company_id] })
 
                 store.save('company', orderJson.company_id)
@@ -73,7 +79,6 @@ function ifRedirect(response, dispatch) {
 
                 return true;
             case 404:
-
                 store.save('companyUpdate', 0);
                 dispatchHelp(dispatch, companySucess, { needUpdate: true })
                 routeService.changePage('companies');
@@ -84,6 +89,7 @@ function ifRedirect(response, dispatch) {
     }
 }
 
+
 function updateStore(companyID, storeName, updateData) {
 
     let updates = store.get(storeName);
@@ -92,6 +98,7 @@ function updateStore(companyID, storeName, updateData) {
     store.save(storeName, updates);
 
 }
+
 
 function getResponseData(response, menu, allMenuInfo) {
 
@@ -106,18 +113,16 @@ function getResponseData(response, menu, allMenuInfo) {
             save_data['location'] = response.company.locations[0].id;
 
         } else {
-            save_data['location'] = false;
 
+            save_data['location'] = false;
         }
     } else {
 
         save_data['location'] = allMenuInfo[response.company.id].location;
-
     }
-
     return save_data;
-
 }
+
 
 function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
@@ -131,7 +136,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
     }
 
     return request.setProps(user).menu(companyID, 'get').then((response) => {
-
+        
         if (ifRedirect(response, dispatch)) { return Promise.resolve(); }
 
         const { menu } = props();
@@ -140,7 +145,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
         dispatchHelp(dispatch, cleanDraftOrder, { draft: {}, price: { total: 0 } });
         dispatchHelp(dispatch, companySucess, { company_info: response.company })
-        
+
         allMenuInfo[response.company.id] = save_data;
         dispatchHelp(dispatch, menuSucess, allMenuInfo)
 
@@ -153,13 +158,13 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
         return Promise.resolve();
 
     }).catch((error) => {
-
+        dispatchHelp(dispatch, companyError)
         return Promise.reject(error);
     })
 
 }
 
-let timeUpdate = 2000000;
+let timeUpdate = 20000000;
 
 function needUpdate(companyID, currentTime) {
 

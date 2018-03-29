@@ -16,6 +16,7 @@ export default class OrderStatus extends React.Component {
     };
 
     getFormattedTime = (desired_time) => {
+        
         let outStr = '';
         if (desired_time < 60) {
             outStr = desired_time + ' ' + I18n.t('min');
@@ -29,6 +30,7 @@ export default class OrderStatus extends React.Component {
     };
 
     handleClickUrl = (link) => {
+        
         Linking.canOpenURL(link).then(
             supported => {
                 if (supported) {
@@ -43,8 +45,8 @@ export default class OrderStatus extends React.Component {
 
     getCurrentAddress = () => {
 
-
         let location = this.props.company_info.address + ', ' + I18n.t("phone") + ':' + this.props.company_info.phone;
+
         this.props.company_info.locations.forEach((val) => {
             if (val.id == this.props.currentLocation) {
 
@@ -69,7 +71,6 @@ export default class OrderStatus extends React.Component {
 
     renderStatusElement = (orderState) => {
         let order = orderState == false ? 'false' : orderState;
-
         return this.renderElement[order] ? this.renderElement[order]() : this.renderElement['default']();
     }
 

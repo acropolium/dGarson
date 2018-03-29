@@ -51,7 +51,7 @@ export default class apiService {
         let uri = this.apiHost() + 'users/refresh-token';
 
         let request = this.request(uri, method, body, doneFunc, successFunc, errorFunc);
-        console.log(request);
+        
         return request;
 
     };

@@ -9,6 +9,10 @@ export default StyleSheet.create({
         color: '#345e80',
 
     },
+    background: {
+        backgroundColor: '#2a2a32',
+        width: windowWidth
+    },
 
     footer_main: {
         flexDirection: 'row',

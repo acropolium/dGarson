@@ -22,8 +22,10 @@ export const menuSucess = 'menuSucess';
 export const menuError = 'menuError';
 export const setLocation = 'setLocation';
 //order
+export const ordeError = 'ordeError';
 export const updateOrderState = 'update_order_state';
 export const doOrder = 'do_order';
+export const orderRequest = 'orderRequest';
 export const flushOrder = 'flush';
 export const loadDataOrder = 'load_data';
 export const addItemOrder = 'add_item';

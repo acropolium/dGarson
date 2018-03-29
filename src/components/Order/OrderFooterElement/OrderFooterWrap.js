@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, Icon } from '../../BaseComponents';
+import { Text, View } from '../../BaseComponents';
 import OrderFooterDraft from './OrderFooterDraft';
 import OrderFooterPending from './OrderFooterPending';
 import OrderFooterRecived from './OrderFooterRecived';
@@ -29,19 +29,44 @@ export default class OrderFooterWrap extends React.Component {
 
     getFooterElement = (orderState) => {
 
-
         return this.renderElements[orderState] ? this.renderElements[orderState](orderState) : this.renderElements['draft'];
     }
 
-    render() {
+    getColorForOrderStateText() {
+        let orderStates = ['payed', 'cancel', 'notpicked'];
+        return orderStates.indexOf(this.props.orderState) != -1 ? { color: 'black' } : {};
+    }
 
+    getColorForOrderBackground() {
+        let color;
+        switch (this.props.orderState) {
+            case 'cancel':
+                color = '#a2a3a8';
+                break;
+            case 'payed':
+                color = '#89BC77';
+                break;
+            case 'ready':
+                color = '#dbc24f';
+                break;
+            case 'notpicked':
+                color = '#e65048';
+                break;
+            default:
+                color = '#2a2a31';
+        }
+        return color;
+    }
+
+
+    render() {
 
         return (
 
-            < View style={[styles.footer_main, { backgroundColor: this.props.orderState == 'cancel' ? '#a2a3a8' : this.props.orderState == 'inprogress' ? '#2a2a32' : this.props.orderState == 'payed' ? '#89BC77' : this.props.orderState == 'ready' ? '#dbc24f' : this.props.orderState == 'notpicked' ? '#e65048' : '#2a2a31' }]} >
+            < View style={[styles.footer_main, { backgroundColor: this.getColorForOrderBackground() }]} >
                 <View style={styles.total_block}>
-                    <Text style={[styles.total_color, this.props.orderState == 'payed' || this.props.orderState == 'cancel' || this.props.orderState == 'inprogress' || this.props.orderState == 'notpicked' ? { color: 'black' } : {}]}>{I18n.t("total")}: </Text>
-                    <Text style={[styles.total_color, this.props.orderState == 'payed' || this.props.orderState == 'cancel' || this.props.orderState == 'inprogress' || this.props.orderState == 'notpicked' ? { color: 'black' } : {}]}>{parseFloat(this.props.orderCost).toFixed(2)} {I18n.t("uah")}</Text>
+                    <Text style={[styles.total_color, this.getColorForOrderStateText()]}>{I18n.t("total")}: </Text>
+                    <Text style={[styles.total_color, this.getColorForOrderStateText()]}>{parseFloat(this.props.orderCost).toFixed(2)} {I18n.t("uah")}</Text>
                 </View>
                 <View>
                     {this.props.orderState && this.getFooterElement(this.props.orderState)}

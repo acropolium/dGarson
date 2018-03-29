@@ -58,6 +58,7 @@ export default class Companies extends Component {
     };
 
     getItemsFromStorage = (readFromServer = false) => {
+
         this.props.companiesActions.getItemsFromStorage(readFromServer).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
         });
@@ -67,8 +68,8 @@ export default class Companies extends Component {
 
         return (
             <View style={styles.bg}>
-                <HeaderBlock centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
                 <Spinner show={this.props.spinnerShow} />
+                <HeaderBlock centerTitle={I18n.t("companies_title")} hideRightBlock={true} />
 
                 <CompanyList getCompanyMenu={this.props.getCompanyMenu}
                     data={this.companiesList(this.state.searchValue)}

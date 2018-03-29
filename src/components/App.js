@@ -4,8 +4,6 @@ import { Actions, Router, Reducer } from 'react-native-router-flux';
 import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
-import * as routeService from "../services/routeService";
-
 
 export default class App extends Component {
 
@@ -37,7 +35,7 @@ export default class App extends Component {
         let currentAction = false;
         switch (this.currentPage) {
             case 'confirm':
-                await routeService.changePage('init');
+                await this.props.changePage('init');
                 currentAction = true;
                 break;
             case 'location':
@@ -56,12 +54,12 @@ export default class App extends Component {
                 break;
 
             case 'previewOrder':
-                await routeService.changePage('menu');
+                await this.props.changePage('menu');
                 currentAction = true;
                 break;
             case 'menu':
 
-                await routeService.changePage('companies');
+                await this.props.changePage('companies');
                 currentAction = true;
                 break;
             case 'order':
@@ -72,7 +70,7 @@ export default class App extends Component {
 
                     newState = 'menu';
                 }
-                routeService.changePage(newState);
+                this.props.changePage(newState);
 
                 break;
         }

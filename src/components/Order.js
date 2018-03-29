@@ -1,29 +1,13 @@
 import React, { PropTypes, Component } from 'react'
-import {
-    TextInput,
-    ListView,
-    ActivityIndicator,
-    StyleSheet,
-    AsyncStorage,
-    BackAndroid,
-    Linking,
-    Picker,
-    Dimensions,
-    RefreshControl,
-} from 'react-native';
-
-
-import api from '../services/apiService';
 import I18n from '../services/translate.js'
 import HeaderBlock from './HeaderBlock';
-
-
-import { KeyboardWrapper, Text, View, Image } from './BaseComponents';
+import { KeyboardWrapper, View } from './BaseComponents';
 import styles from "../styles/components/OrderStyle";
 import OrderList from "./Order/OrderList";
 import OrderElement from "./Order/OrderListElement/OrderElement";
 import OrderStatus from "./Order/OrderStatus";
 import OrderFooter from "./Order/OrderFooter";
+import Spinner from "./Spinner";
 
 export default class Order extends Component {
 
@@ -35,18 +19,16 @@ export default class Order extends Component {
         this.readOrder();
     };
 
-
-
     readOrder = () => {
-        
-        if (this.props.order.state != 'draft') {
+        if (this.props.order_state != 'draft' && !this.props.from_company) {
             this.getOrder();
-            
         }
     };
 
-
     makeOrder = async () => {
+
+        if (this.props.spinnerShow)
+            return;
 
         let desired_time = this.props.order.desired_time;
         if (!desired_time) {
@@ -66,6 +48,7 @@ export default class Order extends Component {
     };
 
     getOrder = (reload_lister = false) => {
+
 
         this.props.orderActions.getOrderForCompany(this.props.current_company_id).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message })
@@ -93,7 +76,6 @@ export default class Order extends Component {
 
     };
 
-
     goBack = () => {
 
         if (this.props.order_state == 'cancel' || this.props.order_state == 'payed') {
@@ -104,7 +86,6 @@ export default class Order extends Component {
     };
 
     aboutAs = () => {
-
         this.props.changePage("about", false);
     }
 
@@ -116,6 +97,7 @@ export default class Order extends Component {
 
         return (
             <View style={styles.wrap}>
+                <Spinner show={this.props.spinnerShow} />
                 <View>
                     <HeaderBlock currentLocation={this.props.currentLocation}
                         aboutAs={this.aboutAs}
