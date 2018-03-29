@@ -3,7 +3,8 @@ import {
     ImageBackground,
     Animated,
     Dimensions,
-    Easing
+    Easing,
+    Alert
 } from 'react-native';
 import I18n from '../services/translate.js'
 import { View } from './BaseComponents';
@@ -48,7 +49,6 @@ export default class Loading extends Component {
                     duration: 400, // milliseconds
                     toValue: 1,
                 }).start(() => {
-                    store.save('lang', I18n.locale);
                     let page = store.get('state');
                     routeService.changePage(page ? page : 'init');
 

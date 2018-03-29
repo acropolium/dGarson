@@ -14,6 +14,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
+       
         this.props.appAction.loadInitialStateApp();
 
         FCM.on(FCMEvent.Notification, async (notification) => {

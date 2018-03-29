@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Actions, Scene, Lightbox, Modal } from 'react-native-router-flux';
-import Home from '../conteiners/homeConteiner'
+import Home from '../containers/homeContainer'
+import Confirm from '../containers/confirmContainer'
+import Companies from '../containers/companyContainer'
+import Menu from '../containers/menuContainer'
+import Order from '../containers/orderContainer'
+import Location from '../containers/locationContainer'
+import Popage from '../containers/dialogContainer'
+import AboutUs from '../containers/aboutAsContainer';
+import ModalPicker from '../containers/ModalPickerContainer';
 import Loading from '../components/Loading'
-import Confirm from '../conteiners/confirmContainer'
-import Companies from '../conteiners/companyConteiner'
-import Menu from '../conteiners/menuConteiner'
-import Order from '../conteiners/orderConteiner'
-import Location from '../conteiners/locationConteiner'
-import Popage from '../conteiners/dialogConteiner'
 import Spinner from '../components/Spinner'
-import AboutUs from '../conteiners/aboutAsConteiner';
-import ModalPicker from '../conteiners/ModalPickerConteiner';
 
 export default Actions.create(
     <Lightbox>

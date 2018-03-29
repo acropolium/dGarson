@@ -31,7 +31,9 @@ export function sendToken(token) {
 export function loadInitialStateApp() {
 
     return (dispatch, props) => {
-
+        
+        store.save('lang', I18n.locale);
+        
         const initialLoginStateKeys = [
             'token',
             'phone',
