@@ -13,6 +13,7 @@ import {
     orderRequest,
     ordeError
 } from '../constAction.js';
+//import { Object } from 'realm';
 
 
 export function cancelOrder(order_id, company_id) {
@@ -83,7 +84,7 @@ export function getOrderForCompany(body) {
         });
         dispatchHelp(dispatch, orderRequest)
         return request.order(body, 'get', false, false).then((response) => {
-            if (!ifRedirectOrderCompany(response,dispatch)) {
+            if (!ifRedirectOrderCompany(response, dispatch)) {
 
                 let order = { state: response.state, order: response, desired_time: response.desired_time };
                 dispatchHelp(dispatch, doOrder, order)
@@ -114,29 +115,20 @@ export function removeItem(item, idx) {
     }
 }
 
-
 export function addItem(item) {
     return (dispatch, props) => {
-
         let { order } = props();
-
         let copy = Object.assign({}, order);
         let itemCopy = Object.assign({}, item);
 
-        itemCopy.options = {};
+        itemCopy.options = {};// Object.assign({},{ ...item.options});
+
         let countOptions = 0;
         let priceTotal = parseFloat(itemCopy.price);
 
         item.options.forEach((val, key) => {
-            itemCopy.options[key] = {};
-            Object.keys(val).forEach((skey) => {
-                itemCopy.options[key][skey] = val[skey];
+            itemCopy.options[key] = { ...val };
 
-                if (skey == 'count' && val[skey] > 0) {
-                    countOptions = countOptions + val[skey];
-                    priceTotal = priceTotal + val['count'] * parseFloat(val['price'])
-                }
-            })
         });
 
         if (copy.draft.hasOwnProperty(item.id)) {
@@ -158,10 +150,10 @@ export function addItem(item) {
             copy.price.total = parseFloat(copy.price.total) + priceTotal
         } else { copy.price.total = priceTotal }
 
-
         dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
+
 
 
 export function changeItemAddition(item, idxName, itemAdditionIdx, operation = 'add') {
@@ -238,7 +230,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
 }
 
 
-function ifRedirectOrderCompany(response,dispatch) {
+function ifRedirectOrderCompany(response, dispatch) {
 
     if (response.hasOwnProperty('redirect')) {
 

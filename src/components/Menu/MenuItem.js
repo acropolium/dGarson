@@ -23,46 +23,14 @@ import OrderItem from '../OrderItem';
 import config from '../../config';
 import styles from "../../styles/components/Menu/MenuItemStyle";
 
-
 export default class MenuItem extends Component {
     constructor(props) {
         super(props);
-
-        
-        this.state = {
-            dataSource: {},
-
-        };
-
-        let orderItems = [];
-
-        if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.keys(this.props.order_draft[this.props.item.id].items).length > 0) {
-            orderItems = Object.values(this.props.order_draft[this.props.item.id].items);
-        }
-
-        this.state.dataSource = orderItems
-
     }
-
-    getMenuItemsList = (items = []) => {
-        let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        return ds.cloneWithRows(items);
-    };
-
 
     addItem = (item) => {
         this.props.addOrderItem(item)
     };
-
-    componentWillReceiveProps(nextProps) {
-
-        let orderItems = [];
-        if (nextProps.order_draft.hasOwnProperty(nextProps.item.id) && Object.keys(nextProps.order_draft[nextProps.item.id].items).length > 0) {
-            orderItems = Object.values(nextProps.order_draft[nextProps.item.id].items);
-        }
-
-        this.setState({ dataSource: orderItems });
-    }
 
     getItemPrice() {
         return parseFloat(this.props.item.price) + this.props.item.options.reduce((sum, option) => { return sum + parseFloat(option.price) * option.count }, 0)
@@ -77,8 +45,15 @@ export default class MenuItem extends Component {
         if (this.props.order_draft.hasOwnProperty(this.props.item.id) && Object.values(this.props.order_draft[this.props.item.id].items).length > 0) {
             cnt = Object.values(this.props.order_draft[this.props.item.id].items).length;
         }
-
         return cnt;
+    }
+
+    getItemList() {
+
+        let isItem = this.props.order_draft.hasOwnProperty(this.props.item.id) &&
+            Object.keys(this.props.order_draft[this.props.item.id].items).length > 0
+
+        return isItem ? Object.values(this.props.order_draft[this.props.item.id].items) : []
     }
 
     render() {
@@ -114,7 +89,7 @@ export default class MenuItem extends Component {
                 </TouchableHighlight>
 
                 {<FlatList
-                    data={this.state.dataSource}
+                    data={this.getItemList()}
                     renderItem={(orderItem, idx) => {
 
                         return <OrderItem changeOrderItemAddition={this.props.changeOrderItemAddition}
