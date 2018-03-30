@@ -117,38 +117,28 @@ export function removeItem(item, idx) {
 
 export function addItem(item) {
     return (dispatch, props) => {
+        
         let { order } = props();
         let copy = Object.assign({}, order);
         let itemCopy = Object.assign({}, item);
 
-        itemCopy.options = {};// Object.assign({},{ ...item.options});
+        itemCopy.options = getItemOption(item.options);
+        itemCopy.countOptions = 0;
 
-        let countOptions = 0;
         let priceTotal = parseFloat(itemCopy.price);
-
-        item.options.forEach((val, key) => {
-            itemCopy.options[key] = { ...val };
-
-        });
+        itemCopy.priceTotal = priceTotal;
 
         if (copy.draft.hasOwnProperty(item.id)) {
-            itemCopy.countOptions = countOptions;
-            itemCopy.priceTotal = priceTotal;
 
-            let lastId = 0;
-            if (Object.keys(copy.draft[item.id].items).length > 0) {
-                lastId = Object.keys(copy.draft[item.id].items)[Object.keys(copy.draft[item.id].items).length - 1];
-            }
+            let lastId = Object.keys(copy.draft[item.id].items).length 
+            copy.draft[item.id].items[parseInt(lastId)] = itemCopy
 
-            copy.draft[item.id].items[parseInt(lastId) + 1] = itemCopy
         } else {
-            itemCopy.countOptions = countOptions;
-            itemCopy.priceTotal = priceTotal;
             copy.draft[item.id] = { id: item.id, items: { '0': Object.assign({}, itemCopy) } };
         }
-        if (copy.price.hasOwnProperty('total')) {
-            copy.price.total = parseFloat(copy.price.total) + priceTotal
-        } else { copy.price.total = priceTotal }
+
+        copy.price.total = copy.price.hasOwnProperty('total') ?
+            parseFloat(copy.price.total) + priceTotal : priceTotal
 
         dispatchHelp(dispatch, addItemOrder, copy)
     }
@@ -192,6 +182,15 @@ export function setOrder(new_state, action = 'do_order') {
     }
 }
 
+function getItemOption(options) {
+    let itemCopy = {};
+
+    options.forEach((val, key) => {
+        itemCopy[key] = { ...val };
+
+    });
+    return itemCopy;
+}
 
 function ifRedirectMakeOrder(response, company_id, dispatch) {
 

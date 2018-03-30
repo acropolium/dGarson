@@ -11,7 +11,7 @@ import {
     companySucess,
     menuSucess,
     setDeviceToken,
-    companyOrderState, 
+    companyOrderState,
     updateOrderState
 } from '../constAction.js';
 
@@ -31,9 +31,9 @@ export function sendToken(token) {
 export function loadInitialStateApp() {
 
     return (dispatch, props) => {
-        
+
         store.save('lang', I18n.locale);
-        
+
         const initialLoginStateKeys = [
             'token',
             'phone',
@@ -74,11 +74,11 @@ export function getToken() {
 
             let device_token = store.get('device_token');
 
-            dispatchHelp(dispatch, setDeviceToken , { device_token: store.get('device_token') })
+            //dispatchHelp(dispatch, setDeviceToken , { device_token: store.get('device_token') })
             sendTokenRequest(token, device_token, dispatch)
 
         }).catch(err => {
-            return Promise.resolve(false);
+            return Promise.reject(false);
         });
     }
 
@@ -118,28 +118,22 @@ export function notificationHandler(notification, dialogActions) {
 
 function sendTokenRequest(token, currentToken, dispatch) {
 
-    if (token) {
-        let device_token = currentToken;
-        if (device_token !== token) {
-            if (token !== false) {
+    if (token && token !== false) {
 
-                let request = (new api()).setProps({
-                    user: {
-                        lang: store.get('lang'),
-                        token: store.get('token')
-                    }
-                });
-                request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
-                    () => {
-
-                        store.save('device_token', token);
-                        dispatchHelp(dispatch, setDeviceToken, { device_token: token, device_token_send: true })
-                    }
-                );
+        let request = (new api()).setProps({
+            user: {
+                lang: store.get('lang'),
+                token: store.get('token')
             }
-        }
+        });
+        request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
+            () => {
+                
+                store.save('device_token', token);
+                dispatchHelp(dispatch, setDeviceToken, { device_token: token, device_token_send: true })
+            }
+        );
     }
-
 }
 
 function getNotificationData(notification) {
