@@ -23,6 +23,7 @@ function getCurrentMenu(state) {
 function mapStateToProps(state) {
 
     return {
+        needUpdateFromServer: state.order.needUpdateFromServer,
         from_company: state.order.from_company,
         spinnerShow: state.order.spinnerShow,
         order_item: state.order.order.items,

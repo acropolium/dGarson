@@ -19,6 +19,16 @@ export default class Order extends Component {
         this.readOrder();
     };
 
+
+    componentWillReceiveProps(nextProps) {
+
+        if (nextProps.needUpdateFromServer) {
+           // alert("sklk")
+            this.readOrder();
+        }
+    }
+
+
     readOrder = () => {
         if (this.props.order_state != 'draft' && !this.props.from_company) {
             this.getOrder();

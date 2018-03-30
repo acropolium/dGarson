@@ -12,7 +12,9 @@ import {
     menuSucess,
     setDeviceToken,
     companyOrderState,
-    updateOrderState
+    updateOrderState,
+    orderRequest,
+    doOrder
 } from '../constAction.js';
 
 
@@ -65,6 +67,8 @@ export function loadInitialStateApp() {
                     needUpdate: true,
                     needUpdateFromServer: true
                 })
+
+                dispatchHelp(dispatch, doOrder, { needUpdateFromServer: true })
             }
         });
 

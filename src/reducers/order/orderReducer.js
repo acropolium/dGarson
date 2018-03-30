@@ -43,7 +43,7 @@ export default function order(state = initialState, action) {
         case cleanDraftOrder:
             return Object.assign({}, state, action.payload);
         case orderRequest:
-            return Object.assign({}, state, { spinnerShow: true });
+            return Object.assign({}, state, { spinnerShow: true }, { needUpdateFromServer: false });
         case ordeError:
             return Object.assign({}, state, { spinnerShow: false });
         default:
