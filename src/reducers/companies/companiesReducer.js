@@ -35,7 +35,7 @@ export default function company(state = initialState, action) {
 
 
             store.save('companies', companies)
-            return { ...state, ...{ "companies": companies } };
+            return { ...state, ...{ companies: companies } };
         case companySucess:
             return { ...state, ...action.payload, spinnerShow: false }
         case companyRequest:

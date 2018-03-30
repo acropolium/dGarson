@@ -13,7 +13,7 @@ export function getItemsFromStorage(readFromServer = false) {
     return (dispatch, props) => {
 
         if (needUpdate() || readFromServer) {
-            alert(readFromServer)
+            
             dispatchHelp(dispatch, companyRequest, {})
             return serverReqestCompanys(dispatch);
         } else {

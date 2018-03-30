@@ -1,5 +1,4 @@
 import api from '../../services/apiService';
-import reduxStore from '../../store/configureStore'
 import store from "../../utils/storage";
 import * as routeService from "../../services/routeService";
 import company from '../companies/companiesReducer';
@@ -48,19 +47,21 @@ export function loadInitialStateApp() {
         dispatchHelp(dispatch, loadInitialState, initialLogin)
         dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
 
+        let companies = store.get('companies')
+        let companyID = store.get('company')
+        let companyInfo = false;
+        if (companyID)
+            companyInfo = store.get('company_info')[companyID];
+
         AppState.addEventListener('change', (appState) => {
 
             if (appState == 'active') {
 
                 FCM.removeAllDeliveredNotifications()
 
-                let companyID = store.get('company')
-                let companyInfo = {};
-                if (companyID)
-                    companyInfo = store.get('company_info')[companyID];
-
                 dispatchHelp(dispatch, companySucess, {
-                    'company_info': companyInfo,
+                    company_info: companyInfo,
+                    companies: companies,
                     needUpdate: true,
                     needUpdateFromServer: true
                 })
