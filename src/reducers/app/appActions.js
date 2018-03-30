@@ -29,39 +29,37 @@ export function sendToken(token) {
     }
 }
 
+const initialLoginStateKeys = [
+    'token',
+    'phone',
+    'lang',
+    'device_token',
+    'device_token_sent'
+];
+
 export function loadInitialStateApp() {
 
     return (dispatch, props) => {
 
         store.save('lang', I18n.locale);
 
-        const initialLoginStateKeys = [
-            'token',
-            'phone',
-            'lang',
-            'device_token',
-            'device_token_sent'
-        ];
-
         let initialLogin = store.getForArray(initialLoginStateKeys);
 
         dispatchHelp(dispatch, loadInitialState, initialLogin)
         dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
 
-
-
         AppState.addEventListener('change', (appState) => {
 
             if (appState == 'active') {
-                FCM.removeAllDeliveredNotifications()
-                let companyID = store.get('company')
 
+                FCM.removeAllDeliveredNotifications()
+
+                let companyID = store.get('company')
                 let companyInfo = {};
                 if (companyID)
                     companyInfo = store.get('company_info')[companyID];
 
                 dispatchHelp(dispatch, companySucess, {
-
                     'company_info': companyInfo,
                     needUpdate: true,
                     needUpdateFromServer: true
