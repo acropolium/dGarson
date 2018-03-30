@@ -12,10 +12,9 @@ export function getItemsFromStorage(readFromServer = false) {
 
     return (dispatch, props) => {
 
-        dispatchHelp(dispatch, companyRequest, {})
-
         if (needUpdate() || readFromServer) {
-
+            alert(readFromServer)
+            dispatchHelp(dispatch, companyRequest, {})
             return serverReqestCompanys(dispatch);
         } else {
 
@@ -26,7 +25,7 @@ export function getItemsFromStorage(readFromServer = false) {
     }
 }
 
-let timeUpdate = 60000000000;
+let timeUpdate = 2000000;
 
 function needUpdate() {
 

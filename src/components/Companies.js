@@ -19,13 +19,14 @@ export default class Companies extends Component {
             searchValue: '',
         };
 
-        this.getItemsFromStorage();
+         this.getItemsFromStorage();
     }
 
     componentWillReceiveProps(nextProps) {
-
+       
+        
         if (nextProps.needUpdate) {
-            this.getItemsFromStorage();
+            this.getItemsFromStorage(nextProps.needUpdateFromServer);
         }
     }
 

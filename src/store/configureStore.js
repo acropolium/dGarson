@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'remote-redux-devtools';
 
-export default function configureStore(initialState) {
+ function configureStore(initialState) {
 
     const devTools = composeWithDevTools({ realtime: true });
 
@@ -13,3 +13,6 @@ export default function configureStore(initialState) {
 
     return store
 }
+
+const store = configureStore();
+export default store;

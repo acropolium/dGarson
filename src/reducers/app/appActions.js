@@ -1,4 +1,5 @@
 import api from '../../services/apiService';
+import reduxStore from '../../store/configureStore'
 import store from "../../utils/storage";
 import * as routeService from "../../services/routeService";
 import company from '../companies/companiesReducer';
@@ -48,17 +49,26 @@ export function loadInitialStateApp() {
         dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
 
         let companies = store.get('companies')
-        if (companies)
-            dispatchHelp(dispatch, companySucess, { companies: companies })
 
-        let companyID = store.get('company')
+        AppState.addEventListener('change', (appState) => {
 
-        let companyInfo = false;
-        if (companyID)
-            companyInfo = store.get('company_info')[companyID];
+            if (appState == 'active') {
 
-        if (companyInfo)
-            dispatchHelp(dispatch, companySucess, { 'company_info': companyInfo })
+                let companyID = store.get('company')
+
+                let companyInfo = {};
+                if (companyID)
+                    companyInfo = store.get('company_info')[companyID];
+
+                FCM.removeAllDeliveredNotifications()
+                dispatchHelp(dispatch, companySucess, {
+                    companies: companies,
+                    'company_info': companyInfo,
+                    needUpdate: true,
+                    needUpdateFromServer: true
+                })
+            }
+        });
 
         let menu = store.get('menu')
         if (menu)
@@ -92,8 +102,7 @@ export function notificationHandler(notification, dialogActions) {
 
         if (data.hasOwnProperty('state')) {
 
-            sendLocalNotification(notification.message);
-
+            // sendLocalNotification(notification.message);
             dispatchHelp(dispatch, companyOrderState, { company_id: data['company_id'], data: data.state })
             dispatchHelp(dispatch, updateOrderState, { orderID: data.id, state: data.state })
 
@@ -111,6 +120,7 @@ export function notificationHandler(notification, dialogActions) {
                     textMessage += I18n.t('your_order_payed_part_1') + ' #' + data.id + ' ' + I18n.t('your_order_payed_part_2');
                     dialogActions.dialogShow({ message: textMessage, overlayStyle: { backgroundColor: 'rgba(131, 187, 112, 0.8)' }, image: 'icon_payed' });
                     break;
+
             }
         }
     }
@@ -128,7 +138,7 @@ function sendTokenRequest(token, currentToken, dispatch) {
         });
         request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
             () => {
-                
+
                 store.save('device_token', token);
                 dispatchHelp(dispatch, setDeviceToken, { device_token: token, device_token_send: true })
             }
@@ -158,14 +168,6 @@ function getNotificationData(notification) {
     return data;
 }
 
-let currentAppState;
-
-AppState.addEventListener('change', (appState) => {
-    currentAppState = appState;
-    if (currentAppState == 'active') {
-        FCM.removeAllDeliveredNotifications()
-    }
-});
 
 function sendLocalNotification(message) {
 

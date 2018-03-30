@@ -10,7 +10,7 @@ export default class apiService {
         if (this.props.hasOwnProperty('user'))
             this.user = this.props.user;
 
-            
+
         return this;
     };
 
@@ -32,10 +32,8 @@ export default class apiService {
 
     apiHost = () => {
 
-
-
         //return 'https://api.garson.co/';
-        return 'http://10.0.2.2:8000/';
+          return 'http://10.0.2.2:8000/';
     };
 
 
@@ -51,7 +49,7 @@ export default class apiService {
         let uri = this.apiHost() + 'users/refresh-token';
 
         let request = this.request(uri, method, body, doneFunc, successFunc, errorFunc);
-        
+
         return request;
 
     };
@@ -98,8 +96,8 @@ export default class apiService {
         if (this.hasOwnProperty('user') && this.user.hasOwnProperty('token')) {
             headers_authorised = this.headers_authorised();
             headers_authorised['Authorization'] = headers_authorised['Authorization'] + this.user.token;
-       
-            
+
+
         }
 
         let headers = {
@@ -112,7 +110,7 @@ export default class apiService {
 
         try {
             let response = await fetch(uri, headers);
-            
+
 
             return this.responseParse(response, doneFunc, successFunc, errorFunc)
         } catch (error) {

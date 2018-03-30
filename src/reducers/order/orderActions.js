@@ -13,7 +13,7 @@ import {
     orderRequest,
     ordeError
 } from '../constAction.js';
-//import { Object } from 'realm';
+
 
 
 export function cancelOrder(order_id, company_id) {
@@ -73,7 +73,7 @@ export function makeOrder(body, company_id) {
 }
 
 
-export function getOrderForCompany(body) {
+export function getOrderForCompany(companyID) {
     return (dispatch, props) => {
 
         let request = (new api()).setProps({
@@ -83,11 +83,12 @@ export function getOrderForCompany(body) {
             }
         });
         dispatchHelp(dispatch, orderRequest)
-        return request.order(body, 'get', false, false).then((response) => {
+        return request.order(companyID, 'get', false, false).then((response) => {
             if (!ifRedirectOrderCompany(response, dispatch)) {
 
                 let order = { state: response.state, order: response, desired_time: response.desired_time };
                 dispatchHelp(dispatch, doOrder, order)
+             
             }
         }).catch((error) => {
             dispatchHelp(dispatch, ordeError)
@@ -114,6 +115,7 @@ export function removeItem(item, idx) {
         dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
+
 
 export function addItem(item) {
     return (dispatch, props) => {
@@ -143,7 +145,6 @@ export function addItem(item) {
         dispatchHelp(dispatch, addItemOrder, copy)
     }
 }
-
 
 
 export function changeItemAddition(item, idxName, itemAdditionIdx, operation = 'add') {
@@ -182,6 +183,7 @@ export function setOrder(new_state, action = 'do_order') {
     }
 }
 
+
 function getItemOption(options) {
     let itemCopy = {};
 
@@ -191,6 +193,7 @@ function getItemOption(options) {
     });
     return itemCopy;
 }
+
 
 function ifRedirectMakeOrder(response, company_id, dispatch) {
 
@@ -248,6 +251,7 @@ function ifRedirectOrderCompany(response, dispatch) {
     return false;
 }
 
+
 function updateStore(companyID, storeName, updateData) {
 
     let updates = store.get(storeName);
@@ -256,6 +260,7 @@ function updateStore(companyID, storeName, updateData) {
     store.save(storeName, updates);
 
 }
+
 
 function dispatchHelp(dispatch, type, payload = {}) {
 

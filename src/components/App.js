@@ -27,6 +27,8 @@ export default class App extends Component {
 
             this.props.appAction.sendToken(token);
         });
+
+        
     };
 
     handleAndroidBack = async () => {

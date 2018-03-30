@@ -19,6 +19,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
 
     return {
+        needUpdateFromServer:state.companies.needUpdateFromServer,
         needUpdate: state.companies.needUpdate,
         companies: state.companies.companies,
         spinnerShow: state.companies.spinnerShow
