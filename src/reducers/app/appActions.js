@@ -48,21 +48,20 @@ export function loadInitialStateApp() {
         dispatchHelp(dispatch, loadInitialState, initialLogin)
         dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
 
-        let companies = store.get('companies')
+
 
         AppState.addEventListener('change', (appState) => {
 
             if (appState == 'active') {
-
+                FCM.removeAllDeliveredNotifications()
                 let companyID = store.get('company')
 
                 let companyInfo = {};
                 if (companyID)
                     companyInfo = store.get('company_info')[companyID];
 
-                FCM.removeAllDeliveredNotifications()
                 dispatchHelp(dispatch, companySucess, {
-                    companies: companies,
+
                     'company_info': companyInfo,
                     needUpdate: true,
                     needUpdateFromServer: true
