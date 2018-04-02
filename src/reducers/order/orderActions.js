@@ -4,21 +4,21 @@ import * as routeService from '../../services/routeService'
 import store from '../../utils/storage'
 import I18n from '../../services/translate.js'
 import {
-    companyOrderState,
-    doOrder,
-    addItemOrder,
-    changeItemAdditionOrder,
-    dialogShowing,
-    flushOrder,
-    orderRequest,
-    ordeError
+    COMPANY_OPDER_STATE,
+    DO_ORDER,
+    ADD_ITEM_ORDER,
+    CHANGE_ITEM_ADDITION_ORDER,
+    DIALOG_SHOWING,
+    FLUSH_ORDER,
+    ORDER_REQUEST,
+    ORDER_ERROR
 } from '../constAction.js'
 
 export function cancelOrder(order_id, company_id) {
     return (dispatch, props) => {
         let request = new api()
 
-        dispatchHelp(dispatch, orderRequest)
+        dispatchHelp(dispatch, ORDER_REQUEST)
         request.setLang(store.get('lang'))
         request.setToken(store.get("token"))
 
@@ -29,14 +29,14 @@ export function cancelOrder(order_id, company_id) {
 
                 updateStore(company_id, 'order_company', false)
 
-                dispatchHelp(dispatch, flushOrder)
-                dispatchHelp(dispatch, companyOrderState, {
+                dispatchHelp(dispatch, FLUSH_ORDER)
+                dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
                     company_id: company_id,
                     data: 'no'
                 })
             })
             .catch(error => {
-                dispatchHelp(dispatch, ordeError)
+                dispatchHelp(dispatch, ORDER_ERROR)
                 Promise.reject(error)
             })
     }
@@ -46,7 +46,7 @@ export function makeOrder(body, company_id) {
     return (dispatch, props) => {
         let request = new api()
         
-        dispatchHelp(dispatch, orderRequest)
+        dispatchHelp(dispatch,ORDER_REQUEST)
         request.setLang(store.get('lang'))
         request.setToken(store.get("token"))
 
@@ -54,8 +54,8 @@ export function makeOrder(body, company_id) {
             .orders(false, 'POST', body)
             .then(response => {
                 if (!ifRedirectMakeOrder(response, company_id, dispatch)) {
-                    dispatchHelp(dispatch, doOrder, { order: response })
-                    dispatchHelp(dispatch, companyOrderState, {
+                    dispatchHelp(dispatch, DO_ORDER , { order: response })
+                    dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
                         company_id: company_id,
                         data: 'pending'
                     })
@@ -65,7 +65,7 @@ export function makeOrder(body, company_id) {
                 }
             })
             .catch(error => {
-                dispatchHelp(dispatch, ordeError)
+                dispatchHelp(dispatch, ORDER_ERROR)
                 return Promise.reject(error)
             })
     }
@@ -75,7 +75,7 @@ export function getOrderForCompany(companyID) {
     return (dispatch, props) => {
         let request = new api()
         
-        dispatchHelp(dispatch, orderRequest)
+        dispatchHelp(dispatch, ORDER_REQUEST)
         request.setLang(store.get('lang'))
         request.setToken(store.get("token"))
         
@@ -88,11 +88,11 @@ export function getOrderForCompany(companyID) {
                         order: response,
                         desired_time: response.desired_time
                     }
-                    dispatchHelp(dispatch, doOrder, order)
+                    dispatchHelp(dispatch,DO_ORDER, order)
                 }
             })
             .catch(error => {
-                dispatchHelp(dispatch, ordeError)
+                dispatchHelp(dispatch, ORDER_ERROR)
                 return Promise.reject(error)
             })
     }
@@ -113,7 +113,7 @@ export function removeItem(item, idx) {
 
         if (index) delete copy.draft[item.id].items[index.toString()]
 
-        dispatchHelp(dispatch, addItemOrder, copy)
+        dispatchHelp(dispatch,ADD_ITEM_ORDER, copy)
     }
 }
 
@@ -143,7 +143,7 @@ export function addItem(item) {
             ? parseFloat(copy.price.total) + priceTotal
             : priceTotal
 
-        dispatchHelp(dispatch, addItemOrder, copy)
+        dispatchHelp(dispatch, ADD_ITEM_ORDER, copy)
     }
 }
 
@@ -197,7 +197,7 @@ export function changeItemAddition(
             }
         }
 
-        dispatchHelp(dispatch, changeItemAdditionOrder, copy)
+        dispatchHelp(dispatch, CHANGE_ITEM_ADDITION_ORDER, copy)
     }
 }
 
@@ -221,7 +221,7 @@ function getItemOption(options) {
 
 function ifRedirectMakeOrder(response, company_id, dispatch) {
     if (response.hasOwnProperty('redirect')) {
-        dispatchHelp(dispatch, flushOrder)
+        dispatchHelp(dispatch, FLUSH_ORDER)
 
         switch (response.status) {
             case 409:
@@ -232,7 +232,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
 
                 updateStore(company_id, 'menuUpdate', 0)
 
-                dispatchHelp(dispatch, dialogShowing, {
+                dispatchHelp(dispatch, DIALOG_SHOWING, {
                     title: I18n.t('dialog_warning_title'),
                     message: errorMessages.join('\r\n'),
                     callback: () => {
@@ -245,7 +245,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
                 routeService.changePage('init')
                 return true
             case 302:
-                dispatchHelp(dispatch, doOrder, { order: response.json })
+                dispatchHelp(dispatch, DO_ORDER , { order: response.json })
                 routeService.changePage('order')
                 return true
         }
@@ -255,7 +255,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
 
 function ifRedirectOrderCompany(response, dispatch) {
     if (response.hasOwnProperty('redirect')) {
-        dispatchHelp(dispatch, flushOrder)
+        dispatchHelp(dispatch, FLUSH_ORDER)
 
         switch (response.status) {
             case 401:

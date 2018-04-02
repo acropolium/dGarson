@@ -1,15 +1,15 @@
 import api from '../../services/apiService'
 import store from '../../utils/storage'
 import * as routeService from '../../services/routeService'
-import { companyRequest, companySucess, companyError } from '../constAction.js'
+import { COMPANY_REQUEST, COMPANY_SUCCES, COMPANY_ERROR } from '../constAction.js'
 
 export function getItemsFromStorage(readFromServer = false) {
     return (dispatch, props) => {
         if (needUpdate() || readFromServer) {
-            dispatchHelp(dispatch, companyRequest, {})
+            dispatchHelp(dispatch, COMPANY_REQUEST, {})
             return serverReqestCompanys(dispatch)
         } else {
-            dispatchHelp(dispatch, companySucess, {
+            dispatchHelp(dispatch, COMPANY_SUCCES, {
                 companies: store.get('companies')
             })
 
@@ -48,7 +48,7 @@ function serverReqestCompanys(dispatch) {
                     companyUpdate: new Date().getTime()
                 }
 
-                dispatchHelp(dispatch, companySucess, data)
+                dispatchHelp(dispatch, COMPANY_SUCCES, data)
 
                 saveStore(data)
             } else {
@@ -56,7 +56,7 @@ function serverReqestCompanys(dispatch) {
             }
         })
         .catch(error => {
-            dispatch({ type: companyError })
+            dispatch({ type: COMPANY_ERROR })
             return Promise.reject(error)
         })
 }

@@ -1,15 +1,15 @@
 import {
-    userInputPhoneCode,
-    userInputPhoneNumber,
-    loadInitialState,
-    registerRequest,
-    loadInitialStateConfirm,
-    registerRequestSuccess,
-    registerRequestError,
-    verifySucess,
-    verifyRequest,
-    setDeviceToken,
-    verifyError
+    USER_INPUT_PHONE_CODE,
+    USER_INPUT_PHONE_NUMBER,
+    LOAD_INITIAL_STATE,
+    REGISTER_REQUEST,
+    LOAD_INITIAL_STATE_CONFIRM,
+    REGISTER_REQUEST_SUCCESS,
+    REGISTER_REQUEST_ERROR,
+    VERIFY_SUCCES,
+    VERIFY_REQUEST,
+    SET_DEVICE_TOKEN,
+    VERIFY_ERROR
 } from '../constAction.js'
 
 const initialState = {
@@ -25,25 +25,25 @@ const initialState = {
 
 export default function login(state = initialState, action) {
     switch (action.type) {
-        case setDeviceToken:
-        case loadInitialState:
-        case loadInitialStateConfirm:
-        case verifySucess:
+        case SET_DEVICE_TOKEN:
+        case LOAD_INITIAL_STATE:
+        case LOAD_INITIAL_STATE_CONFIRM:
+        case VERIFY_SUCCES:
             return { ...state, ...action.payload }
 
-        case userInputPhoneCode:
+        case USER_INPUT_PHONE_CODE:
             return { ...state, phoneCode: action.payload.phoneCode }
 
-        case userInputPhoneNumber:
+        case USER_INPUT_PHONE_NUMBER:
             return { ...state, phoneNumber: action.payload.phoneNumber }
-        case verifyRequest:
-        case registerRequest:
+        case VERIFY_REQUEST :
+        case REGISTER_REQUEST:
             return { ...state, spinnerShow: true }
-        case registerRequestSuccess:
+        case REGISTER_REQUEST_SUCCESS:
             return { ...state, ...action.payload, spinnerShow: false }
 
-        case verifyError:
-        case registerRequestError:
+        case VERIFY_ERROR:
+        case REGISTER_REQUEST_ERROR:
             return { ...state, spinnerShow: false }
 
         default:

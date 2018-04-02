@@ -1,8 +1,8 @@
 import {
-    companyOrderState,
-    companyRequest,
-    companySucess,
-    companyError
+    COMPANY_OPDER_STATE,
+    COMPANY_REQUEST,
+    COMPANY_SUCCES,
+    COMPANY_ERROR
 } from '../constAction.js'
 
 import store from '../../utils/storage'
@@ -14,7 +14,7 @@ const initialState = {
 
 export default function company(state = initialState, action) {
     switch (action.type) {
-        case companyOrderState:
+        case COMPANY_OPDER_STATE:
             let companies = {
                 ...state.companies,
                 ...{
@@ -33,16 +33,16 @@ export default function company(state = initialState, action) {
 
             store.save('companies', companies)
             return { ...state, ...{ companies: companies } }
-        case companySucess:
+        case COMPANY_SUCCES:
             return { ...state, ...action.payload, spinnerShow: false }
-        case companyRequest:
+        case COMPANY_REQUEST:
             return {
                 ...state,
                 spinnerShow: true,
                 needUpdate: false,
                 needUpdateFromServer: false
             }
-        case companyError:
+        case COMPANY_ERROR:
             return { ...state, spinnerShow: false }
         default:
             return state

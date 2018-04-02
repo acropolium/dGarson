@@ -3,14 +3,12 @@ import moment from 'moment/moment'
 import store from '../../utils/storage'
 import * as routeService from '../../services/routeService'
 import {
-    doOrder,
-    menuRequest,
-    menuSucess,
-    menuError,
-    cleanDraftOrder,
-    companySucess,
-    companyRequest,
-    companyError
+    DO_ORDER,
+    MENU_SUCCES,
+    CLEAN_DRAFT_ORDER,
+    COMPANY_SUCCES,
+    COMPANY_REQUEST,
+    COMPANY_ERROR
 } from '../constAction.js'
 
 export function companysMenu(companyID, readFromServer) {
@@ -18,7 +16,7 @@ export function companysMenu(companyID, readFromServer) {
         let orderCompany = store.get('order_company')
         let currentTime = new Date().getTime()
 
-        dispatchHelp(dispatch, companyRequest)
+        dispatchHelp(dispatch, COMPANY_REQUEST)
 
         if (
             readFromServer ||
@@ -27,14 +25,14 @@ export function companysMenu(companyID, readFromServer) {
         ) {
             return readFromServerMenu(companyID, props, dispatch, currentTime)
         } else {
-            dispatchHelp(dispatch, cleanDraftOrder, {
+            dispatchHelp(dispatch, CLEAN_DRAFT_ORDER, {
                 draft: {},
                 price: { total: 0 }
             })
-            dispatchHelp(dispatch, companySucess, {
+            dispatchHelp(dispatch, COMPANY_SUCCES, {
                 company_info: store.get('company_info')[companyID]
             })
-            dispatchHelp(dispatch, menuSucess, store.get('menu'))
+            dispatchHelp(dispatch, MENU_SUCCES, store.get('menu'))
 
             saveStore({ company: companyID })
             routeService.changePage('menu')
@@ -63,12 +61,12 @@ function ifRedirect(response, dispatch) {
 
         switch (response.status) {
             case 302:
-                dispatchHelp(dispatch, doOrder, {
+                dispatchHelp(dispatch, DO_ORDER, {
                     order: orderJson,
                     state: orderJson.state,
                     from_company: true
                 })
-                dispatchHelp(dispatch, companySucess, {
+                dispatchHelp(dispatch, COMPANY_SUCCES, {
                     company_info: store.get('company_info')[
                         orderJson.company_id
                     ]
@@ -84,7 +82,7 @@ function ifRedirect(response, dispatch) {
                 return true
             case 404:
                 store.save('companyUpdate', 0)
-                dispatchHelp(dispatch, companySucess, { needUpdate: true })
+                dispatchHelp(dispatch, COMPANY_SUCCES, { needUpdate: true })
                 routeService.changePage('companies')
 
                 return true
@@ -138,16 +136,16 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             let allMenuInfo = store.get('menu') || {}
             let save_data = getResponseData(response, menu, allMenuInfo)
 
-            dispatchHelp(dispatch, cleanDraftOrder, {
+            dispatchHelp(dispatch, CLEAN_DRAFT_ORDER, {
                 draft: {},
                 price: { total: 0 }
             })
-            dispatchHelp(dispatch, companySucess, {
+            dispatchHelp(dispatch,COMPANY_SUCCES, {
                 company_info: response.company
             })
 
             allMenuInfo[response.company.id] = save_data
-            dispatchHelp(dispatch, menuSucess, allMenuInfo)
+            dispatchHelp(dispatch, MENU_SUCCES, allMenuInfo)
 
             saveStore({ company: response.company.id })
             updateStore(response.company.id, 'menuUpdate', currentTime)
@@ -158,7 +156,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             return Promise.resolve()
         })
         .catch(error => {
-            dispatchHelp(dispatch, companyError)
+            dispatchHelp(dispatch, COMPANY_ERROR)
             return Promise.reject(error)
         })
 }

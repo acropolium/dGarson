@@ -6,15 +6,14 @@ import I18n from '../../services/translate.js'
 import FCM from 'react-native-fcm'
 import { Platform, AppState } from 'react-native'
 import {
-    loadInitialState,
-    loadInitialStateConfirm,
-    companySucess,
-    menuSucess,
-    setDeviceToken,
-    companyOrderState,
-    updateOrderState,
-    orderRequest,
-    doOrder
+    LOAD_INITIAL_STATE,
+    LOAD_INITIAL_STATE_CONFIRM,
+    COMPANY_SUCCES,
+    MENU_SUCCES,
+    SET_DEVICE_TOKEN,
+    COMPANY_OPDER_STATE,
+    UPDATE_ORDER_STATE,
+    DO_ORDER
 } from '../constAction.js'
 
 export function sendToken(token) {
@@ -42,8 +41,8 @@ export function loadInitialStateApp() {
 
         let initialLogin = store.getForArray(initialLoginStateKeys)
 
-        dispatchHelp(dispatch, loadInitialState, initialLogin)
-        dispatchHelp(dispatch, loadInitialStateConfirm, initialLogin)
+        dispatchHelp(dispatch, LOAD_INITIAL_STATE, initialLogin)
+        dispatchHelp(dispatch, LOAD_INITIAL_STATE_CONFIRM, initialLogin)
 
         let companies = store.get('companies')
         let companyID = store.get('company')
@@ -54,19 +53,19 @@ export function loadInitialStateApp() {
             if (appState == 'active') {
                 FCM.removeAllDeliveredNotifications()
 
-                dispatchHelp(dispatch, companySucess, {
+                dispatchHelp(dispatch, COMPANY_SUCCES, {
                     company_info: companyInfo,
                     companies: companies,
                     needUpdate: true,
                     needUpdateFromServer: true
                 })
 
-                dispatchHelp(dispatch, doOrder, { needUpdateFromServer: true })
+                dispatchHelp(dispatch, DO_ORDER, { needUpdateFromServer: true })
             }
         })
 
         let menu = store.get('menu')
-        if (menu) dispatchHelp(dispatch, menuSucess, menu)
+        if (menu) dispatchHelp(dispatch, MENU_SUCCES, menu)
     }
 }
 
@@ -89,11 +88,11 @@ export function notificationHandler(notification, dialogActions) {
 
         if (data.hasOwnProperty('state')) {
 
-            dispatchHelp(dispatch, companyOrderState, {
+            dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
                 company_id: data['company_id'],
                 data: data.state
             })
-            dispatchHelp(dispatch, updateOrderState, {
+            dispatchHelp(dispatch, UPDATE_ORDER_STATE, {
                 orderID: data.id,
                 state: data.state
             })
@@ -149,7 +148,7 @@ function sendTokenRequest(token, currentToken, dispatch) {
             .device_token('PUT', { device_token: token, platform: Platform.OS })
             .then(() => {
                 store.save('device_token', token)
-                dispatchHelp(dispatch, setDeviceToken, {
+                dispatchHelp(dispatch, SET_DEVICE_TOKEN, {
                     device_token: token,
                     device_token_send: true
                 })

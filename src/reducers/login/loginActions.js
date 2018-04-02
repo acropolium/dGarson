@@ -3,13 +3,13 @@ import api from '../../services/apiService'
 import { Platform } from 'react-native'
 import store from '../../utils/storage'
 import {
-    registerRequest,
-    registerRequestSuccess,
-    registerRequestError,
-    verifyRequest,
-    verifySucess,
-    companySucess,
-    verifyError
+    REGISTER_REQUEST,
+    REGISTER_REQUEST_SUCCESS, 
+    REGISTER_REQUEST_ERROR,
+    VERIFY_REQUEST,
+    VERIFY_SUCCES,
+    COMPANY_SUCCES,
+    VERIFY_ERROR
 } from '../constAction.js'
 
 export function loadDataHome(type, data) {
@@ -23,7 +23,7 @@ export function loadDataHome(type, data) {
 
 export function sendData(phone) {
     return (dispatch, props) => {
-        dispatch({ type: registerRequest })
+        dispatch({ type: REGISTER_REQUEST })
 
         const { login } = props()
         let device_token = login.device_token
@@ -45,11 +45,11 @@ export function sendData(phone) {
                 }
                 saveStore(data)
 
-                dispatch({ type: registerRequestSuccess, payload: data })
+                dispatch({ type: REGISTER_REQUEST_SUCCESS,payload: data })
                 routeService.changePage('confirm')
             })
             .catch(error => {
-                dispatch({ type: registerRequestError })
+                dispatch({ type: REGISTER_REQUEST_ERROR })
                 return Promise.reject(error)
             })
     }
@@ -57,7 +57,7 @@ export function sendData(phone) {
 
 export function sendConfirm(confirmData) {
     return (dispatch, props) => {
-        dispatch({ type: verifyRequest })
+        dispatch({ type: VERIFY_REQUEST })
 
         let request = new api()
 
@@ -74,7 +74,7 @@ export function sendConfirm(confirmData) {
                     state: 'companies'
                 }
 
-                dispatch({ type: verifySucess, payload: data })
+                dispatch({ type: VERIFY_SUCCES, payload: data })
                 saveStore(data)
 
                 let request = new api()
@@ -90,12 +90,12 @@ export function sendConfirm(confirmData) {
                 })
 
                 let data = { companies: companies }
-                dispatch({ type: companySucess, payload: data })
+                dispatch({ type: COMPANY_SUCCES, payload: data })
                 saveStore(data)
                 routeService.changePage('companies')
             })
             .catch(error => {
-                dispatch({ type: verifyError })
+                dispatch({ type: VERIFY_ERROR})
                 return Promise.reject(error)
             })
     }

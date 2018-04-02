@@ -1,15 +1,15 @@
 import initialState from './orderInitialState'
 
 import {
-    updateOrderState,
-    doOrder,
-    flushOrder,
-    loadDataOrder,
-    addItemOrder,
-    changeItemAdditionOrder,
-    cleanDraftOrder,
-    orderRequest,
-    ordeError
+    UPDATE_ORDER_STATE,
+    DO_ORDER,
+    FLUSH_ORDER,
+    LOAD_DATA_ORDER,
+    ADD_ITEM_ORDER,
+    CHANGE_ITEM_ADDITION_ORDER,
+    CLEAN_DRAFT_ORDER,
+    ORDER_REQUEST,
+    ORDER_ERROR
 } from '../constAction.js'
 
 export default function order(state = initialState, action) {
@@ -23,7 +23,7 @@ export default function order(state = initialState, action) {
     }
 
     switch (action.type) {
-        case updateOrderState:
+        case UPDATE_ORDER_STATE:
             if (state.order.id == action.payload.orderID) {
                 return Object.assign({}, flush, state, {
                     order: { ...state.order, state: action.payload.state }
@@ -31,28 +31,28 @@ export default function order(state = initialState, action) {
             } else {
                 return state
             }
-        case doOrder:
+        case DO_ORDER:
             return Object.assign({}, flush, state, action.payload, {
                 spinnerShow: false
             })
-        case flushOrder:
+        case FLUSH_ORDER:
             return Object.assign({}, flush)
-        case loadDataOrder:
+        case LOAD_DATA_ORDER:
             return Object.assign({}, state)
-        case addItemOrder:
+        case ADD_ITEM_ORDER:
             return Object.assign({}, state, action.payload)
-        case changeItemAdditionOrder:
+        case CHANGE_ITEM_ADDITION_ORDER:
             return Object.assign({}, state, action.payload)
-        case cleanDraftOrder:
+        case CLEAN_DRAFT_ORDER:
             return Object.assign({}, state, action.payload)
-        case orderRequest:
+        case ORDER_REQUEST:
             return Object.assign(
                 {},
                 state,
                 { spinnerShow: true },
                 { needUpdateFromServer: false }
             )
-        case ordeError:
+        case ORDER_ERROR:
             return Object.assign({}, state, { spinnerShow: false })
         default:
             return state

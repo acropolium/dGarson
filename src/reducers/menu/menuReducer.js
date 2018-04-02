@@ -1,8 +1,8 @@
 import {
-    menuRequest,
-    menuSucess,
-    menuError,
-    setLocation
+    MENU_REQUEST,
+    MENU_SUCCES,
+    MENU_ERROR,
+    SET_LOCATION
 } from '../constAction.js'
 import store from '../../utils/storage'
 
@@ -14,7 +14,7 @@ const initialState = {
 
 export default function menu(state = initialState, action) {
     switch (action.type) {
-        case setLocation:
+        case SET_LOCATION:
             let withLoc = {
                 ...state,
                 ...{
@@ -26,11 +26,11 @@ export default function menu(state = initialState, action) {
             }
             store.save('menu', withLoc)
             return withLoc
-        case menuSucess:
+        case MENU_SUCCES:
             return { ...state, ...action.payload, spinnerShow: false }
-        case menuRequest:
+        case MENU_REQUEST:
             return { ...state, spinnerShow: true }
-        case menuError:
+        case MENU_ERROR:
             return { ...state, spinnerShow: false }
         default:
             return state
