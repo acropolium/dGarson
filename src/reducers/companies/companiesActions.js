@@ -2,6 +2,7 @@ import api from '../../services/apiService'
 import store from '../../utils/storage'
 import * as routeService from '../../services/routeService'
 import { COMPANY_REQUEST, COMPANY_SUCCES, COMPANY_ERROR } from '../constAction.js'
+import { HOME_SCENE } from '../../scene/sceneConstant.js'
 
 export function getItemsFromStorage(readFromServer = false) {
     return (dispatch, props) => {
@@ -52,7 +53,7 @@ function serverReqestCompanys(dispatch) {
 
                 saveStore(data)
             } else {
-                routeService.changePage('home')
+                routeService.changePage(HOME_SCENE)
             }
         })
         .catch(error => {

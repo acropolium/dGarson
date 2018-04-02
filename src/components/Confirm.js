@@ -6,6 +6,7 @@ import styles from '../styles/components/ConfirmStyle'
 import ConfirmInputBlock from './ConfirmElement/ConfirmInputBlock'
 import ConfirmButtonBlock from './ConfirmElement/ConfirmButtonBlock'
 import Spinner from './Spinner'
+import { HOME_SCENE } from '../scene/sceneConstant.js'
 
 export default class Home extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ export default class Home extends Component {
     }
 
     goBack = async () => {
-        this.props.changePage('home')
+        this.props.changePage(HOME_SCENE)
     }
 
     setComfirmNumber = code => {

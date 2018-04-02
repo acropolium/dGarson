@@ -5,6 +5,7 @@ import RenderMenu from './Menu/RenderMenu'
 import RenderMenuFooter from './Menu/RenderMenuFooter'
 import LocationChooser from './CustomComponents/LocationChooser'
 import styles from '../styles/components/Menu/MenuStyles'
+import { ABOUT_SCENE } from '../scene/sceneConstant.js'
 
 export default class Menu extends Component {
     constructor(props) {
@@ -12,7 +13,7 @@ export default class Menu extends Component {
     }
 
     aboutAs = () => {
-        this.props.changePage('about', false)
+        this.props.changePage(ABOUT_SCENE, false)
     }
 
     render() {

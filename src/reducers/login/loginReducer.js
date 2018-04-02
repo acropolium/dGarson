@@ -28,7 +28,6 @@ export default function login(state = initialState, action) {
         case SET_DEVICE_TOKEN:
         case LOAD_INITIAL_STATE:
         case LOAD_INITIAL_STATE_CONFIRM:
-        case VERIFY_SUCCES:
             return { ...state, ...action.payload }
 
         case USER_INPUT_PHONE_CODE:
@@ -36,10 +35,11 @@ export default function login(state = initialState, action) {
 
         case USER_INPUT_PHONE_NUMBER:
             return { ...state, phoneNumber: action.payload.phoneNumber }
-        case VERIFY_REQUEST :
+        case VERIFY_REQUEST:
         case REGISTER_REQUEST:
             return { ...state, spinnerShow: true }
         case REGISTER_REQUEST_SUCCESS:
+        case VERIFY_SUCCES:
             return { ...state, ...action.payload, spinnerShow: false }
 
         case VERIFY_ERROR:

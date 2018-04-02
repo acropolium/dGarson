@@ -3,7 +3,6 @@ export const COMPANY_REQUEST = 'companyRequest'
 export const COMPANY_SUCCES = 'companySucess'
 export const COMPANY_ERROR = 'companyError'
 export const COMPANY_OPDER_STATE = 'companyOrderState'
-
 //login
 export const LOAD_INITIAL_STATE = 'loadInitialState'
 export const USER_INPUT_PHONE_CODE = 'userInputPhoneCode'

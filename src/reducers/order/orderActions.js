@@ -13,6 +13,13 @@ import {
     ORDER_REQUEST,
     ORDER_ERROR
 } from '../constAction.js'
+import {
+    HOME_SCENE,
+    COMPANIES_SCENE,
+    INIT_SCENE,
+    ORDER_SCENE,
+    MENU_SCENE
+} from '../../scene/sceneConstant.js'
 
 export function cancelOrder(order_id, company_id) {
     return (dispatch, props) => {
@@ -25,7 +32,7 @@ export function cancelOrder(order_id, company_id) {
         return request
             .orders(order_id, 'PUT', { state: 'cancel' })
             .then(() => {
-                routeService.changePage('menu')
+                routeService.changePage(MENU_SCENE)
 
                 updateStore(company_id, 'order_company', false)
 
@@ -45,8 +52,8 @@ export function cancelOrder(order_id, company_id) {
 export function makeOrder(body, company_id) {
     return (dispatch, props) => {
         let request = new api()
-        
-        dispatchHelp(dispatch,ORDER_REQUEST)
+
+        dispatchHelp(dispatch, ORDER_REQUEST)
         request.setLang(store.get('lang'))
         request.setToken(store.get("token"))
 
@@ -54,14 +61,14 @@ export function makeOrder(body, company_id) {
             .orders(false, 'POST', body)
             .then(response => {
                 if (!ifRedirectMakeOrder(response, company_id, dispatch)) {
-                    dispatchHelp(dispatch, DO_ORDER , { order: response })
+                    dispatchHelp(dispatch, DO_ORDER, { order: response })
                     dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
                         company_id: company_id,
                         data: 'pending'
                     })
 
                     updateStore(company_id, 'order_company', true)
-                    routeService.changePage('order')
+                    routeService.changePage(ORDER_SCENE)
                 }
             })
             .catch(error => {
@@ -74,11 +81,11 @@ export function makeOrder(body, company_id) {
 export function getOrderForCompany(companyID) {
     return (dispatch, props) => {
         let request = new api()
-        
+
         dispatchHelp(dispatch, ORDER_REQUEST)
         request.setLang(store.get('lang'))
         request.setToken(store.get("token"))
-        
+
         return request
             .order(companyID, 'get', false)
             .then(response => {
@@ -88,7 +95,7 @@ export function getOrderForCompany(companyID) {
                         order: response,
                         desired_time: response.desired_time
                     }
-                    dispatchHelp(dispatch,DO_ORDER, order)
+                    dispatchHelp(dispatch, DO_ORDER, order)
                 }
             })
             .catch(error => {
@@ -113,7 +120,7 @@ export function removeItem(item, idx) {
 
         if (index) delete copy.draft[item.id].items[index.toString()]
 
-        dispatchHelp(dispatch,ADD_ITEM_ORDER, copy)
+        dispatchHelp(dispatch, ADD_ITEM_ORDER, copy)
     }
 }
 
@@ -236,17 +243,17 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
                     title: I18n.t('dialog_warning_title'),
                     message: errorMessages.join('\r\n'),
                     callback: () => {
-                        routeService.changePage('companies')
+                        routeService.changePage(COMPANIES_SCENE)
                     }
                 })
 
                 return true
             case 401:
-                routeService.changePage('init')
+                routeService.changePage(INIT_SCENE)
                 return true
             case 302:
-                dispatchHelp(dispatch, DO_ORDER , { order: response.json })
-                routeService.changePage('order')
+                dispatchHelp(dispatch, DO_ORDER, { order: response.json })
+                routeService.changePage(ORDER_SCENE)
                 return true
         }
     }
@@ -259,10 +266,10 @@ function ifRedirectOrderCompany(response, dispatch) {
 
         switch (response.status) {
             case 401:
-                routeService.changePage('init')
+                routeService.changePage(INIT_SCENE)
                 return true
             case 404:
-                routeService.changePage('menu')
+                routeService.changePage(MENU_SCENE)
                 return true
         }
     }

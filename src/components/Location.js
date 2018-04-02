@@ -5,6 +5,8 @@ import { View } from './BaseComponents'
 import styles from '../styles/components/LocationStyle'
 import LocationFooter from './LocationComponents/LocationFooter'
 import LocationMap from './LocationComponents/LocationMap'
+import {MENU_SCENE} from '../scene/sceneConstant.js'
+
 
 let windowWidth = Dimensions.get('window').width
 let windowHeight = Dimensions.get('window').height
@@ -33,13 +35,13 @@ export default class Location extends Component {
 
         if (!this.locationList.length) {
             alert('sorry this location is unavailable')
-            this.props.changePage('menu')
+            this.props.changePage(MENU_SCENE)
         }
 
         this.locationList.forEach(val => {
             if (!val.lat || !val.lng) {
                 alert('sorry this location is unavailable')
-                this.props.changePage('menu')
+                this.props.changePage(MENU_SCENE)
             } else {
                 this.markers['m_' + val.id] = {
                     key: 'm_' + val.id,
@@ -87,7 +89,7 @@ export default class Location extends Component {
     }
 
     closeModal = () => {
-        this.props.changePage('menu', false)
+        this.props.changePage(MENU_SCENE, false)
     }
 
     setLocationId = async () => {

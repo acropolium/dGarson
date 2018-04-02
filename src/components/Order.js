@@ -8,6 +8,7 @@ import OrderElement from './Order/OrderListElement/OrderElement'
 import OrderStatus from './Order/OrderStatus'
 import OrderFooter from './Order/OrderFooter'
 import Spinner from './Spinner'
+import { MENU_SCENE } from '../scene/sceneConstant.js'
 
 export default class Order extends Component {
     constructor(props) {
@@ -96,11 +97,11 @@ export default class Order extends Component {
             this.props.orderActions.setOrder({}, 'flush')
         }
 
-        this.props.changePage('menu')
+        this.props.changePage(MENU_SCENE)
     }
 
     aboutAs = () => {
-        this.props.changePage('about', false)
+        this.props.changePage(ABOUT_SCENE, false)
     }
 
     render() {

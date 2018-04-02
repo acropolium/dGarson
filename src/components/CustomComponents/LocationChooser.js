@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import I18n from '../../services/translate.js'
 import { Text, View, TouchableHighlight, Icon } from '../BaseComponents'
 import styles from '../../styles/components/CustomComponents/LocationChooserCss'
+import {LOCATION_SCENE} from '../../scene/sceneConstant.js'
 
 export default class LocationChooser extends Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class LocationChooser extends Component {
             this.props.company_info.hasOwnProperty('locations') &&
             this.props.currentLocation !== false
         ) {
-            this.props.changePage('location', false)
+            this.props.changePage(LOCATION_SCENE, false)
         }
     }
 

@@ -10,6 +10,12 @@ import {
     COMPANY_REQUEST,
     COMPANY_ERROR
 } from '../constAction.js'
+import {
+    INIT_SCENE,
+    COMPANIES_SCENE,
+    ORDER_SCENE,
+    MENU_SCENE
+} from '../../scene/sceneConstant.js'
 
 export function companysMenu(companyID, readFromServer) {
     return (dispatch, props) => {
@@ -35,7 +41,7 @@ export function companysMenu(companyID, readFromServer) {
             dispatchHelp(dispatch, MENU_SUCCES, store.get('menu'))
 
             saveStore({ company: companyID })
-            routeService.changePage('menu')
+            routeService.changePage(MENU_SCENE)
 
             return Promise.resolve()
         }
@@ -73,17 +79,17 @@ function ifRedirect(response, dispatch) {
                 })
 
                 store.save('company', orderJson.company_id)
-                routeService.changePage('order')
+                routeService.changePage(ORDER_SCENE)
 
                 return true
             case 401:
-                routeService.changePage('init')
+               routeService.changePage(INIT_SCENE)
 
                 return true
             case 404:
                 store.save('companyUpdate', 0)
                 dispatchHelp(dispatch, COMPANY_SUCCES, { needUpdate: true })
-                routeService.changePage('companies')
+                routeService.changePage(COMPANIES_SCENE)
 
                 return true
         }
@@ -140,7 +146,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
                 draft: {},
                 price: { total: 0 }
             })
-            dispatchHelp(dispatch,COMPANY_SUCCES, {
+            dispatchHelp(dispatch, COMPANY_SUCCES, {
                 company_info: response.company
             })
 
@@ -152,7 +158,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             updateStore(response.company.id, 'menu', save_data)
             updateStore(response.company.id, 'company_info', response.company)
 
-            routeService.changePage('menu')
+            routeService.changePage(MENU_SCENE)
             return Promise.resolve()
         })
         .catch(error => {

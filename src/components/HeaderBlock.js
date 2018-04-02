@@ -4,6 +4,7 @@ import styles from '../styles/components/HeaderBlockStyle'
 import TochableHeaderIcon from './HeaderElement/TochableHeaderIcon'
 import { Text, View } from './BaseComponents'
 import * as routeService from '../services/routeService'
+import { COMPANIES_SCENE } from '../scene/sceneConstant.js'
 
 export default class HeaderBlock extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ export default class HeaderBlock extends Component {
     }
 
     goBack = () => {
-        routeService.changePage('companies')
+        routeService.changePage(COMPANIES_SCENE)
     }
 
     renderRightSide = () => {
@@ -78,9 +79,9 @@ export default class HeaderBlock extends Component {
                                 press={() => {
                                     this.handleClickUrl(
                                         'geo:' +
-                                            this.getCurrentCoordinates() +
-                                            '?q=' +
-                                            this.getCurrentCoordinates()
+                                        this.getCurrentCoordinates() +
+                                        '?q=' +
+                                        this.getCurrentCoordinates()
                                     )
                                 }}
                                 iconName="location-pin"

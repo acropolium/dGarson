@@ -4,13 +4,14 @@ import { Platform } from 'react-native'
 import store from '../../utils/storage'
 import {
     REGISTER_REQUEST,
-    REGISTER_REQUEST_SUCCESS, 
+    REGISTER_REQUEST_SUCCESS,
     REGISTER_REQUEST_ERROR,
     VERIFY_REQUEST,
     VERIFY_SUCCES,
     COMPANY_SUCCES,
     VERIFY_ERROR
 } from '../constAction.js'
+import { CONFIRM_SCENE, COMPANIES_SCENE } from '../../scene/sceneConstant.js'
 
 export function loadDataHome(type, data) {
     return (dispatch, props) => {
@@ -45,8 +46,8 @@ export function sendData(phone) {
                 }
                 saveStore(data)
 
-                dispatch({ type: REGISTER_REQUEST_SUCCESS,payload: data })
-                routeService.changePage('confirm')
+                dispatch({ type: REGISTER_REQUEST_SUCCESS, payload: data })
+                routeService.changePage(CONFIRM_SCENE)
             })
             .catch(error => {
                 dispatch({ type: REGISTER_REQUEST_ERROR })
@@ -91,11 +92,13 @@ export function sendConfirm(confirmData) {
 
                 let data = { companies: companies }
                 dispatch({ type: COMPANY_SUCCES, payload: data })
+                
                 saveStore(data)
-                routeService.changePage('companies')
+
+                routeService.changePage(COMPANIES_SCENE)
             })
             .catch(error => {
-                dispatch({ type: VERIFY_ERROR})
+                dispatch({ type: VERIFY_ERROR })
                 return Promise.reject(error)
             })
     }

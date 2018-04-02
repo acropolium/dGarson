@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Icon, Text, View, TouchableHighlight } from '../BaseComponents'
 import I18n from '../../services/translate.js'
 import styles from '../../styles/components/Menu/RenderMenuFooterStyle'
+import { PREVIEW_ORDER_SCENE, } from '../../scene/sceneConstant.js'
 
 export default class RenderMenuFooter extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ export default class RenderMenuFooter extends Component {
 
         this.props.setOrder({ order: orderData, state: 'draft' })
 
-        this.props.changePage('previewOrder', false)
+        this.props.changePage(PREVIEW_ORDER_SCENE, false)
     }
 
     render() {
