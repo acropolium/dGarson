@@ -1,18 +1,28 @@
 import store from '../utils/storage'
 
 export default class apiService {
-    constructor(props) {
-        this.user = {
-            lang: store.get('lang'),
-            token: store.get('token')
-        }
+    
+    setLang(lang) {
+        this.lang = lang
+    }
+
+    setToken(token) {
+        this.token = token
+    }
+
+    getLang() {
+        return this.lang ? this.lang : false
+    }
+
+    getToken() {
+        return this.token ? this.token : false
     }
 
     headers_common = () => {
         return {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            'Accept-Language': this.user.lang
+            'Accept-Language': this.getLang()
         }
     }
 
@@ -27,13 +37,13 @@ export default class apiService {
         return 'http://10.0.2.2:8000/'
     }
 
-    menu = async (id, method) => {
+    menu = async (id, method = 'get', body = false, ) => {
         let uri = this.apiHost() + 'companies/' + id + '/menu?per_page=500'
 
-        return this.request(uri, method)
+        return this.request(uri, method, body)
     }
 
-    device_token = async (method, body) => {
+    device_token = async (method = 'get', body = false) => {
         let uri = this.apiHost() + 'users/refresh-token'
 
         let request = this.request(uri, method, body)
@@ -41,7 +51,7 @@ export default class apiService {
         return request
     }
 
-    orders = async (id, method, body) => {
+    orders = async (id, method = 'get', body = false) => {
         let uri = this.apiHost() + 'orders'
 
         if (id) {
@@ -51,25 +61,25 @@ export default class apiService {
         return this.request(uri, method, body)
     }
 
-    order = async (id, method = 'get', body) => {
+    order = async (id, method = 'get', body = false) => {
         let uri = this.apiHost() + 'orders/last?company_id=' + id
 
         return this.request(uri, method, body)
     }
 
-    companies = async (method, body) => {
+    companies = async (method = 'get', body = false) => {
         let uri = this.apiHost() + 'companies?locations=true&last_order=true'
 
         return this.request(uri, method, body)
     }
 
-    register = async (method, body) => {
+    register = async (method = 'get', body = false) => {
         let uri = this.apiHost() + 'register'
 
         return this.request(uri, method, body)
     }
 
-    verify = async (method, body) => {
+    verify = async (method = 'get', body = false) => {
         let uri = this.apiHost() + 'verify'
 
         return this.request(uri, method, body)
@@ -78,10 +88,10 @@ export default class apiService {
     request = async (uri, method = 'get', body = {}) => {
         let headers_authorised = {}
 
-        if (this.hasOwnProperty('user') && this.user.token) {
+        if (this.getToken()) {
             headers_authorised = this.headers_authorised()
             headers_authorised['Authorization'] =
-                headers_authorised['Authorization'] + this.user.token
+                headers_authorised['Authorization'] + this.getToken()
         }
 
         let headers = {
@@ -124,7 +134,7 @@ export default class apiService {
                 default:
                     let errorMessages = []
                     let otherJson = await response.json()
-                    Object.keys(otherJson).forEach(function(key) {
+                    Object.keys(otherJson).forEach(function (key) {
                         errorMessages.push(otherJson[key].join('\r\n'))
                     })
 

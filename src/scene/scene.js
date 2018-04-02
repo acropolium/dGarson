@@ -12,81 +12,81 @@ import ModalPicker from '../containers/ModalPickerContainer'
 import Loading from '../components/Loading'
 import Spinner from '../components/Spinner'
 import {
-    root,
-    modal,
-    login,
-    register,
-    confirm,
-    menu,
-    order,
-    location,
-    dialog,
-    timer,
-    companies,
-    about
+    ROOT_SCENE,
+    MODAL_SCENE,
+    LOGIN_SCENE,
+    REGISTER_SCENE,
+    CONFIRM_SCENE,
+    MENU_SCENE,
+    ORDER_SCENE,
+    LOCATION_SCENE,
+    DIALOG_SCENE,
+    TIMER_SCENE,
+    COMPANIES_SCENE,
+    ABOUT_SCENE
 } from './sceneConstant.js'
 
 export default Actions.create(
     <Lightbox>
-        <Scene key={root} hideNavBar hideTabBar>
-            <Scene key={modal} component={Modal} />
+        <Scene key={ROOT_SCENE} hideNavBar hideTabBar>
+            <Scene key={MODAL_SCENE} component={Modal} />
             <Scene
-                key={login}
+                key={LOGIN_SCENE}
                 component={Loading}
                 panHandlers={null}
                 initial={true}
                 direction="leftToRight"
             />
             <Scene
-                key={register}
+                key={REGISTER_SCENE}
                 component={Home}
                 panHandlers={null}
                 direction="leftToRight"
             />
             <Scene
-                key={confirm}
+                key={CONFIRM_SCENE}
                 component={Confirm}
                 panHandlers={null}
                 direction="leftToRight"
             />
             <Scene
-                key={menu}
+                key={MENU_SCENE}
                 component={Menu}
                 panHandlers={null}
                 direction="leftToRight"
             />
             <Scene
-                key={order}
+                key={ORDER_SCENE}
                 component={Order}
                 panHandlers={null}
                 direction="leftToRight"
             />
             <Scene
-                key={location}
+                key={LOCATION_SCENE}
                 component={Location}
                 panHandlers={null}
                 direction="vertical"
             />
             <Scene
-                key={dialog}
+                key={DIALOG_SCENE}
                 component={Popage}
                 panHandlers={null}
                 direction="vertical"
             />
             <Scene
-                key={timer}
+                key={TIMER_SCENE}
                 component={ModalPicker}
                 panHandlers={null}
                 direction="vertical"
             />
             <Scene
-                key={companies}
+                key={COMPANIES_SCENE}
                 component={Companie}
                 panHandlers={null}
                 direction="leftToRight"
             />
             <Scene
-                key={about}
+                key={ABOUT_SCENE}
                 component={AboutUs}
                 panHandlers={null}
                 direction="vertical"

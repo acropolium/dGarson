@@ -29,6 +29,8 @@ export function sendData(phone) {
         let device_token = login.device_token
         let request = new api()
 
+        request.setLang(store.get('lang'))
+
         return request
             .register('POST', {
                 phone: phone,
@@ -57,7 +59,12 @@ export function sendConfirm(confirmData) {
     return (dispatch, props) => {
         dispatch({ type: verifyRequest })
 
-        return new api()
+        let request = new api()
+
+        request.setLang(store.get('lang'))
+        request.setToken(store.get("token"))
+
+        return request
             .verify('POST', confirmData)
             .then(response => {
                 let api_token = response.api_token
@@ -70,7 +77,11 @@ export function sendConfirm(confirmData) {
                 dispatch({ type: verifySucess, payload: data })
                 saveStore(data)
 
-                return new api().companies('GET', false)
+                let request = new api()
+                request.setLang(store.get('lang'))
+                request.setToken(store.get("token"))
+
+                return request.companies('GET', false)
             })
             .then(response => {
                 let companies = {}

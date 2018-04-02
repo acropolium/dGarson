@@ -17,7 +17,10 @@ import {
 export function cancelOrder(order_id, company_id) {
     return (dispatch, props) => {
         let request = new api()
+
         dispatchHelp(dispatch, orderRequest)
+        request.setLang(store.get('lang'))
+        request.setToken(store.get("token"))
 
         return request
             .orders(order_id, 'PUT', { state: 'cancel' })
@@ -42,7 +45,10 @@ export function cancelOrder(order_id, company_id) {
 export function makeOrder(body, company_id) {
     return (dispatch, props) => {
         let request = new api()
+        
         dispatchHelp(dispatch, orderRequest)
+        request.setLang(store.get('lang'))
+        request.setToken(store.get("token"))
 
         return request
             .orders(false, 'POST', body)
@@ -68,7 +74,11 @@ export function makeOrder(body, company_id) {
 export function getOrderForCompany(companyID) {
     return (dispatch, props) => {
         let request = new api()
+        
         dispatchHelp(dispatch, orderRequest)
+        request.setLang(store.get('lang'))
+        request.setToken(store.get("token"))
+        
         return request
             .order(companyID, 'get', false)
             .then(response => {
@@ -216,7 +226,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
         switch (response.status) {
             case 409:
                 let errorMessages = []
-                Object.keys(response.json).forEach(function(key) {
+                Object.keys(response.json).forEach(function (key) {
                     errorMessages.push(response.json[key].join('\r\n'))
                 })
 

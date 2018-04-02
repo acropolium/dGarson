@@ -1,50 +1,50 @@
 import { Actions, ActionConst } from 'react-native-router-flux'
 import store from '../utils/storage'
 import {
-    confirm,
-    menu,
-    order,
-    location,
-    timer,
-    companies,
-    about,
-    dialog,
-    init,
-    previewOrder
+    CONFIRM_SCENE,
+    MENU_SCENE,
+    ORDER_SCENE,
+    LOCATION_SCENE,
+    TIMER_SCENE,
+    COMPANIES_SCENE,
+    ABOUT_SCENE,
+    DIALOG_SCENE,
+    INIT_SCENE,
+    PREVIEW_ORDER_SCENE
 } from '../scene/sceneConstant.js'
 
 export function changePage(page, save_to_storage = true) {
     if (save_to_storage) store.save('state', page)
 
     switch (page) {
-        case init:
+        case INIT_SCENE:
             Actions.register({ type: ActionConst.RESET })
             break
-        case confirm:
+        case CONFIRM_SCENE:
             Actions.confirm({ type: ActionConst.RESET })
             break
-        case companies:
+        case COMPANIES_SCENE:
             Actions.companies({ type: ActionConst.RESET })
             break
-        case menu:
+        case MENU_SCENE:
             Actions.menu()
             break
-        case order:
+        case ORDER_SCENE:
             Actions.order({ type: ActionConst.RESET })
             break
-        case location:
+        case LOCATION_SCENE:
             Actions.location()
             break
-        case timer:
+        case TIMER_SCENE:
             Actions.timer()
             break
-        case dialog:
+        case DIALOG_SCENE:
             Actions.dialog()
             break
-        case about:
+        case ABOUT_SCENE:
             Actions.about()
             break
-        case previewOrder:
+        case PREVIEW_ORDER_SCENE:
             Actions.order({ type: ActionConst.RESET })
             break
         default:

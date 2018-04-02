@@ -5,16 +5,16 @@ import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm'
 import scene from '../scene/scene.js'
 import {
-    confirm,
-    menu,
-    order,
-    location,
-    timer,
-    companies,
-    about,
-    dialog,
-    init,
-    previewOrder
+    CONFIRM_SCENE,
+    MENU_SCENE,
+    ORDER_SCENE,
+    LOCATION_SCENE,
+    TIMER_SCENE,
+    COMPANIES_SCENE,
+    ABOUT_SCENE,
+    DIALOG_SCENE,
+    INIT_SCENE,
+    PREVIEW_ORDER_SCENE
 } from '../scene/sceneConstant.js'
 
 export default class App extends Component {
@@ -44,35 +44,35 @@ export default class App extends Component {
 
         let currentAction = false
         switch (this.currentPage) {
-            case confirm:
-                await this.props.changePage(init)
+            case CONFIRM_SCENE:
+                await this.props.changePage(INIT_SCENE)
                 currentAction = true
                 break
-            case location:
+            case LOCATION_SCENE:
                 Actions.pop()
                 currentAction = true
                 break
-            case dialog:
-            case timer:
+            case DIALOG_SCENE:
+            case TIMER_SCENE:
                 currentAction = true
                 Actions.pop()
                 break
-            case about:
+            case ABOUT_SCENE:
                 Actions.pop()
 
                 currentAction = true
                 break
 
-            case previewOrder:
-                await this.props.changePage(menu)
+            case PREVIEW_ORDER_SCENE:
+                await this.props.changePage(MENU_SCENE)
                 currentAction = true
                 break
-            case menu:
-                await this.props.changePage(companies)
+            case MENU_SCENE:
+                await this.props.changePage(COMPANIES_SCENE)
                 currentAction = true
                 break
-            case order:
-                let newState = companies
+            case ORDER_SCENE:
+                let newState = COMPANIES_SCENE
                 currentAction = true
 
                 if (
@@ -80,7 +80,7 @@ export default class App extends Component {
                         this.props.order_state
                     ) !== -1
                 ) {
-                    newState = menu
+                    newState = MENU_SCENE
                 }
                 this.props.changePage(newState)
 

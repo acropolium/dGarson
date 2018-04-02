@@ -75,8 +75,6 @@ export function getToken() {
         return FCM.getFCMToken()
             .then(token => {
                 let device_token = store.get('device_token')
-
-                //dispatchHelp(dispatch, setDeviceToken , { device_token: store.get('device_token') })
                 sendTokenRequest(token, device_token, dispatch)
             })
             .catch(err => {
@@ -90,7 +88,7 @@ export function notificationHandler(notification, dialogActions) {
         let data = getNotificationData(notification)
 
         if (data.hasOwnProperty('state')) {
-            // sendLocalNotification(notification.message);
+
             dispatchHelp(dispatch, companyOrderState, {
                 company_id: data['company_id'],
                 data: data.state
@@ -143,6 +141,9 @@ export function notificationHandler(notification, dialogActions) {
 function sendTokenRequest(token, currentToken, dispatch) {
     if (token && token !== false) {
         let request = new api()
+
+        request.setLang(store.get('lang'))
+        request.setToken(store.get('token'))
 
         request
             .device_token('PUT', { device_token: token, platform: Platform.OS })

@@ -29,9 +29,12 @@ function needUpdate() {
 
 function serverReqestCompanys(dispatch) {
     let requestCompanies = new api()
+    
+    requestCompanies.setLang(store.get('lang'))
+    requestCompanies.setToken(store.get('token'))
 
     return requestCompanies
-        .companies('GET', false)
+        .companies('GET')
         .then(response => {
             let companies = {}
 

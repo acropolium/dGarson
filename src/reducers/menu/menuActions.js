@@ -124,6 +124,9 @@ function getResponseData(response, menu, allMenuInfo) {
 function readFromServerMenu(companyID, props, dispatch, currentTime) {
     let request = new api()
 
+    request.setLang(store.get('lang'))
+    request.setToken(store.get("token"))
+
     return request
         .menu(companyID, 'get')
         .then(response => {
