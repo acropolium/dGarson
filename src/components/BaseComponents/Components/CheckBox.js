@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react'
 import {
     StyleSheet,
     View,
@@ -6,15 +6,14 @@ import {
     Image,
     Text,
     TouchableHighlight
-} from 'react-native';
-import PropTypes from 'prop-types';
-
+} from 'react-native'
+import PropTypes from 'prop-types'
 
 export default class CheckBox extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
-            isChecked: this.props.isChecked,
+            isChecked: this.props.isChecked
         }
     }
     static propTypes = {
@@ -30,7 +29,7 @@ export default class CheckBox extends Component {
         isChecked: PropTypes.bool.isRequired,
         isIndeterminate: PropTypes.bool.isRequired,
         checkBoxColor: PropTypes.string,
-        disabled: PropTypes.bool,
+        disabled: PropTypes.bool
     }
     static defaultProps = {
         isChecked: false,
@@ -42,63 +41,76 @@ export default class CheckBox extends Component {
         this.setState({
             isChecked: !this.state.isChecked
         })
-        this.props.onClick();
+        this.props.onClick()
     }
     _renderLeft() {
-        if (this.props.leftTextView)return this.props.leftTextView;
-        if (!this.props.leftText)return null;
+        if (this.props.leftTextView) return this.props.leftTextView
+        if (!this.props.leftText) return null
         return (
-            <Text style={[styles.leftText, this.props.leftTextStyle]}>{this.props.leftText}</Text>
-        );
+            <Text style={[styles.leftText, this.props.leftTextStyle]}>
+                {this.props.leftText}
+            </Text>
+        )
     }
     _renderRight() {
-        if (this.props.rightTextView)return this.props.rightTextView;
-        if (!this.props.rightText)return null;
+        if (this.props.rightTextView) return this.props.rightTextView
+        if (!this.props.rightText) return null
         return (
-            <Text style={[styles.rightText, this.props.rightTextStyle]}>{this.props.rightText}</Text>
-        );
+            <Text style={[styles.rightText, this.props.rightTextStyle]}>
+                {this.props.rightText}
+            </Text>
+        )
     }
 
     _renderImage() {
-        if (this.props.isIndeterminate){
-            return this.props.indeterminateImage ? this.props.indeterminateImage : this.genCheckedImage();
+        if (this.props.isIndeterminate) {
+            return this.props.indeterminateImage
+                ? this.props.indeterminateImage
+                : this.genCheckedImage()
         }
         if (this.state.isChecked) {
-            return this.props.checkedImage ? this.props.checkedImage : this.genCheckedImage();
+            return this.props.checkedImage
+                ? this.props.checkedImage
+                : this.genCheckedImage()
         } else {
-            return this.props.unCheckedImage ? this.props.unCheckedImage : this.genCheckedImage();
+            return this.props.unCheckedImage
+                ? this.props.unCheckedImage
+                : this.genCheckedImage()
         }
     }
 
     genCheckedImage() {
-        var source;
+        var source
         if (this.props.isIndeterminate) {
-            source = require('./media/checkbox/ic_indeterminate_check_box.png');
-        }
-        else {
-            source = this.state.isChecked ? require('./media/checkbox/ic_check_box.png') : require('./media/checkbox/ic_check_box_outline_blank.png');
+            source = require('./media/checkbox/ic_indeterminate_check_box.png')
+        } else {
+            source = this.state.isChecked
+                ? require('./media/checkbox/ic_check_box.png')
+                : require('./media/checkbox/ic_check_box_outline_blank.png')
         }
 
         return (
-            <Image source={source} style={{tintColor: this.props.checkBoxColor}} />
-        );
+            <Image
+                source={source}
+                style={{ tintColor: this.props.checkBoxColor }}
+            />
+        )
     }
 
     render() {
         return (
             <TouchableHighlight
                 style={this.props.style}
-                onPress={()=>this.onClick()}
-                underlayColor='transparent'
-                disabled={this.props.disabled}
-            >
+                onPress={() => this.onClick()}
+                underlayColor="transparent"
+                disabled={this.props.disabled}>
                 <View style={styles.container}>
                     {this._renderLeft()}
                     {this._renderImage()}
                     {this._renderRight()}
                 </View>
             </TouchableHighlight>
-        );
+        )
     }
 }
 const styles = StyleSheet.create({
@@ -107,10 +119,10 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     leftText: {
-        flex: 1,
+        flex: 1
     },
     rightText: {
         flex: 1,
         marginLeft: 10
     }
-});
+})

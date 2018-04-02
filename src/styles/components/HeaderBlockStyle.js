@@ -1,20 +1,18 @@
-import { Platform, StyleSheet } from 'react-native';
-import config from "../../config";
+import { Platform, StyleSheet } from 'react-native'
+import config from '../../config'
 
 export default StyleSheet.create({
     back_button_wrap: {
         width: 75,
         flexDirection: 'row',
-        justifyContent: 'flex-start',
-
+        justifyContent: 'flex-start'
     },
 
     center_title_wrap: {
-        
         paddingTop: 8,
         paddingBottom: 9,
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
 
     back_button: {
@@ -25,7 +23,7 @@ export default StyleSheet.create({
     },
 
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     header_icons: {
@@ -47,21 +45,18 @@ export default StyleSheet.create({
     },
 
     width_value: {
-        width: 75,
+        width: 75
     },
 
     menu_button: {
         padding: 4,
-        paddingTop: 9,
+        paddingTop: 9
     },
 
-    justifyContent_value: {
-        
-        
-    },
-    
+    justifyContent_value: {},
+
     header_text: {
         color: 'white',
         fontSize: 16
     }
-});
+})

@@ -1,10 +1,9 @@
-import {Platform, StyleSheet,Dimensions} from 'react-native';
-import config from "../../../config";
-
+import { Platform, StyleSheet, Dimensions } from 'react-native'
+import config from '../../../config'
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     content: {
@@ -31,5 +30,4 @@ export default StyleSheet.create({
         marginLeft: 5,
         marginRight: 10
     }
-});
-
+})

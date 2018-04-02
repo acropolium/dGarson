@@ -6,30 +6,20 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 function mapDispatchToProps(dispatch) {
-
     return {
-
         dialogActions: bindActionCreators(dialogActions, dispatch),
         companiesActions: bindActionCreators(companiesActions, dispatch),
-        getCompanyMenu: bindActionCreators(menuActions.companysMenu, dispatch),
-
+        getCompanyMenu: bindActionCreators(menuActions.companysMenu, dispatch)
     }
-};
+}
 
 function mapStateToProps(state) {
-
     return {
-        needUpdateFromServer:state.companies.needUpdateFromServer,
+        needUpdateFromServer: state.companies.needUpdateFromServer,
         needUpdate: state.companies.needUpdate,
         companies: state.companies.companies,
         spinnerShow: state.companies.spinnerShow
-    };
-
-
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Companies);
-
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Companies)

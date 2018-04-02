@@ -1,9 +1,8 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../../config";
-let windowWidth = Dimensions.get('window').width;
+import { Platform, StyleSheet, Dimensions } from 'react-native'
+import config from '../../../config'
+let windowWidth = Dimensions.get('window').width
 
 export default StyleSheet.create({
-
     timer_main: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -11,11 +10,11 @@ export default StyleSheet.create({
 
         padding: 10,
         paddingTop: 7,
-        paddingBottom: 7,
+        paddingBottom: 7
     },
 
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     selectTextStyle: {
@@ -38,13 +37,11 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     text_size: {
-        fontSize: 15,
-    }
-    ,
+        fontSize: 15
+    },
     icon_draft: {
         paddingTop: 15,
         paddingRight: 5,
         fontSize: 14
     }
-
-});
+})

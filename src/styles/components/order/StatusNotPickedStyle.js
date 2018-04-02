@@ -1,9 +1,8 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../../config";
-let windowWidth = Dimensions.get('window').width;
+import { Platform, StyleSheet, Dimensions } from 'react-native'
+import config from '../../../config'
+let windowWidth = Dimensions.get('window').width
 
 export default StyleSheet.create({
-
     wrap: {
         backgroundColor: '#2a2a32'
     },
@@ -28,4 +27,4 @@ export default StyleSheet.create({
     button: {
         width: windowWidth - 80
     }
-});
+})

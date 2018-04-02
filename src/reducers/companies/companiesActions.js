@@ -1,74 +1,64 @@
-import api from '../../services/apiService';
-import store from "../../utils/storage";
-import * as routeService from "../../services/routeService";
-import {
-    companyRequest,
-    companySucess,
-    companyError
-} from '../constAction.js';
-
+import api from '../../services/apiService'
+import store from '../../utils/storage'
+import * as routeService from '../../services/routeService'
+import { companyRequest, companySucess, companyError } from '../constAction.js'
 
 export function getItemsFromStorage(readFromServer = false) {
-
     return (dispatch, props) => {
-
         if (needUpdate() || readFromServer) {
-            
             dispatchHelp(dispatch, companyRequest, {})
-            return serverReqestCompanys(dispatch);
+            return serverReqestCompanys(dispatch)
         } else {
+            dispatchHelp(dispatch, companySucess, {
+                companies: store.get('companies')
+            })
 
-            dispatchHelp(dispatch, companySucess, { companies: store.get('companies') })
-
-            return Promise.resolve();
+            return Promise.resolve()
         }
     }
 }
 
-let timeUpdate = 2000000;
+let timeUpdate = 2000000
 
 function needUpdate() {
+    let lastTime = store.get('companyUpdate')
+    let currentTime = new Date().getTime()
 
-    let lastTime = store.get('companyUpdate');
-    let currentTime = new Date().getTime();
-
-    return !Number.isInteger(lastTime) || (currentTime - lastTime > timeUpdate);
+    return !Number.isInteger(lastTime) || currentTime - lastTime > timeUpdate
 }
 
 function serverReqestCompanys(dispatch) {
+    let requestCompanies = new api()
 
-    let requestCompanies = new api();
+    return requestCompanies
+        .companies('GET', false)
+        .then(response => {
+            let companies = {}
 
-    return requestCompanies.companies('GET', false).then((response) => {
+            if (response.data) {
+                response.data.forEach(item => {
+                    companies[item.id] = item
+                })
 
-        let companies = {};
+                let data = {
+                    companies: companies,
+                    companyUpdate: new Date().getTime()
+                }
 
-        if (response.data) {
+                dispatchHelp(dispatch, companySucess, data)
 
-            response.data.forEach((item) => {
-                companies[item.id] = item;
-            });
-
-            let data = { companies: companies, companyUpdate: new Date().getTime() }
-
-            dispatchHelp(dispatch, companySucess, data);
-
-            saveStore(data);
-
-        } else {
-            routeService.changePage('home');
-        }
-    }).catch((error) => {
-
-        dispatch({ type: companyError })
-        return Promise.reject(error);
-
-    });
-
+                saveStore(data)
+            } else {
+                routeService.changePage('home')
+            }
+        })
+        .catch(error => {
+            dispatch({ type: companyError })
+            return Promise.reject(error)
+        })
 }
 
 function dispatchHelp(dispatch, type, payload) {
-
     dispatch({
         type: type,
         payload: payload
@@ -76,8 +66,7 @@ function dispatchHelp(dispatch, type, payload) {
 }
 
 function saveStore(data) {
-
     Object.keys(data).forEach(async key => {
-        await store.save(key, data[key]);
-    });
+        await store.save(key, data[key])
+    })
 }

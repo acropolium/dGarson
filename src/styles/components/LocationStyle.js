@@ -1,15 +1,15 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../config";
-let windowWidth = Dimensions.get('window').width;
+import { Platform, StyleSheet, Dimensions } from 'react-native'
+import config from '../../config'
+let windowWidth = Dimensions.get('window').width
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     footer_wrap: {
         borderTopWidth: 3,
-        borderTopColor: '#000',
+        borderTopColor: '#000'
     },
 
     img: {
@@ -18,7 +18,6 @@ export default StyleSheet.create({
     },
 
     text: {
-
         paddingBottom: 0,
         fontSize: 14,
         marginLeft: 10
@@ -30,7 +29,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: 10,
-        borderBottomWidth: 1, borderBottomColor: '#94979f',
+        borderBottomWidth: 1,
+        borderBottomColor: '#94979f'
     },
 
     header_icons: {
@@ -44,13 +44,12 @@ export default StyleSheet.create({
         backgroundColor: '#2a2a31',
         padding: 10,
         paddingTop: 4,
-        paddingBottom: 7,
+        paddingBottom: 7
     },
 
     menu_button: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-
+        justifyContent: 'space-between'
     },
 
     overlayStyle: {
@@ -66,11 +65,11 @@ export default StyleSheet.create({
     container: {
         width: windowWidth,
         justifyContent: 'flex-end',
-        alignItems: 'center',
+        alignItems: 'center'
     },
 
     map: {
-        width: windowWidth,
+        width: windowWidth
     },
 
     location_footer_wrap: {
@@ -82,5 +81,4 @@ export default StyleSheet.create({
         justifyContent: 'flex-start',
         width: windowWidth - 70
     }
-
-});
+})

@@ -1,7 +1,7 @@
-import { Platform } from 'react-native';
+import { Platform } from 'react-native'
 
 export default {
     getPlatform: () => {
-        return Platform.OS;
+        return Platform.OS
     }
-};
+}

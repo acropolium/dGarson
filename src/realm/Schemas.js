@@ -1,8 +1,8 @@
 export const KeyValueSchema = {
-    name: "KeyValue",
-    primaryKey: "key",
+    name: 'KeyValue',
+    primaryKey: 'key',
     properties: {
-        key: { type: "string" },
-        value: { type: "string" }
+        key: { type: 'string' },
+        value: { type: 'string' }
     }
-};
+}

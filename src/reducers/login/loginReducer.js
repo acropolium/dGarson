@@ -10,21 +10,20 @@ import {
     verifyRequest,
     setDeviceToken,
     verifyError
-} from '../constAction.js';
- 
+} from '../constAction.js'
+
 const initialState = {
     phone: '',
     phoneFirstPart: '',
     phoneSecondPart: '',
     spinnerShow: false,
     token: false,
-    lang: "ua",
+    lang: 'ua',
     device_token: false,
     device_token_send: 0
 }
 
 export default function login(state = initialState, action) {
-
     switch (action.type) {
         case setDeviceToken:
         case loadInitialState:
@@ -48,7 +47,6 @@ export default function login(state = initialState, action) {
             return { ...state, spinnerShow: false }
 
         default:
-            return state;
+            return state
     }
-
 }

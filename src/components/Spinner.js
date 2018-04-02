@@ -1,31 +1,24 @@
-import React, { PropTypes, Component } from 'react';
-import {
-    StyleSheet,
-    Modal,
-    ActivityIndicator
-} from 'react-native';
-import { Text, View } from './BaseComponents';
-import styles from "../styles/components/SpinnerStyles";
+import React, { PropTypes, Component } from 'react'
+import { StyleSheet, Modal, ActivityIndicator } from 'react-native'
+import { Text, View } from './BaseComponents'
+import styles from '../styles/components/SpinnerStyles'
 
 export default class Spinner extends Component {
-
     constructor(props) {
-        super(props);
+        super(props)
     }
 
     render() {
-
         if (this.props.show) {
             return (
                 <View style={[styles.background]}>
                     <ActivityIndicator
-                        size='large'
+                        size="large"
                         style={styles.activiti_indicator}
                     />
                 </View>
             )
         }
-        return null;
+        return null
     }
 }
-

@@ -1,23 +1,22 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../../config";
-let windowWidth = Dimensions.get('window').width;
+import { Platform, StyleSheet, Dimensions } from 'react-native'
+import config from '../../../config'
+let windowWidth = Dimensions.get('window').width
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
     addition_block_text: {
         fontSize: 12,
-        color: '#94979f',
+        color: '#94979f'
     },
     addition_block_text_plus: {
         fontSize: 12
     },
 
-
     item_block: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     item_price_text: {
         color: '#89BCE2',
@@ -43,4 +42,4 @@ export default StyleSheet.create({
         padding: 9,
         paddingBottom: 0
     }
-});
+})

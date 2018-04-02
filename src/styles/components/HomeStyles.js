@@ -1,9 +1,9 @@
-import { Platform, StyleSheet } from 'react-native';
-import config from "../../config";
+import { Platform, StyleSheet } from 'react-native'
+import config from '../../config'
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     product_title: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
         fontFamily: config.custom_font,
         fontSize: 50,
         color: 'white',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
 
     phone_block: {
@@ -24,8 +24,7 @@ export default StyleSheet.create({
         paddingTop: 50,
         borderWidth: 1,
         borderColor: 'transparent',
-        borderBottomColor: '#000',
-
+        borderBottomColor: '#000'
     },
 
     register_style: {
@@ -33,7 +32,7 @@ export default StyleSheet.create({
         paddingBottom: 45,
         fontSize: 18,
         color: 'white',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
 
     container: {
@@ -44,8 +43,9 @@ export default StyleSheet.create({
 
     bg: {
         flex: 1,
-        width: null, height: null,
-        marginTop: Platform.OS == 'ios' ? 20 : undefined,
+        width: null,
+        height: null,
+        marginTop: Platform.OS == 'ios' ? 20 : undefined
     },
 
     content_block: {
@@ -80,13 +80,12 @@ export default StyleSheet.create({
     animated_text: {
         fontSize: 18,
         margin: 0
-    }
-    ,
+    },
     wrap_view_button: {
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
     },
 
     wrap_button: {
@@ -95,4 +94,4 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }
-});
+})

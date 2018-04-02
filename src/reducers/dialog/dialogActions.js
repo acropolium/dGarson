@@ -1,8 +1,4 @@
-import {
-    dialogShowing,
-    dialogHiding
-} from '../constAction.js';
-
+import { dialogShowing, dialogHiding } from '../constAction.js'
 
 export function dialogShow(new_state) {
     return (dispatch, props) => {
@@ -16,8 +12,7 @@ export function dialogShow(new_state) {
 export function dialogHide() {
     return (dispatch, props) => {
         dispatch({
-            type: dialogHiding,
-
+            type: dialogHiding
         })
     }
 }

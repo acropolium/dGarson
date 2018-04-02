@@ -3,27 +3,16 @@ import Popage from '../components/Popage'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-
 function mapDispatchToProps(dispatch) {
-
     return {
-
-        dialogActions: bindActionCreators(dialogActions, dispatch),
-
+        dialogActions: bindActionCreators(dialogActions, dispatch)
     }
-};
-
-function mapStateToProps(state) {
-
-    return {
-        dialog: state.dialog
-    };
-
-
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Popage);
+function mapStateToProps(state) {
+    return {
+        dialog: state.dialog
+    }
+}
 
-
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Popage)

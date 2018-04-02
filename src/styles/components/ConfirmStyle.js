@@ -1,14 +1,13 @@
-import { Platform, StyleSheet } from 'react-native';
-import config from "../../config";
+import { Platform, StyleSheet } from 'react-native'
+import config from '../../config'
 
 export default StyleSheet.create({
-
     wrap_text: {
         flexDirection: 'row',
         justifyContent: 'center'
     },
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     confirm_buttons_wrap: {
@@ -40,20 +39,22 @@ export default StyleSheet.create({
         fontFamily: config.custom_font,
         fontSize: 50,
         color: 'white',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
 
     container: {
         backgroundColor: 'white',
         alignSelf: 'stretch',
-        flex: 1,
+        flex: 1
     },
     content_block: {
         flex: 1
     },
 
     bg: {
-        flex: 1, width: null, height: null,
+        flex: 1,
+        width: null,
+        height: null,
         marginTop: Platform.OS == 'ios' ? 20 : undefined
     },
 
@@ -64,15 +65,14 @@ export default StyleSheet.create({
         marginLeft: 40,
         marginRight: 40,
         paddingBottom: 30,
-        paddingTop: 50,
-
+        paddingTop: 50
     },
     register_style: {
         paddingTop: 30,
         paddingBottom: 45,
         fontSize: 18,
         color: 'white',
-        backgroundColor: 'transparent',
+        backgroundColor: 'transparent'
     },
 
     number_wrap: {
@@ -86,7 +86,7 @@ export default StyleSheet.create({
         marginRight: 10,
         paddingBottom: 10,
         paddingLeft: Platform.OS == 'ios' ? 5 : 2,
-        paddingRight: 5,
+        paddingRight: 5
     },
 
     number: {
@@ -99,6 +99,5 @@ export default StyleSheet.create({
         width: 28,
         height: 28,
         margin: 0
-    },
-
-});
+    }
+})

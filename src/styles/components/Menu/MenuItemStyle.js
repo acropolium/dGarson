@@ -1,11 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
-import config from "../../../config";
-
-
+import { Platform, StyleSheet } from 'react-native'
+import config from '../../../config'
 
 export default StyleSheet.create({
-
-
     text_color: {
         color: '#2a2a31'
     },
@@ -27,7 +23,6 @@ export default StyleSheet.create({
     },
 
     img_size: {
-
         width: 50,
         height: 50
     },
@@ -38,28 +33,24 @@ export default StyleSheet.create({
     },
 
     custom_font: {
-        fontFamily: config.custom_font,
+        fontFamily: config.custom_font
     },
 
     card_block_main: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-
+        justifyContent: 'space-between'
     },
 
     item_name: {
-        fontSize: 18,
-
+        fontSize: 18
     },
     item_price: {
         alignSelf: 'flex-start',
         color: '#94979f',
-        marginTop: -6,
-
+        marginTop: -6
     },
     item_icon: {
-        padding: 10,
-
+        padding: 10
     },
 
     item_icon_style: {
@@ -69,21 +60,18 @@ export default StyleSheet.create({
 
     item_icon_add: {
         padding: 15,
-        paddingTop: 20,
+        paddingTop: 20
     },
 
-    item_icon_add_style: {
-
-    },
+    item_icon_add_style: {},
 
     card_block_wrap: {
         borderTopWidth: 1,
-        borderTopColor: '#94979f',
-
+        borderTopColor: '#94979f'
     },
 
     order_block_main: {
-        alignItems: 'stretch',
+        alignItems: 'stretch'
     },
 
     order_block_add_main: {
@@ -94,28 +82,26 @@ export default StyleSheet.create({
     order_block_bottom_divider: {
         borderWidth: 1,
         borderColor: '#ddd',
-        marginLeft: 20,
+        marginLeft: 20
     },
     order_block_top_divider: {
         borderWidth: 1,
         borderColor: '#ddd',
-        marginLeft: 20,
+        marginLeft: 20
     },
 
     order_block_wrap_tought: {
-        marginLeft: 20,
+        marginLeft: 20
     },
 
     order_block_vertical_divider_left: {
         borderWidth: 1,
-        borderColor: '#ddd',
-
+        borderColor: '#ddd'
     },
 
     order_block_vertical_divider_right: {
         borderWidth: 1,
-        borderColor: '#ddd',
-
+        borderColor: '#ddd'
     },
 
     order_block_add_wrap: {
@@ -124,48 +110,43 @@ export default StyleSheet.create({
     },
 
     order_block_wrap: {
-
         marginRight: 0,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
 
     card_block: {
-
         justifyContent: 'space-between',
         paddingTop: 16,
         paddingLeft: 16,
-        height: 35,
+        height: 35
     },
 
     card_block_name_text: {
         paddingTop: Platform.OS == 'ios' ? 5 : undefined,
-        fontSize: 20,
+        fontSize: 20
     },
 
     price_block_wrap: {
-        flexDirection: 'row',
+        flexDirection: 'row'
     },
 
     price_block: {
-        flexDirection: 'row',
-
+        flexDirection: 'row'
     },
 
     price_block_divider: {
         borderColor: '#ddd',
         borderStyle: 'dashed',
-        borderWidth: 1,
+        borderWidth: 1
     },
 
     price_block_price: {
         paddingTop: Platform.OS == 'ios' ? 5 : undefined,
-        fontSize: 25,
+        fontSize: 25
     },
 
     price_block_currency: {
-        alignSelf: 'center',
+        alignSelf: 'center'
     }
-
-
-});
+})
