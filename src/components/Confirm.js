@@ -27,12 +27,7 @@ export default class Home extends Component {
         let code = this.state.code.join('');
         let confirmData = { phone: this.props.phone, code: code };
 
-        this.props.loginActions.sendConfirm({
-            user: {
-                lang: this.props.lang,
-                token: this.props.token
-            }
-        }, confirmData).catch((error) => {
+        this.props.loginActions.sendConfirm(confirmData).catch((error) => {
             this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
         });
     };

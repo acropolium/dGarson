@@ -4,6 +4,19 @@ import { Actions, Router, Reducer } from 'react-native-router-flux';
 import I18n from '../services/translate.js'
 import FCM, { FCMEvent } from 'react-native-fcm';
 import scene from '../scene/scene.js'
+import {
+    confirm,
+    menu,
+    order,
+    location,
+    timer,
+    companies,
+    about,
+    dialog,
+    init,
+    previewOrder
+} from '../scene/sceneConstant.js';
+
 
 export default class App extends Component {
 
@@ -12,7 +25,7 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-       
+
         this.props.appAction.loadInitialStateApp();
 
         FCM.on(FCMEvent.Notification, async (notification) => {
@@ -28,7 +41,7 @@ export default class App extends Component {
             this.props.appAction.sendToken(token);
         });
 
-        
+
     };
 
     handleAndroidBack = async () => {
@@ -36,41 +49,41 @@ export default class App extends Component {
 
         let currentAction = false;
         switch (this.currentPage) {
-            case 'confirm':
-                await this.props.changePage('init');
+            case confirm:
+                await this.props.changePage(init);
                 currentAction = true;
                 break;
-            case 'location':
+            case location:
                 Actions.pop();
                 currentAction = true;
                 break;
-            case 'dialog':
-            case 'timer':
+            case dialog:
+            case timer:
                 currentAction = true;
                 Actions.pop();
                 break;
-            case 'about':
+            case about:
                 Actions.pop();
 
                 currentAction = true;
                 break;
 
-            case 'previewOrder':
-                await this.props.changePage('menu');
+            case previewOrder:
+                await this.props.changePage(menu);
                 currentAction = true;
                 break;
-            case 'menu':
+            case menu:
 
-                await this.props.changePage('companies');
+                await this.props.changePage(companies);
                 currentAction = true;
                 break;
-            case 'order':
-                let newState = 'companies';
+            case order:
+                let newState = companies;
                 currentAction = true;
 
                 if (['draft', 'cancel', 'payed'].indexOf(this.props.order_state) !== -1) {
 
-                    newState = 'menu';
+                    newState = menu;
                 }
                 this.props.changePage(newState);
 

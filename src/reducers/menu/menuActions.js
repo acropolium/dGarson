@@ -128,14 +128,9 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
     let request = new api();
 
-    let user = {
-        user: {
-            lang: store.get('lang'),
-            token: store.get('token')
-        }
-    }
+    
 
-    return request.setProps(user).menu(companyID, 'get').then((response) => {
+    return request.menu(companyID, 'get').then((response) => {
         
         if (ifRedirect(response, dispatch)) { return Promise.resolve(); }
 

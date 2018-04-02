@@ -20,12 +20,7 @@ export function cancelOrder(order_id, company_id) {
 
     return (dispatch, props) => {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
+        let request = new api()
         dispatchHelp(dispatch, orderRequest)
 
         return request.orders(order_id, 'PUT', { state: 'cancel' }).then(() => {
@@ -46,12 +41,7 @@ export function cancelOrder(order_id, company_id) {
 export function makeOrder(body, company_id) {
     return (dispatch, props) => {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
+        let request = new api()
         dispatchHelp(dispatch, orderRequest)
 
         return request.orders(false, 'POST', body).then((response) => {
@@ -76,14 +66,9 @@ export function makeOrder(body, company_id) {
 export function getOrderForCompany(companyID) {
     return (dispatch, props) => {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
+        let request = new api()
         dispatchHelp(dispatch, orderRequest)
-        return request.order(companyID, 'get', false, false).then((response) => {
+        return request.order(companyID, 'get', false).then((response) => {
             if (!ifRedirectOrderCompany(response, dispatch)) {
 
                 let order = { state: response.state, order: response, desired_time: response.desired_time };

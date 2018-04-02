@@ -132,15 +132,11 @@ function sendTokenRequest(token, currentToken, dispatch) {
 
     if (token && token !== false) {
 
-        let request = (new api()).setProps({
-            user: {
-                lang: store.get('lang'),
-                token: store.get('token')
-            }
-        });
-        request.device_token('PUT', { device_token: token, platform: Platform.OS }, false,
-            () => {
+        let request = new api();
 
+
+        request.device_token('PUT', { device_token: token, platform: Platform.OS }).then(
+            () => {
                 store.save('device_token', token);
                 dispatchHelp(dispatch, setDeviceToken, { device_token: token, device_token_send: true })
             }

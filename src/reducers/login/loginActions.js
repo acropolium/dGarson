@@ -25,7 +25,7 @@ export function loadDataHome(type, data) {
     }
 }
 
-export function sendData(userData, phone) {
+export function sendData(phone) {
 
     return (dispatch, props) => {
 
@@ -35,7 +35,7 @@ export function sendData(userData, phone) {
         let device_token = login.device_token;
         let request = new api();
 
-        return request.setProps(userData).register('POST', {
+        return request.register('POST', {
             phone: phone,
             device_token: device_token,
             platform: Platform.OS
@@ -63,12 +63,12 @@ export function sendData(userData, phone) {
     }
 }
 
-export function sendConfirm(userData, confirmData) {
+export function sendConfirm(confirmData) {
     return (dispatch, props) => {
 
         dispatch({ type: verifyRequest })
 
-        return (new api()).setProps(userData).verify('POST', confirmData).then((response) => {
+        return (new api()).verify('POST', confirmData).then((response) => {
 
             let api_token = response.api_token;
 
@@ -80,9 +80,7 @@ export function sendConfirm(userData, confirmData) {
             dispatch({ type: verifySucess, payload: data })
             saveStore(data);
 
-            userData.user.token = api_token;
-
-            return (new api()).setProps(userData).companies('GET', false);
+            return (new api()).companies('GET', false);
 
         }).then((response) => {
 

@@ -39,12 +39,7 @@ function serverReqestCompanys(dispatch) {
 
     let requestCompanies = new api();
 
-    return requestCompanies.setProps({
-        user: {
-            lang: store.get('lang'),
-            token: store.get('token')
-        }
-    }).companies('GET', false).then((response) => {
+    return requestCompanies.companies('GET', false).then((response) => {
 
         let companies = {};
 

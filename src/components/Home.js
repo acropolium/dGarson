@@ -104,12 +104,7 @@ export default class Home extends Component {
             return;
         }
 
-        this.props.loginActions.sendData({
-            user: {
-                lang: this.props.lang,
-
-            }
-        }, phone)
+        this.props.loginActions.sendData(phone)
             .catch((error) => {
                 this.props.dialogActions.dialogShow({ title: I18n.t("server_error"), message: error.message });
             });
