@@ -67,8 +67,7 @@ export default class HeaderBlock extends Component {
                                         'tel:' + this.props.company_info.phone
                                     )
                                 }}
-                                iconName="mobile"
-                                iconFamily="Entypo"
+                                iconName="mobile_header"
                                 typeButton="mobile_button"
                             />
                         )}
@@ -84,8 +83,7 @@ export default class HeaderBlock extends Component {
                                         this.getCurrentCoordinates()
                                     )
                                 }}
-                                iconName="location-pin"
-                                iconFamily="Entypo"
+                                iconName="location_header"
                                 typeButton="location_button"
                             />
                         )}
@@ -94,8 +92,7 @@ export default class HeaderBlock extends Component {
                             press={() => {
                                 this.props.showCheck
                             }}
-                            iconName="ios-checkmark-circle-outline"
-                            iconFamily="Ionicons"
+                            iconName="check_header"
                             typeButton="check_button"
                         />
                     )}
@@ -104,8 +101,7 @@ export default class HeaderBlock extends Component {
                             press={() => {
                                 this.props.aboutAs()
                             }}
-                            iconName="info"
-                            iconFamily="Entypo"
+                            iconName="info_company"
                             typeButton="aboutus_button"
                         />
                     )}
@@ -126,8 +122,7 @@ export default class HeaderBlock extends Component {
                                 ? this.props.backButton
                                 : backButton
                         }
-                        iconName="ios-arrow-round-back"
-                        iconFamily="Ionicons"
+                        iconName="header_back_button"
                         typeButton="back_button"
                     />
                 </View>

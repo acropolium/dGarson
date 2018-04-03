@@ -30,18 +30,7 @@ const LocationFooter = props => {
                                     }>
                                     <View style={styles.wrap_icon_footer}>
                                         <Icon
-                                            iconFamily="Entypo"
-                                            name="location-pin"
-                                            style={[
-                                                styles.header_icons,
-                                                {
-                                                    color: props.isCurrentLocation(
-                                                        location
-                                                    )
-                                                        ? '#000'
-                                                        : '#94979f'
-                                                }
-                                            ]}
+                                            name={props.isCurrentLocation(location) ? "location_footer_active" : "location_footer_passive"}
                                         />
                                         <Text
                                             numberOfLines={1}
@@ -66,10 +55,10 @@ const LocationFooter = props => {
                                                 style={styles.img}
                                             />
                                         ) : (
-                                            <Image
-                                                source={require('../../media/elements/location_list.png')}
-                                            />
-                                        )}
+                                                <Image
+                                                    source={require('../../media/elements/location_list.png')}
+                                                />
+                                            )}
                                     </View>
                                 </View>
                             </TouchableHighlight>

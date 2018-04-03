@@ -1,7 +1,7 @@
 import store from '../utils/storage'
 
 export default class apiService {
-
+    
     setLang(lang) {
         this.lang = lang
     }
@@ -33,7 +33,8 @@ export default class apiService {
     }
 
     apiHost = () => {
-        return 'https://api.garson.co/';
+        //return 'https://api.garson.co/';
+        return 'http://10.0.2.2:8000/'
     }
 
     menu = async (id, method = 'get', body = false, ) => {

@@ -11,7 +11,7 @@ const ConfirmButtonBlock = props => {
                 <Button
                     title={I18n.t('confirm_code').toUpperCase()}
                     onPress={props.sendData}
-                    iconName="ios-arrow-round-forward"
+                    iconName="confirm_button"
                 />
             </View>
             <View style={styles.resend_sms_button}>

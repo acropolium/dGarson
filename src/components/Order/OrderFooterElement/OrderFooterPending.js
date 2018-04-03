@@ -9,7 +9,7 @@ const OrderFooterPending = props => {
     return (
         <TochableOrderFooter
             press={props.showCancelConfirm}
-            iconName="ios-close"
+            iconName="send_cancel"
             text={I18n.t('order_' + props.orderState).toUpperCase()}
         />
     )

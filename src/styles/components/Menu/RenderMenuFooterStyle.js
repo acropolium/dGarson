@@ -9,11 +9,6 @@ export default StyleSheet.create({
         marginRight: 10
     },
 
-    previewOrderIcon: {
-        fontSize: 38,
-        color: 'white'
-    },
-
     footer_main: {
         flexDirection: 'row',
         justifyContent: 'space-between',

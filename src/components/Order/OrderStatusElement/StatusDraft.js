@@ -10,8 +10,7 @@ const StatusDraft = props => {
     return (
         <View style={styles.wrap_status_draft}>
             <LeftSideStatus
-                iconFamily="EvilIcons"
-                name="ios-clock"
+                name="clock_order_status_draft"
                 text={I18n.t('take_away')}
             />
 
@@ -26,9 +25,7 @@ const StatusDraft = props => {
                         {props.getFormattedTime(props.desired_time || 15)}
                     </Text>
                     <Icon
-                        name="ios-arrow-down"
-                        iconFamily="Ionicons"
-                        style={styles.icon_draft}
+                        name="order_draft_change_time"
                     />
                 </View>
             </TouchableHighlight>

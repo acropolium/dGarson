@@ -66,8 +66,7 @@ export default class OrderItem extends Component {
                     rightText={
                         '- ' + item.priceTotal.toFixed(2) + ' ' + I18n.t('uah')
                     }
-                    iconName="ios-remove"
-                    iconFamily="Ionicons"
+                    iconName="remove_from_order"
                 />
 
                 <OrderItemOptions
@@ -78,9 +77,8 @@ export default class OrderItem extends Component {
                     leftText={I18n.t('additions')}
                     rightText={item.countOptions}
                     iconName={
-                        this.state.addition ? 'ios-arrow-up' : 'ios-arrow-down'
+                        this.state.addition ? 'show_order_option' : 'hide_order_option'
                     }
-                    iconFamily="Ionicons"
                 />
 
                 {orderItemAdditions}

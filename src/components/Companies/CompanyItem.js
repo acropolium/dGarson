@@ -22,9 +22,7 @@ export default class CompanyItem extends Component {
     }
 
     getOrderState() {
-        if (
-            this.props.item.hasOwnProperty('latest_order') &&
-            this.props.item.latest_order &&
+        if (this.props.item.latest_order &&
             (this.props.item.latest_order.state !== 'cancel' &&
                 this.props.item.latest_order.state !== 'payed')
         ) {
@@ -57,36 +55,32 @@ export default class CompanyItem extends Component {
                             {this.renderInnerBlock()}
                             <View style={styles.item_icon_add}>
                                 <Icon
-                                    name="ios-add"
-                                    size={30}
-                                    iconFamily="Ionicons"
+                                    name="click_company_inprogress"
                                 />
                             </View>
                         </ImageBackground>
                     ) : (
-                        <View
-                            style={[
-                                styles.card_block_main,
-                                {
-                                    backgroundColor:
-                                        this.getOrderState() == 'ready'
-                                            ? '#dbc24f'
-                                            : this.getOrderState() ==
-                                              'notpicked'
-                                                ? '#e65048'
-                                                : 'transparent'
-                                }
-                            ]}>
-                            {this.renderInnerBlock()}
-                            <View style={styles.item_icon_add}>
-                                <Icon
-                                    name="ios-arrow-round-forward"
-                                    size={30}
-                                    iconFamily="Ionicons"
-                                />
+                            <View
+                                style={[
+                                    styles.card_block_main,
+                                    {
+                                        backgroundColor:
+                                            this.getOrderState() == 'ready'
+                                                ? '#dbc24f'
+                                                : this.getOrderState() ==
+                                                    'notpicked'
+                                                    ? '#e65048'
+                                                    : 'transparent'
+                                    }
+                                ]}>
+                                {this.renderInnerBlock()}
+                                <View style={styles.item_icon_add}>
+                                    <Icon
+                                        name="click_company"
+                                    />
+                                </View>
                             </View>
-                        </View>
-                    )}
+                        )}
                 </TouchableHighlight>
             </View>
         )

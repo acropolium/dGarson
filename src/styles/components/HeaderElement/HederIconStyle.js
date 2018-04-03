@@ -14,17 +14,9 @@ export default StyleSheet.create({
         borderColor: '#FFF'
     },
 
-    back_button_header_icons_additionally: {
-        fontSize: 35
-    },
-
     check_button_wrap_icon: {
         paddingTop: 4,
         padding: 4
-    },
-
-    check_button_header_icons_additionally: {
-        fontSize: 30
     },
 
     location_button_wrap_icon: {

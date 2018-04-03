@@ -50,16 +50,12 @@ export default class OrderItemAddition extends Component {
                         }}
                         checkedImage={
                             <Icon
-                                size={25}
-                                iconFamily={'Ionicons'}
-                                name={'ios-checkbox-outline'}
+                                name={'select_order_item'}
                             />
                         }
                         unCheckedImage={
                             <Icon
-                                size={25}
-                                iconFamily={'Ionicons'}
-                                name={'ios-square-outline'}
+                                name={'unselect_order_item'}
                             />
                         }
                     />

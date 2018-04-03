@@ -81,18 +81,18 @@ export default class MenuItem extends Component {
                         <View style={styles.wrap_direction}>
                             <View style={[styles.item_icon, {}]}>
                                 {this.props.item.logo == '' ||
-                                this.props.item.logo == null ? (
-                                    <Image
-                                        source={require('../../media/elements/no_photo.png')}
-                                        style={styles.img_size}
-                                    />
-                                ) : (
-                                    <Image
-                                        defaultSource={require('../../media/elements/no_photo.png')}
-                                        source={{ uri: this.props.item.logo }}
-                                        style={styles.img_size}
-                                    />
-                                )}
+                                    this.props.item.logo == null ? (
+                                        <Image
+                                            source={require('../../media/elements/no_photo.png')}
+                                            style={styles.img_size}
+                                        />
+                                    ) : (
+                                        <Image
+                                            defaultSource={require('../../media/elements/no_photo.png')}
+                                            source={{ uri: this.props.item.logo }}
+                                            style={styles.img_size}
+                                        />
+                                    )}
                             </View>
                             <View style={styles.wrap_text_block}>
                                 <View style={styles.wrap_text}>
@@ -138,9 +138,7 @@ export default class MenuItem extends Component {
                         </View>
                         <View style={styles.item_icon_add}>
                             <Icon
-                                name="ios-add"
-                                size={30}
-                                iconFamily="Ionicons"
+                                name="add_menu_item_torder"
                             />
                         </View>
                     </View>

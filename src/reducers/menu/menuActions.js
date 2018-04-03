@@ -150,7 +150,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
 
             saveStore({ company: response.company.id })
             store.updateStore(response.company.id, 'menuUpdate', currentTime)
-            srore.updateStore(response.company.id, 'menu', save_data)
+            store.updateStore(response.company.id, 'menu', save_data)
             store.updateStore(response.company.id, 'company_info', response.company)
 
             routeService.changePage(MENU_SCENE)

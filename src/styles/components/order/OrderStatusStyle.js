@@ -39,9 +39,5 @@ export default StyleSheet.create({
     text_size: {
         fontSize: 15
     },
-    icon_draft: {
-        paddingTop: 15,
-        paddingRight: 5,
-        fontSize: 14
-    }
+    
 })

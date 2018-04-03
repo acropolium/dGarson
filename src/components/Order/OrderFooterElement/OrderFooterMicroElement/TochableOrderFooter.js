@@ -12,10 +12,6 @@ const TochableOrderFooter = props => {
                 </Text>
                 <Icon
                     name={props.iconName}
-                    iconFamily={
-                        props.iconFamily ? props.iconFamily : 'EvilIcons'
-                    }
-                    style={styles.icon_style}
                 />
             </View>
         </TouchableHighlight>

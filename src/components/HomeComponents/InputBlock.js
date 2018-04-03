@@ -74,8 +74,7 @@ export default class InputBlock extends Component {
                         <Button
                             title={I18n.t('register_button').toUpperCase()}
                             onPress={this.props.sendData}
-                            iconFamily={'Ionicons'}
-                            iconName="ios-arrow-round-forward"
+                            iconName="registert_button"
                         />
                     </View>
                 </View>

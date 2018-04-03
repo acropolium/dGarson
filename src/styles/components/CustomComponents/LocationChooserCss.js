@@ -4,11 +4,7 @@ import { Dimensions } from 'react-native'
 const windowWidth = Dimensions.get('window').width
 
 export default StyleSheet.create({
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
-
+    
     location_main: {
         width: windowWidth,
         flexDirection: 'row',

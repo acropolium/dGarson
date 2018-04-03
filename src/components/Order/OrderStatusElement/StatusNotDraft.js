@@ -10,8 +10,7 @@ const StatusNotDraft = props => {
     return (
         <View style={styles.wrap}>
             <LeftSideStatus
-                iconFamily="EvilIcons"
-                name="ios-clock-outline"
+                name="clock_order_status"
                 text={I18n.t('take_away')}
             />
             <Text style={styles.text}>

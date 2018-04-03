@@ -27,9 +27,7 @@ const SearchBlock = props => {
                 <View style={[styles.total_block]}>
                     <View>
                         <Icon
-                            name="ios-search"
-                            size={22}
-                            style={styles.icon_style}
+                            name="search_block_search"
                         />
                     </View>
                     <View style={{ marginLeft: 5, flex: 1 }}>
@@ -51,9 +49,7 @@ const SearchBlock = props => {
                         style={styles.touchable_icon}>
                         <View style={[styles.preview_main]}>
                             <Icon
-                                size={22}
-                                name="ios-close"
-                                style={styles.icon_style}
+                                name="search_block_close"
                             />
                         </View>
                     </TouchableHighlight>

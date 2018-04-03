@@ -34,7 +34,6 @@ export default class RenderMenuFooter extends Component {
         }
 
         this.props.setOrder({ order: orderData, state: 'draft' })
-
         this.props.changePage(PREVIEW_ORDER_SCENE, false)
     }
 
@@ -57,8 +56,7 @@ export default class RenderMenuFooter extends Component {
                                     {I18n.t('preview_order').toUpperCase()}
                                 </Text>
                                 <Icon
-                                    name="ios-arrow-round-forward"
-                                    style={styles.previewOrderIcon}
+                                    name={"preview_order"}
                                 />
                             </View>
                         </TouchableHighlight>

@@ -27,8 +27,6 @@ const OrderItemElement = props => {
                 <View style={styles.item_icon_remove}>
                     <Icon
                         name={props.iconName}
-                        size={25}
-                        iconFamily={props.iconFamily}
                     />
                 </View>
             </TouchableHighlight>

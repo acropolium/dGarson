@@ -39,10 +39,6 @@ export default StyleSheet.create({
         paddingRight: 15
     },
 
-    icon_style: {
-        color: 'white'
-    },
-
     touchable_icon: {
         padding: 0,
         margin: 0

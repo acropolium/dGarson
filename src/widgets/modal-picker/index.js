@@ -36,7 +36,7 @@ const propTypes = {
 
 const defaultProps = {
     data: [],
-    onChange: () => {},
+    onChange: () => { },
     initValue: 'Select me!',
     style: {},
     selectStyle: {},
@@ -203,9 +203,7 @@ export default class ModalPicker extends BaseComponent {
                     {this.state.selected}
                 </Text>
                 <Icon
-                    name={'arrow-down'}
-                    iconFamily="SimpleLineIcons"
-                    style={{ paddingTop: 15, paddingRight: 5, fontSize: 14 }}
+                    name='modal_picker'
                 />
             </View>
         )

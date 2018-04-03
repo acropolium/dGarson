@@ -28,8 +28,6 @@ const OrderItemOptions = props => {
                     <View style={styles.item_icon_collapse}>
                         <Icon
                             name={props.iconName}
-                            iconFamily={props.iconFamily}
-                            size={25}
                         />
                     </View>
                 </View>
@@ -44,7 +42,6 @@ OrderItemOptions.propTypes = {
     leftText: PropTypes.string.isRequired,
     rightText: PropTypes.number.isRequired,
     iconName: PropTypes.string.isRequired,
-    iconFamily: PropTypes.string.isRequired
 }
 
 export default OrderItemOptions

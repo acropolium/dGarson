@@ -23,8 +23,7 @@ const StatusReady = props => {
             </View>
             <View style={styles.wrap_botton_text}>
                 <LeftSideStatus
-                    iconFamily="EvilIcons"
-                    name="ios-clock-outline"
+                    name="clock_order_status"
                     text={I18n.t('take_away')}
                 />
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import I18n from '../../services/translate.js'
 import { Text, View, TouchableHighlight, Icon } from '../BaseComponents'
 import styles from '../../styles/components/CustomComponents/LocationChooserCss'
-import {LOCATION_SCENE} from '../../scene/sceneConstant.js'
+import { LOCATION_SCENE } from '../../scene/sceneConstant.js'
 
 export default class LocationChooser extends Component {
     constructor(props) {
@@ -43,9 +43,7 @@ export default class LocationChooser extends Component {
                 <TouchableHighlight onPress={this.locationChooser}>
                     <View style={styles.location_main}>
                         <Icon
-                            iconFamily="SimpleLineIcons"
-                            name="location-pin"
-                            style={[styles.header_icons, { color: '#94979f' }]}
+                            name='location_menu_footer'
                         />
                         <Text numberOfLines={1} style={styles.locationText}>
                             {this.getCurrentAddress()}

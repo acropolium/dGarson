@@ -8,7 +8,7 @@ const OrderFooterDraft = props => {
     return (
         <TochableOrderFooter
             press={props.makeOrder}
-            iconName="ios-arrow-round-forward"
+            iconName="make_order"
             text={I18n.t('order').toUpperCase()}
         />
     )

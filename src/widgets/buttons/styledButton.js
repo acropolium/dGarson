@@ -26,9 +26,7 @@ export default class desButton extends Component {
                     ]}>
                     {this.props.iconNameLeft && (
                         <Icon
-                            iconFamily={this.props.iconFamily}
                             name={this.props.iconNameLeft}
-                            style={styles.icon_class_left}
                         />
                     )}
                     <Text
@@ -44,9 +42,7 @@ export default class desButton extends Component {
                     </Text>
                     {this.props.iconName && (
                         <Icon
-                            iconFamily={this.props.iconFamily}
                             name={this.props.iconName}
-                            style={styles.icon_class}
                         />
                     )}
                 </View>

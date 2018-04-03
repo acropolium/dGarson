@@ -16,7 +16,7 @@ const StatusPayed = props => {
                 <View style={styles.wrap_button}>
                     <Button
                         buttonBorder="#94979f"
-                        iconNameLeft="ios-arrow-round-back"
+                        iconNameLeft="payed_button"
                         backgroundColor="#2A2A32"
                         style={styles.button}
                         title={I18n.t('menu').toUpperCase()}
