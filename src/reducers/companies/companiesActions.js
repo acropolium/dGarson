@@ -30,7 +30,7 @@ function needUpdate() {
 
 function serverReqestCompanys(dispatch) {
     let requestCompanies = new api()
-    
+
     requestCompanies.setLang(store.get('lang'))
     requestCompanies.setToken(store.get('token'))
 
@@ -41,6 +41,10 @@ function serverReqestCompanys(dispatch) {
 
             if (response.data) {
                 response.data.forEach(item => {
+
+                    if (!item.latest_order)
+                        updateStore(item.id, 'order_company', false)
+
                     companies[item.id] = item
                 })
 
@@ -73,4 +77,11 @@ function saveStore(data) {
     Object.keys(data).forEach(async key => {
         await store.save(key, data[key])
     })
+}
+
+function updateStore(companyID, storeName, updateData) {
+    let updates = store.get(storeName)
+    updates = updates ? updates : {}
+    updates[companyID] = updateData
+    store.save(storeName, updates)
 }

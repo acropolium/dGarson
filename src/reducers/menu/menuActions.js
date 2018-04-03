@@ -29,8 +29,10 @@ export function companysMenu(companyID, readFromServer) {
             (orderCompany && orderCompany[companyID]) ||
             needUpdate(companyID, currentTime)
         ) {
+            
             return readFromServerMenu(companyID, props, dispatch, currentTime)
         } else {
+            
             dispatchHelp(dispatch, CLEAN_DRAFT_ORDER, {
                 draft: {},
                 price: { total: 0 }
