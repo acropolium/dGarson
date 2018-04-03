@@ -26,11 +26,6 @@ export default StyleSheet.create({
         fontFamily: config.custom_font
     },
 
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
-
     header_main: {
         flexDirection: 'row',
         justifyContent: 'space-between',

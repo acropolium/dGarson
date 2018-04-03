@@ -17,11 +17,6 @@ export default StyleSheet.create({
         fontFamily: config.custom_font
     },
 
-    header_icons: {
-        color: '#2a2a31',
-        fontSize: 30
-    },
-
     text: {
         paddingBottom: 5,
         color: '#94979f',

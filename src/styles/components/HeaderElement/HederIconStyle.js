@@ -2,10 +2,6 @@ import { Platform, StyleSheet } from 'react-native'
 import config from '../../../config'
 
 export default StyleSheet.create({
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
 
     back_button_wrap_icon: {
         paddingLeft: 10,

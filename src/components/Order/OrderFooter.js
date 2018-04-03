@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import OrderFooterInprogress from './OrderFooterElement/OrderFooterInprogress'
 import OrderFooterWrap from './OrderFooterElement/OrderFooterWrap'
+import {
+    ORDER_INPROGRESS
+} from '../../reducers/constOrderState.js'
 
 export default class OrderFooter extends React.Component {
     constructor(props) {
@@ -9,7 +12,7 @@ export default class OrderFooter extends React.Component {
     }
 
     render() {
-        return this.props.orderState == 'inprogress' ? (
+        return this.props.orderState == ORDER_INPROGRESS ? (
             <OrderFooterInprogress
                 orderState={this.props.orderState}
                 orderCost={this.props.orderCost}

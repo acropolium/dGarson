@@ -16,7 +16,13 @@ import {
     INIT_SCENE,
     PREVIEW_ORDER_SCENE
 } from '../scene/sceneConstant.js'
+import {
+    ORDER_PAYED,
+    ORDER_DRAFT,
+    ORDER_CANCEL
+} from '../reducers/constOrderState.js'
 
+ 
 export default class App extends Component {
     constructor(props) {
         super(props)
@@ -76,7 +82,7 @@ export default class App extends Component {
                 currentAction = true
 
                 if (
-                    ['draft', 'cancel', 'payed'].indexOf(
+                    [ORDER_DRAFT, ORDER_CANCEL, ORDER_PAYED].indexOf(
                         this.props.order_state
                     ) !== -1
                 ) {

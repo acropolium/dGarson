@@ -9,6 +9,11 @@ import OrderStatus from './Order/OrderStatus'
 import OrderFooter from './Order/OrderFooter'
 import Spinner from './Spinner'
 import { MENU_SCENE } from '../scene/sceneConstant.js'
+import {
+    ORDER_PAYED,
+    ORDER_DRAFT,
+    ORDER_CANCEL
+} from '../reducers/constOrderState.js'
 
 export default class Order extends Component {
     constructor(props) {
@@ -27,7 +32,7 @@ export default class Order extends Component {
     }
 
     readOrder = () => {
-        if (this.props.order_state != 'draft' && !this.props.from_company) {
+        if (this.props.order_state != ORDER_DRAFT && !this.props.from_company) {
             this.getOrder()
         }
     }
@@ -91,8 +96,8 @@ export default class Order extends Component {
 
     goBack = () => {
         if (
-            this.props.order_state == 'cancel' ||
-            this.props.order_state == 'payed'
+            this.props.order_state == ORDER_CANCEL ||
+            this.props.order_state == ORDER_PAYED
         ) {
             this.props.orderActions.setOrder({}, 'flush')
         }
@@ -106,7 +111,7 @@ export default class Order extends Component {
 
     render() {
         let backButton =
-            ['draft', 'cancel', 'payed'].indexOf(this.props.order_state) !== -1
+            [ORDER_DRAFT, ORDER_CANCEL, ORDER_PAYED].indexOf(this.props.order_state) !== -1
                 ? this.goBack
                 : false
 

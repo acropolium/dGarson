@@ -16,11 +16,6 @@ export default StyleSheet.create({
         paddingBottom: 7
     },
 
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
-
     menu_button: {
         flexDirection: 'row',
         justifyContent: 'space-between'

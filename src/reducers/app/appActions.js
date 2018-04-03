@@ -15,6 +15,10 @@ import {
     UPDATE_ORDER_STATE,
     DO_ORDER
 } from '../constAction.js'
+import {
+    ORDER_READY,
+    ORDER_PAYED
+} from '../constOrderState.js'
 
 export function sendToken(token) {
     return (dispatch, props) => {
@@ -50,7 +54,7 @@ export function loadInitialStateApp() {
 
                 let companies = store.get('companies')
                 let companyID = store.get('company')
-                
+
                 let companyInfo = false
                 if (companyID) companyInfo = store.get('company_info')[companyID]
 
@@ -102,7 +106,7 @@ export function notificationHandler(notification, dialogActions) {
             let textMessage = companies.companies[data.company_id].name + '\r\n'
 
             switch (data.state) {
-                case 'ready':
+                case ORDER_READY:
                     textMessage +=
                         I18n.t('your_order_ready_part_1') +
                         ' #' +
@@ -117,7 +121,7 @@ export function notificationHandler(notification, dialogActions) {
                         image: 'icon_ready'
                     })
                     break
-                case 'payed':
+                case ORDER_PAYED:
                     store.updateStore(data['company_id'], 'order_company', false)
                     textMessage +=
                         I18n.t('your_order_payed_part_1') +

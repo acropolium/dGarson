@@ -33,11 +33,6 @@ export default StyleSheet.create({
         borderBottomColor: '#94979f'
     },
 
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
-
     header_main: {
         flexDirection: 'row',
         justifyContent: 'space-between',

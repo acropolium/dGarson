@@ -20,6 +20,10 @@ import {
     ORDER_SCENE,
     MENU_SCENE
 } from '../../scene/sceneConstant.js'
+import {
+    ORDER_CANCEL,
+    ORDER_PENDING
+} from '../constOrderState.js'
 
 export function cancelOrder(order_id, company_id) {
     return (dispatch, props) => {
@@ -30,7 +34,7 @@ export function cancelOrder(order_id, company_id) {
         request.setToken(store.get("token"))
 
         return request
-            .orders(order_id, 'PUT', { state: 'cancel' })
+            .orders(order_id, 'PUT', { state: ORDER_CANCEL })
             .then(() => {
                 routeService.changePage(MENU_SCENE)
 
@@ -64,7 +68,7 @@ export function makeOrder(body, company_id) {
                     dispatchHelp(dispatch, DO_ORDER, { order: response })
                     dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
                         company_id: company_id,
-                        data: 'pending'
+                        data: ORDER_PENDING
                     })
 
                     store.updateStore(company_id, 'order_company', true)

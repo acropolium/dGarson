@@ -10,6 +10,15 @@ import OrderFooterPayed from './OrderFooterPayed'
 import OrderFooterCancel from './OrderFooterCancel'
 import I18n from '../../../services/translate.js'
 import styles from '../../../styles/components/OrderStyle'
+import {
+    ORDER_PAYED,
+    ORDER_DRAFT,
+    ORDER_CANCEL,
+    ORDER_NOTPICKED,
+    ORDER_READY,
+    ORDER_PENDING,
+    ORDER_RECIEVED
+} from '../../../reducers/constOrderState.js'
 
 export default class OrderFooterWrap extends React.Component {
     constructor(props) {
@@ -17,25 +26,25 @@ export default class OrderFooterWrap extends React.Component {
     }
 
     renderElements = {
-        draft: orderState => (
+        [ORDER_DRAFT]: orderState => (
             <OrderFooterDraft
                 orderState={orderState}
                 makeOrder={this.props.makeOrder}
             />
         ),
-        notpicked: orderState => (
+        [ORDER_NOTPICKED]: orderState => (
             <OrderFooterNotpicked orderState={orderState} />
         ),
-        ready: orderState => <OrderFooterReady orderState={orderState} />,
-        payed: orderState => <OrderFooterPayed orderState={orderState} />,
-        cancel: orderState => <OrderFooterCancel orderState={orderState} />,
-        pending: orderState => (
+        [ORDER_READY]: orderState => <OrderFooterReady orderState={orderState} />,
+        [ORDER_PAYED]: orderState => <OrderFooterPayed orderState={orderState} />,
+        [ORDER_CANCEL]: orderState => <OrderFooterCancel orderState={orderState} />,
+        [ORDER_PENDING]: orderState => (
             <OrderFooterPending
                 orderState={orderState}
                 showCancelConfirm={this.props.showCancelConfirm}
             />
         ),
-        recieved: orderState => (
+        [ORDER_RECIEVED]: orderState => (
             <OrderFooterRecived
                 orderState={orderState}
                 showCancelConfirm={this.props.showCancelConfirm}
@@ -46,11 +55,11 @@ export default class OrderFooterWrap extends React.Component {
     getFooterElement = orderState => {
         return this.renderElements[orderState]
             ? this.renderElements[orderState](orderState)
-            : this.renderElements['draft']
+            : this.renderElements[ORDER_DRAFT]
     }
 
     getColorForOrderStateText() {
-        let orderStates = ['payed', 'cancel', 'notpicked']
+        let orderStates = [ORDER_PAYED, ORDER_CANCEL, ORDER_NOTPICKED]
         return orderStates.indexOf(this.props.orderState) != -1
             ? { color: 'black' }
             : {}
@@ -59,16 +68,16 @@ export default class OrderFooterWrap extends React.Component {
     getColorForOrderBackground() {
         let color
         switch (this.props.orderState) {
-            case 'cancel':
+            case ORDER_CANCEL:
                 color = '#a2a3a8'
                 break
-            case 'payed':
+            case ORDER_PAYED:
                 color = '#89BC77'
                 break
-            case 'ready':
+            case ORDER_READY:
                 color = '#dbc24f'
                 break
-            case 'notpicked':
+            case ORDER_NOTPICKED:
                 color = '#e65048'
                 break
             default:
