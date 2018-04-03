@@ -118,7 +118,7 @@ export function notificationHandler(notification, dialogActions) {
                     })
                     break
                 case 'payed':
-                    updateStore(data['company_id'], 'order_company', false)
+                    store.updateStore(data['company_id'], 'order_company', false)
                     textMessage +=
                         I18n.t('your_order_payed_part_1') +
                         ' #' +
@@ -176,25 +176,6 @@ function getNotificationData(notification) {
     }
 
     return data
-}
-
-function sendLocalNotification(message) {
-    // if (currentAppState != 'active') {
-    FCM.presentLocalNotification({
-        body: message,
-        large_icon: 'ic_notif',
-        icon: 'ic_notif',
-        show_in_foreground: true
-    })
-
-    //  }
-}
-
-function updateStore(companyID, storeName, updateData) {
-    let updates = store.get(storeName)
-    updates = updates ? updates : {}
-    updates[companyID] = updateData
-    store.save(storeName, updates)
 }
 
 function dispatchHelp(dispatch, type, payload) {

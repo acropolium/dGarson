@@ -99,13 +99,6 @@ function ifRedirect(response, dispatch) {
     }
 }
 
-function updateStore(companyID, storeName, updateData) {
-    let updates = store.get(storeName)
-    updates = updates ? updates : {}
-    updates[companyID] = updateData
-    store.save(storeName, updates)
-}
-
 function getResponseData(response, menu, allMenuInfo) {
     let save_data = {
         company: response.company.id,
@@ -156,9 +149,9 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             dispatchHelp(dispatch, MENU_SUCCES, allMenuInfo)
 
             saveStore({ company: response.company.id })
-            updateStore(response.company.id, 'menuUpdate', currentTime)
-            updateStore(response.company.id, 'menu', save_data)
-            updateStore(response.company.id, 'company_info', response.company)
+            store.updateStore(response.company.id, 'menuUpdate', currentTime)
+            srore.updateStore(response.company.id, 'menu', save_data)
+            store.updateStore(response.company.id, 'company_info', response.company)
 
             routeService.changePage(MENU_SCENE)
             return Promise.resolve()

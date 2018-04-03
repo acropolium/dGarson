@@ -41,6 +41,14 @@ let store = {
         })
     },
 
+    updateStore: (companyID, storeName, updateData) => {
+        let updates = store.get(storeName)
+        updates = updates ? updates : {}
+        updates[companyID] = updateData
+        store.save(storeName, updates)
+    },
+
+
     getForArray: keys => {
         let storageData = {}
 
@@ -55,5 +63,7 @@ let store = {
         return storageData
     }
 }
+
+
 
 export default store

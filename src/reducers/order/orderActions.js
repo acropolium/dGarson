@@ -34,7 +34,7 @@ export function cancelOrder(order_id, company_id) {
             .then(() => {
                 routeService.changePage(MENU_SCENE)
 
-                updateStore(company_id, 'order_company', false)
+                store.updateStore(company_id, 'order_company', false)
 
                 dispatchHelp(dispatch, FLUSH_ORDER)
                 dispatchHelp(dispatch, COMPANY_OPDER_STATE, {
@@ -67,7 +67,7 @@ export function makeOrder(body, company_id) {
                         data: 'pending'
                     })
 
-                    updateStore(company_id, 'order_company', true)
+                    store.updateStore(company_id, 'order_company', true)
                     routeService.changePage(ORDER_SCENE)
                 }
             })
@@ -237,7 +237,7 @@ function ifRedirectMakeOrder(response, company_id, dispatch) {
                     errorMessages.push(response.json[key].join('\r\n'))
                 })
 
-                updateStore(company_id, 'menuUpdate', 0)
+                store.updateStore(company_id, 'menuUpdate', 0)
 
                 dispatchHelp(dispatch, DIALOG_SHOWING, {
                     title: I18n.t('dialog_warning_title'),
@@ -274,13 +274,6 @@ function ifRedirectOrderCompany(response, dispatch) {
         }
     }
     return false
-}
-
-function updateStore(companyID, storeName, updateData) {
-    let updates = store.get(storeName)
-    updates = updates ? updates : {}
-    updates[companyID] = updateData
-    store.save(storeName, updates)
 }
 
 function dispatchHelp(dispatch, type, payload = {}) {
