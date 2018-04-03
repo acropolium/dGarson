@@ -39,12 +39,14 @@ export default class Companies extends Component {
     }
 
     companiesList = value => {
-        let list = Object.values(this.props.companies)
+        let list
+        if (this.props.companies)
+            list = Object.values(this.props.companies)
 
         if (value != '') {
             let patt = new RegExp(value, 'gi')
 
-            list = list.filter(function(item) {
+            list = list.filter(function (item) {
                 return item.name.match(patt)
             })
         }

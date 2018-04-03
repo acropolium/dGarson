@@ -28,7 +28,7 @@ function getCurrentMenu(state) {
 
 function mapStateToProps(state) {
     let current_company_menu = getCurrentMenu(state)
-
+    
     return {
         company_id: current_company_menu.company,
         menu: current_company_menu.menu,

@@ -44,14 +44,15 @@ export function loadInitialStateApp() {
         dispatchHelp(dispatch, LOAD_INITIAL_STATE, initialLogin)
         dispatchHelp(dispatch, LOAD_INITIAL_STATE_CONFIRM, initialLogin)
 
-        let companies = store.get('companies')
-        let companyID = store.get('company')
-        let companyInfo = false
-        if (companyID) companyInfo = store.get('company_info')[companyID]
-
         AppState.addEventListener('change', appState => {
             if (appState == 'active') {
                 FCM.removeAllDeliveredNotifications()
+
+                let companies = store.get('companies')
+                let companyID = store.get('company')
+                
+                let companyInfo = false
+                if (companyID) companyInfo = store.get('company_info')[companyID]
 
                 dispatchHelp(dispatch, COMPANY_SUCCES, {
                     company_info: companyInfo,
