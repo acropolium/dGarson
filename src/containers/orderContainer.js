@@ -28,6 +28,7 @@ function mapStateToProps(state) {
         order_item: state.order.order.items,
         order_state: state.order.order.state,
         order_id: state.order.order.id,
+        currency: state.companies.company_info.currency,
         current_company_id: state.companies.company_info.id,
         company_info: state.companies.company_info,
         currentLocation: getCurrentMenu(state).location,

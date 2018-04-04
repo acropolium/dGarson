@@ -28,7 +28,7 @@ export default class Menu extends Component {
                         backButton
                     />
                 </View>
-
+ 
                 <View style={styles.menuItemsContainer}>
                     <RenderMenu
                         removeOrderItem={this.props.removeOrderItem}
@@ -42,6 +42,7 @@ export default class Menu extends Component {
                         changeOrderItemAddition={
                             this.props.changeOrderItemAddition
                         }
+                        currency={this.props.currency}
                         order_draft={this.props.order_draft}
                         data={Object.values(this.props.menu || {})}
                     />
@@ -59,6 +60,7 @@ export default class Menu extends Component {
                         total_price={this.props.total_price}
                         order_draft={this.props.order_draft}
                         changePage={this.props.changePage}
+                        currency={this.props.currency}
                     />
                 </View>
             </View>

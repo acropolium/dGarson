@@ -44,6 +44,7 @@ export default class OrderItem extends Component {
                     dataSource={dataSource}
                     renderRow={(orderItemAddition, idx1, idx) => (
                         <OrderItemAddition
+                            currency={this.props.currency}
                             changeOrderItemAddition={
                                 this.props.changeOrderItemAddition
                             }
@@ -64,7 +65,7 @@ export default class OrderItem extends Component {
                         '#' + (parseInt(root_item_idx) + 1) + ' ' + item.name
                     }
                     rightText={
-                        '- ' + item.priceTotal.toFixed(2) + ' ' + I18n.t('uah')
+                        '- ' + item.priceTotal.toFixed(2) + ' ' + this.props.currency
                     }
                     iconName="remove_from_order"
                 />

@@ -132,7 +132,7 @@ export default class MenuItem extends Component {
                                             ? styles.text_color
                                             : {}
                                     ]}>
-                                    {this.getItemPrice()} {I18n.t('uah')}
+                                    {this.getItemPrice()} {this.props.currency}
                                 </Text>
                             </View>
                         </View>
@@ -153,6 +153,7 @@ export default class MenuItem extends Component {
                                     changeOrderItemAddition={
                                         this.props.changeOrderItemAddition
                                     }
+                                    currency={this.props.currency}
                                     removeOrderItem={this.props.removeOrderItem}
                                     item={orderItem}
                                     root_item={this.props.item}

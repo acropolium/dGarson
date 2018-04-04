@@ -35,7 +35,7 @@ export default class OrderItemAddition extends Component {
                         itemAddition.count > 0 ? { color: '#000' } : {}
                     ]}>
                     {itemAddition.name} -{' '}
-                    {parseFloat(itemAddition.price).toFixed(2)} {I18n.t('uah')}
+                    {parseFloat(itemAddition.price).toFixed(2)} {this.props.currency}
                 </Text>
                 <View style={styles.item_checkbox}>
                     <CheckBox

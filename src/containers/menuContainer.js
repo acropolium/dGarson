@@ -28,12 +28,13 @@ function getCurrentMenu(state) {
 
 function mapStateToProps(state) {
     let current_company_menu = getCurrentMenu(state)
-    
+
     return {
         company_id: current_company_menu.company,
         menu: current_company_menu.menu,
         current_location: current_company_menu.location,
         company_info: state.companies.company_info,
+        currency: state.companies.company_info.currency,
         order_draft: Object.assign({}, state.order.draft),
         total_price: state.order.price
     }

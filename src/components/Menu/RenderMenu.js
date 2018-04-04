@@ -15,6 +15,7 @@ export default class RenderMenu extends Component {
                     data={this.props.data}
                     renderItem={item => (
                         <MenuItem
+                            currency={this.props.currency}
                             removeOrderItem={this.props.removeOrderItem}
                             addOrderItem={this.props.addOrderItem}
                             changeOrderItemAddition={

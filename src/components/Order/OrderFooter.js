@@ -14,17 +14,19 @@ export default class OrderFooter extends React.Component {
     render() {
         return this.props.orderState == ORDER_INPROGRESS ? (
             <OrderFooterInprogress
+                currency={this.props.currency}
                 orderState={this.props.orderState}
                 orderCost={this.props.orderCost}
             />
         ) : (
-            <OrderFooterWrap
-                orderState={this.props.orderState}
-                makeOrder={this.props.makeOrder}
-                showCancelConfirm={this.props.showCancelConfirm}
-                orderCost={this.props.orderCost}
-            />
-        )
+                <OrderFooterWrap
+                    currency={this.props.currency}
+                    orderState={this.props.orderState}
+                    makeOrder={this.props.makeOrder}
+                    showCancelConfirm={this.props.showCancelConfirm}
+                    orderCost={this.props.orderCost}
+                />
+            )
     }
 }
 

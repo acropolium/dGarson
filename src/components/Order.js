@@ -134,8 +134,8 @@ export default class Order extends Component {
 
                 <KeyboardWrapper style={styles.keyboard_wrapper}>
                     <OrderList
-                        data={this.props.order_item}
-                        renderItem={item => <OrderElement item={item} />}
+                        data={this.props.order_item} 
+                        renderItem={item => <OrderElement currency={this.props.currency} item={item} />}
                     />
                 </KeyboardWrapper>
 
@@ -148,11 +148,12 @@ export default class Order extends Component {
                     goBack={this.goBack}
                 />
 
-                <OrderFooter
+                <OrderFooter 
                     orderState={this.props.order_state}
                     showCancelConfirm={this.showCancelConfirm}
                     makeOrder={this.makeOrder}
                     orderCost={this.props.order_cost}
+                    currency={this.props.currency}
                 />
             </View>
         )

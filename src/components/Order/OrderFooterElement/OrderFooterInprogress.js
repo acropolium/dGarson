@@ -21,7 +21,7 @@ const OrderFooterInprogress = props => {
                         {I18n.t('total')}:{' '}
                     </Text>
                     <Text style={[styles.total_color]}>
-                        {parseFloat(props.orderCost).toFixed(2)} {I18n.t('uah')}
+                        {parseFloat(props.orderCost).toFixed(2)} {props.currency}
                     </Text>
                 </View>
                 <View>

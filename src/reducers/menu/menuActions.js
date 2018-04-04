@@ -139,7 +139,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             dispatchHelp(dispatch, COMPANY_SUCCES, {
                 company_info: response.company
             })
-
+            
             allMenuInfo[response.company.id] = save_data
             dispatchHelp(dispatch, MENU_SUCCES, allMenuInfo)
 

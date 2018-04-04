@@ -43,8 +43,8 @@ function serverReqestCompanys(dispatch) {
                 response.data.forEach(item => {
 
                     if (!item.latest_order)
-                       store.updateStore(item.id, 'order_company', false)
-
+                        store.updateStore(item.id, 'order_company', false)
+                   
                     companies[item.id] = item
                 })
 
