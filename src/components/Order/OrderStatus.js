@@ -11,11 +11,8 @@ import StatusNotPicked from './OrderStatusElement/StatusNotPicked'
 import {
     ORDER_PAYED,
     ORDER_DRAFT,
-    ORDER_CANCEL,
     ORDER_NOTPICKED,
     ORDER_READY,
-    ORDER_PENDING,
-    ORDER_RECIEVED
 } from '../../reducers/constOrderState.js'
 
 export default class OrderStatus extends React.Component {
@@ -89,7 +86,7 @@ export default class OrderStatus extends React.Component {
                 getFormattedTime={this.getFormattedTime}
             />
         ),
-       [ORDER_PAYED]: () => (
+        [ORDER_PAYED]: () => (
             <StatusPayed
                 goBack={this.props.goBack}
                 orderId={this.props.order.order.id}
