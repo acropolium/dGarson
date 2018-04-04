@@ -8,7 +8,7 @@ import OrderElement from './Order/OrderListElement/OrderElement';
 import OrderStatus from './Order/OrderStatus';
 import OrderFooter from './Order/OrderFooter';
 import Spinner from './Spinner';
-import { MENU_SCENE } from '../scene/sceneConstant.js';
+import { MENU_SCENE,ABOUT_SCENE } from '../scene/sceneConstant.js';
 import {
     ORDER_PAYED,
     ORDER_DRAFT,
