@@ -98,7 +98,7 @@ export default class OrderFooterWrap extends React.Component {
                             this.getColorForOrderStateText()
                         ]}>
                         {parseFloat(this.props.orderCost).toFixed(2)}{' '}
-                        {this.props.currency}
+                        {I18n.t(this.props.currency)}
                     </Text>
                 </View>
                 <View>

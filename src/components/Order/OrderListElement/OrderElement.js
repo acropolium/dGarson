@@ -22,7 +22,7 @@ const OrderElement = props => {
                                 styles.custom_font,
                                 styles.item_price_text
                             ]}>
-                            {props.item.priceTotal.toFixed(2)} {props.currency}
+                            {props.item.priceTotal.toFixed(2)} {I18n.t(props.currency)}
                         </Text>
                     </View>
                 </View>

@@ -132,7 +132,7 @@ export default class MenuItem extends Component {
                                             ? styles.text_color
                                             : {}
                                     ]}>
-                                    {this.getItemPrice()} {this.props.currency}
+                                    {this.getItemPrice()} {I18n.t(this.props.currency)}
                                 </Text>
                             </View>
                         </View>

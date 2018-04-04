@@ -47,7 +47,7 @@ export default class RenderMenuFooter extends Component {
                     <Text style={styles.total_color}>{I18n.t('total')}: </Text>
                     <Text style={styles.total_color}>
                         {this.props.total_price.total.toFixed(2)}{' '}
-                        {this.props.currency}
+                        {I18n.t(this.props.currency)}
                     </Text>
                 </View>
 

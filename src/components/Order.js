@@ -135,7 +135,7 @@ export default class Order extends Component {
                 <KeyboardWrapper style={styles.keyboard_wrapper}>
                     <OrderList
                         data={this.props.order_item} 
-                        renderItem={item => <OrderElement currency={this.props.currency} item={item} />}
+                        renderItem={item => <OrderElement currency={ this.props.currency} item={item} />}
                     />
                 </KeyboardWrapper>
 
