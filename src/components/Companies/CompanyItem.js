@@ -4,6 +4,13 @@ import { Icon, View, TouchableHighlight } from '../BaseComponents'
 import ItemInnerBlock from './ItemInnerBlock'
 import styles from '../../styles/components/companies/CompanyItemStyle'
 import I18n from '../../services/translate.js'
+import {
+    ORDER_INPROGRESS,
+    ORDER_READY,
+    ORDER_NOTPICKED,
+    ORDER_CANCEL,
+    ORDER_PAYED,
+} from '../../reducers/constOrderState.js'
 
 export default class CompanyItem extends Component {
     constructor(props) {
@@ -23,8 +30,8 @@ export default class CompanyItem extends Component {
 
     getOrderState() {
         if (this.props.item.latest_order &&
-            (this.props.item.latest_order.state !== 'cancel' &&
-                this.props.item.latest_order.state !== 'payed')
+            (this.props.item.latest_order.state !== ORDER_CANCEL &&
+                this.props.item.latest_order.state !== ORDER_PAYED)
         ) {
             return this.props.item.latest_order.state
         }
@@ -48,7 +55,7 @@ export default class CompanyItem extends Component {
                     onPress={() => {
                         this.getMenu(this.props.item)
                     }}>
-                    {this.getOrderState() == 'inprogress' ? (
+                    {this.getOrderState() == ORDER_INPROGRESS ? (
                         <ImageBackground
                             source={require('../../media/elements/inprogress.gif')}
                             style={[styles.card_block_main, styles.img_style]}>
@@ -65,10 +72,10 @@ export default class CompanyItem extends Component {
                                     styles.card_block_main,
                                     {
                                         backgroundColor:
-                                            this.getOrderState() == 'ready'
+                                            this.getOrderState() == ORDER_READY
                                                 ? '#dbc24f'
                                                 : this.getOrderState() ==
-                                                    'notpicked'
+                                                    ORDER_NOTPICKED
                                                     ? '#e65048'
                                                     : 'transparent'
                                     }

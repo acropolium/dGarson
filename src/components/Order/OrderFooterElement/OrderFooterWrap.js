@@ -26,28 +26,19 @@ export default class OrderFooterWrap extends React.Component {
     }
 
     renderElements = {
-        [ORDER_DRAFT]: orderState => (
-            <OrderFooterDraft
-                orderState={orderState}
-                makeOrder={this.props.makeOrder}
-            />
-        ),
-        [ORDER_NOTPICKED]: orderState => (
-            <OrderFooterNotpicked orderState={orderState} />
-        ),
+        
+        [ORDER_DRAFT]: orderState => (<OrderFooterDraft orderState={orderState}makeOrder={this.props.makeOrder}/>),
+        [ORDER_NOTPICKED]: orderState => (<OrderFooterNotpicked orderState={orderState} />),
         [ORDER_READY]: orderState => <OrderFooterReady orderState={orderState} />,
         [ORDER_PAYED]: orderState => <OrderFooterPayed orderState={orderState} />,
         [ORDER_CANCEL]: orderState => <OrderFooterCancel orderState={orderState} />,
-        [ORDER_PENDING]: orderState => (
-            <OrderFooterPending
-                orderState={orderState}
-                showCancelConfirm={this.props.showCancelConfirm}
+        [ORDER_PENDING]: orderState => (<OrderFooterPending 
+            orderState={orderState} 
+            showCancelConfirm={this.props.showCancelConfirm}
             />
         ),
-        [ORDER_RECIEVED]: orderState => (
-            <OrderFooterRecived
-                orderState={orderState}
-                showCancelConfirm={this.props.showCancelConfirm}
+        [ORDER_RECIEVED]: orderState => (<OrderFooterRecived orderState={orderState}
+            showCancelConfirm={this.props.showCancelConfirm}
             />
         )
     }

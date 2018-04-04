@@ -2,9 +2,11 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 import i18n from '../../services/translate'
 import { Text, View, Image } from '../BaseComponents'
-
 import config from '../../config'
 import styles from '../../styles/components/companies/ItemInnerBlockStyle'
+import {
+    ORDER_INPROGRESS
+} from '../../reducers/constOrderState.js'
 
 const ItemInnerBlock = props => {
     let curImage = props.item.logo
@@ -24,7 +26,7 @@ const ItemInnerBlock = props => {
                             styles.item_name,
                             {
                                 color:
-                                    props.orderState == 'inprogress'
+                                    props.orderState == ORDER_INPROGRESS
                                         ? '#fff'
                                         : '#2a2a31'
                             }

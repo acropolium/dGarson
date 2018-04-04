@@ -8,6 +8,15 @@ import StatusReady from './OrderStatusElement/StatusReady'
 import StatusPayed from './OrderStatusElement/StatusPayed'
 import StatusEmpty from './OrderStatusElement/StatusEmpty'
 import StatusNotPicked from './OrderStatusElement/StatusNotPicked'
+import {
+    ORDER_PAYED,
+    ORDER_DRAFT,
+    ORDER_CANCEL,
+    ORDER_NOTPICKED,
+    ORDER_READY,
+    ORDER_PENDING,
+    ORDER_RECIEVED
+} from '../../reducers/constOrderState.js'
 
 export default class OrderStatus extends React.Component {
     constructor(props) {
@@ -60,19 +69,19 @@ export default class OrderStatus extends React.Component {
     }
 
     renderElement = {
-        draft: () => (
+        [ORDER_DRAFT]: () => (
             <StatusDraft
                 desired_time={this.props.order.desired_time}
                 getFormattedTime={this.getFormattedTime}
             />
         ),
-        notpicked: () => (
+        [ORDER_NOTPICKED]: () => (
             <StatusNotPicked
                 handleClickUrl={this.handleClickUrl}
                 companyPhone={this.props.companyPhone}
             />
         ),
-        ready: () => (
+        [ORDER_READY]: () => (
             <StatusReady
                 desired_time={this.props.order.desired_time}
                 getCurrentAddress={this.getCurrentAddress}
@@ -80,7 +89,7 @@ export default class OrderStatus extends React.Component {
                 getFormattedTime={this.getFormattedTime}
             />
         ),
-        payed: () => (
+       [ORDER_PAYED]: () => (
             <StatusPayed
                 goBack={this.props.goBack}
                 orderId={this.props.order.order.id}

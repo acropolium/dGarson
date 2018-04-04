@@ -3,6 +3,9 @@ import { Icon, Text, View, TouchableHighlight } from '../BaseComponents'
 import I18n from '../../services/translate.js'
 import styles from '../../styles/components/Menu/RenderMenuFooterStyle'
 import { PREVIEW_ORDER_SCENE, } from '../../scene/sceneConstant.js'
+import {
+    ORDER_DRAFT
+} from '../../reducers/constOrderState.js'
 
 export default class RenderMenuFooter extends Component {
     constructor(props) {
@@ -28,12 +31,12 @@ export default class RenderMenuFooter extends Component {
 
         let orderData = {
             company_id: this.props.company_id,
-            state: 'draft',
+            state: ORDER_DRAFT,
             items: items,
             cost: this.props.total_price.total
         }
 
-        this.props.setOrder({ order: orderData, state: 'draft' })
+        this.props.setOrder({ order: orderData, state: ORDER_DRAFT })
         this.props.changePage(PREVIEW_ORDER_SCENE, false)
     }
 
