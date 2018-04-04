@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
-import HeaderBlock from './HeaderBlock'
-import { View } from './BaseComponents'
-import RenderMenu from './Menu/RenderMenu'
-import RenderMenuFooter from './Menu/RenderMenuFooter'
-import LocationChooser from './CustomComponents/LocationChooser'
-import styles from '../styles/components/Menu/MenuStyles'
-import { ABOUT_SCENE } from '../scene/sceneConstant.js'
+import React, { Component } from 'react';
+import HeaderBlock from './HeaderBlock';
+import { View } from './BaseComponents';
+import RenderMenu from './Menu/RenderMenu';
+import RenderMenuFooter from './Menu/RenderMenuFooter';
+import LocationChooser from './CustomComponents/LocationChooser';
+import styles from '../styles/components/Menu/MenuStyles';
+import { ABOUT_SCENE } from '../scene/sceneConstant.js';
 
 export default class Menu extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     aboutAs = () => {
-        this.props.changePage(ABOUT_SCENE, false)
-    }
+        this.props.changePage(ABOUT_SCENE, false);
+    };
 
     render() {
         return (
@@ -28,7 +28,7 @@ export default class Menu extends Component {
                         backButton
                     />
                 </View>
- 
+
                 <View style={styles.menuItemsContainer}>
                     <RenderMenu
                         removeOrderItem={this.props.removeOrderItem}
@@ -64,6 +64,6 @@ export default class Menu extends Component {
                     />
                 </View>
             </View>
-        )
+        );
     }
 }

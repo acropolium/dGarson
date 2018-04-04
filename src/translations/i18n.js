@@ -57,7 +57,7 @@ export default {
         cancel: 'cancel',
         aboutus_title: 'About as',
         phone: 'Phone',
-        address: 'Address'
+        address: 'Address',
     },
     ua: {
         order_no: '',
@@ -118,6 +118,6 @@ export default {
         companies_title: 'Заклади',
         search_companies: 'Пошук...',
         companies_not_found: 'Не знайдено',
-        cancel: 'скасувати'
-    }
-}
+        cancel: 'скасувати',
+    },
+};

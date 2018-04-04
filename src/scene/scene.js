@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { Actions, Scene, Lightbox, Modal } from 'react-native-router-flux'
-import Home from '../containers/homeContainer'
-import Confirm from '../containers/confirmContainer'
-import Companie from '../containers/companyContainer'
-import Menu from '../containers/menuContainer'
-import Order from '../containers/orderContainer'
-import Location from '../containers/locationContainer'
-import Popage from '../containers/dialogContainer'
-import AboutUs from '../containers/aboutAsContainer'
-import ModalPicker from '../containers/ModalPickerContainer'
-import Loading from '../components/Loading'
-import Spinner from '../components/Spinner'
+import React, { Component } from 'react';
+import { Actions, Scene, Lightbox, Modal } from 'react-native-router-flux';
+import Home from '../containers/homeContainer';
+import Confirm from '../containers/confirmContainer';
+import Companie from '../containers/companyContainer';
+import Menu from '../containers/menuContainer';
+import Order from '../containers/orderContainer';
+import Location from '../containers/locationContainer';
+import Popage from '../containers/dialogContainer';
+import AboutUs from '../containers/aboutAsContainer';
+import ModalPicker from '../containers/ModalPickerContainer';
+import Loading from '../components/Loading';
+import Spinner from '../components/Spinner';
 import {
     ROOT_SCENE,
     MODAL_SCENE,
@@ -23,8 +23,8 @@ import {
     DIALOG_SCENE,
     TIMER_SCENE,
     COMPANIES_SCENE,
-    ABOUT_SCENE
-} from './sceneConstant.js'
+    ABOUT_SCENE,
+} from './sceneConstant.js';
 
 export default Actions.create(
     <Lightbox>
@@ -93,4 +93,4 @@ export default Actions.create(
             />
         </Scene>
     </Lightbox>
-)
+);

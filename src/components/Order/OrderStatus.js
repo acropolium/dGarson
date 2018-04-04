@@ -1,51 +1,51 @@
-import React from 'react'
-import { Linking } from 'react-native'
-import styles from '../../styles/components/order/OrderStatusStyle'
-import I18n from '../../services/translate.js'
-import StatusDraft from './OrderStatusElement/StatusDraft'
-import StatusNotDraft from './OrderStatusElement/StatusNotDraft'
-import StatusReady from './OrderStatusElement/StatusReady'
-import StatusPayed from './OrderStatusElement/StatusPayed'
-import StatusEmpty from './OrderStatusElement/StatusEmpty'
-import StatusNotPicked from './OrderStatusElement/StatusNotPicked'
+import React from 'react';
+import { Linking } from 'react-native';
+import styles from '../../styles/components/order/OrderStatusStyle';
+import I18n from '../../services/translate.js';
+import StatusDraft from './OrderStatusElement/StatusDraft';
+import StatusNotDraft from './OrderStatusElement/StatusNotDraft';
+import StatusReady from './OrderStatusElement/StatusReady';
+import StatusPayed from './OrderStatusElement/StatusPayed';
+import StatusEmpty from './OrderStatusElement/StatusEmpty';
+import StatusNotPicked from './OrderStatusElement/StatusNotPicked';
 import {
     ORDER_PAYED,
     ORDER_DRAFT,
     ORDER_NOTPICKED,
     ORDER_READY,
-} from '../../reducers/constOrderState.js'
+} from '../../reducers/constOrderState.js';
 
 export default class OrderStatus extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     getFormattedTime = desired_time => {
-        let outStr = ''
+        let outStr = '';
         if (desired_time < 60) {
-            outStr = desired_time + ' ' + I18n.t('min')
+            outStr = desired_time + ' ' + I18n.t('min');
         } else {
-            let hr = ~~(desired_time / 60).toString()
-            let minutes = desired_time % 60
+            let hr = ~~(desired_time / 60).toString();
+            let minutes = desired_time % 60;
 
             outStr =
                 hr +
                 ' ' +
                 I18n.t('hour') +
-                (minutes == 0 ? '' : ' ' + minutes + ' ' + I18n.t('min'))
+                (minutes == 0 ? '' : ' ' + minutes + ' ' + I18n.t('min'));
         }
-        return outStr
-    }
+        return outStr;
+    };
 
     handleClickUrl = link => {
         Linking.canOpenURL(link).then(supported => {
             if (supported) {
-                Linking.openURL(link)
+                Linking.openURL(link);
             } else {
-                console.log("Don't know how to open URI: " + link)
+                console.log("Don't know how to open URI: " + link);
             }
-        })
-    }
+        });
+    };
 
     getCurrentAddress = () => {
         let location =
@@ -53,17 +53,17 @@ export default class OrderStatus extends React.Component {
             ', ' +
             I18n.t('phone') +
             ':' +
-            this.props.company_info.phone
+            this.props.company_info.phone;
 
         this.props.company_info.locations.forEach(val => {
             if (val.id == this.props.currentLocation) {
                 location =
-                    val.address + ', ' + I18n.t('phone') + ':' + val.phone
+                    val.address + ', ' + I18n.t('phone') + ':' + val.phone;
             }
-        })
+        });
 
-        return location
-    }
+        return location;
+    };
 
     renderElement = {
         [ORDER_DRAFT]: () => (
@@ -98,17 +98,17 @@ export default class OrderStatus extends React.Component {
                 desired_time={this.props.order.desired_time}
                 getFormattedTime={this.getFormattedTime}
             />
-        )
-    }
+        ),
+    };
 
     renderStatusElement = orderState => {
-        let order = orderState == false ? 'false' : orderState
+        let order = orderState == false ? 'false' : orderState;
         return this.renderElement[order]
             ? this.renderElement[order]()
-            : this.renderElement['default']()
-    }
+            : this.renderElement['default']();
+    };
 
     render() {
-        return this.renderStatusElement(this.props.orderState)
+        return this.renderStatusElement(this.props.orderState);
     }
 }

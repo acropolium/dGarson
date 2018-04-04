@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import { TouchableOpacity, Dimensions } from 'react-native'
+import React, { Component } from 'react';
+import { TouchableOpacity, Dimensions } from 'react-native';
 
-import View from './View'
-let windowWidth = Dimensions.get('window').width
+import View from './View';
+let windowWidth = Dimensions.get('window').width;
 
 export default class soButton extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     prepareRootProps() {
@@ -16,27 +16,27 @@ export default class soButton extends React.Component {
             paddingTop: 0,
             marginBottom: 0,
             paddingBottom: 0,
-            borderRadius: 35
-        }
+            borderRadius: 35,
+        };
 
         if (
             this.props.hasOwnProperty('buttonBorder') &&
             this.props.buttonBorder != false
         ) {
-            customProps['borderColor'] = this.props.buttonBorder
-            customProps['borderWidth'] = 1
+            customProps['borderColor'] = this.props.buttonBorder;
+            customProps['borderWidth'] = 1;
         }
 
-        customProps.justifyContent = 'center'
-        customProps.alignItems = 'center'
+        customProps.justifyContent = 'center';
+        customProps.alignItems = 'center';
 
-        customProps.width = windowWidth - 80
+        customProps.width = windowWidth - 80;
 
         customProps.backgroundColor = this.props.backgroundColor
             ? this.props.backgroundColor
-            : '#000'
+            : '#000';
 
-        return { style: customProps }
+        return { style: customProps };
     }
 
     render() {
@@ -44,6 +44,6 @@ export default class soButton extends React.Component {
             <TouchableOpacity onPress={this.props.onPress}>
                 <View {...this.prepareRootProps()}>{this.props.children}</View>
             </TouchableOpacity>
-        )
+        );
     }
 }

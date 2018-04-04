@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Component } from 'react';
 import {
     TextInput,
     ListView,
@@ -6,34 +6,34 @@ import {
     TouchableNativeFeedback,
     StyleSheet,
     AsyncStorage,
-    Platform
-} from 'react-native'
+    Platform,
+} from 'react-native';
 
-import { TouchableHighlight, Icon } from '../BaseComponents'
-import I18n from '../../services/translate.js'
+import { TouchableHighlight, Icon } from '../BaseComponents';
+import I18n from '../../services/translate.js';
 
-import { FlatList, Image, View, Text } from '../BaseComponents'
+import { FlatList, Image, View, Text } from '../BaseComponents';
 
-import OrderItem from '../OrderItem'
-import config from '../../config'
-import styles from '../../styles/components/Menu/MenuItemStyle'
+import OrderItem from '../OrderItem';
+import config from '../../config';
+import styles from '../../styles/components/Menu/MenuItemStyle';
 
 export default class MenuItem extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     addItem = item => {
-        this.props.addOrderItem(item)
-    }
+        this.props.addOrderItem(item);
+    };
 
     getItemPrice() {
         return (
             parseFloat(this.props.item.price) +
             this.props.item.options.reduce((sum, option) => {
-                return sum + parseFloat(option.price) * option.count
+                return sum + parseFloat(option.price) * option.count;
             }, 0)
-        )
+        );
     }
 
     isSelected() {
@@ -41,11 +41,11 @@ export default class MenuItem extends Component {
             this.props.order_draft.hasOwnProperty(this.props.item.id) &&
             Object.values(this.props.order_draft[this.props.item.id].items)
                 .length > 0
-        )
+        );
     }
 
     itemsCount() {
-        let cnt = 0
+        let cnt = 0;
         if (
             this.props.order_draft.hasOwnProperty(this.props.item.id) &&
             Object.values(this.props.order_draft[this.props.item.id].items)
@@ -53,20 +53,20 @@ export default class MenuItem extends Component {
         ) {
             cnt = Object.values(
                 this.props.order_draft[this.props.item.id].items
-            ).length
+            ).length;
         }
-        return cnt
+        return cnt;
     }
 
     getItemList() {
         let isItem =
             this.props.order_draft.hasOwnProperty(this.props.item.id) &&
             Object.keys(this.props.order_draft[this.props.item.id].items)
-                .length > 0
+                .length > 0;
 
         return isItem
             ? Object.values(this.props.order_draft[this.props.item.id].items)
-            : []
+            : [];
     }
 
     render() {
@@ -75,24 +75,24 @@ export default class MenuItem extends Component {
                 <TouchableHighlight
                     underlayColor="#ddd"
                     onPress={() => {
-                        this.addItem(this.props.item)
+                        this.addItem(this.props.item);
                     }}>
                     <View style={[styles.card_block_main]}>
                         <View style={styles.wrap_direction}>
                             <View style={[styles.item_icon, {}]}>
                                 {this.props.item.logo == '' ||
-                                    this.props.item.logo == null ? (
-                                        <Image
-                                            source={require('../../media/elements/no_photo.png')}
-                                            style={styles.img_size}
-                                        />
-                                    ) : (
-                                        <Image
-                                            defaultSource={require('../../media/elements/no_photo.png')}
-                                            source={{ uri: this.props.item.logo }}
-                                            style={styles.img_size}
-                                        />
-                                    )}
+                                this.props.item.logo == null ? (
+                                    <Image
+                                        source={require('../../media/elements/no_photo.png')}
+                                        style={styles.img_size}
+                                    />
+                                ) : (
+                                    <Image
+                                        defaultSource={require('../../media/elements/no_photo.png')}
+                                        source={{ uri: this.props.item.logo }}
+                                        style={styles.img_size}
+                                    />
+                                )}
                             </View>
                             <View style={styles.wrap_text_block}>
                                 <View style={styles.wrap_text}>
@@ -103,8 +103,8 @@ export default class MenuItem extends Component {
                                             {
                                                 color: this.isSelected()
                                                     ? '#345e80'
-                                                    : '#2a2a31'
-                                            }
+                                                    : '#2a2a31',
+                                            },
                                         ]}>
                                         {this.props.item.name}
                                     </Text>
@@ -116,8 +116,8 @@ export default class MenuItem extends Component {
                                                 {
                                                     color: this.isSelected()
                                                         ? '#345e80'
-                                                        : '#2a2a31'
-                                                }
+                                                        : '#2a2a31',
+                                                },
                                             ]}>
                                             {' '}
                                             ({this.itemsCount()})
@@ -130,16 +130,15 @@ export default class MenuItem extends Component {
                                         styles.item_price,
                                         this.isSelected()
                                             ? styles.text_color
-                                            : {}
+                                            : {},
                                     ]}>
-                                    {this.getItemPrice()} {I18n.t(this.props.currency)}
+                                    {this.getItemPrice()}{' '}
+                                    {I18n.t(this.props.currency)}
                                 </Text>
                             </View>
                         </View>
                         <View style={styles.item_icon_add}>
-                            <Icon
-                                name="add_menu_item_torder"
-                            />
+                            <Icon name="add_menu_item_torder" />
                         </View>
                     </View>
                 </TouchableHighlight>
@@ -159,13 +158,13 @@ export default class MenuItem extends Component {
                                     root_item={this.props.item}
                                     root_item_idx={idx}
                                 />
-                            )
+                            );
                         }}
                     />
                 }
 
                 {this.isSelected() && <View style={styles.selected_footer} />}
             </View>
-        )
+        );
     }
 }

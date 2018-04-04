@@ -1,20 +1,20 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
     StyleSheet,
     View,
     ViewPropTypes,
     Image,
     Text,
-    TouchableHighlight
-} from 'react-native'
-import PropTypes from 'prop-types'
+    TouchableHighlight,
+} from 'react-native';
+import PropTypes from 'prop-types';
 
 export default class CheckBox extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            isChecked: this.props.isChecked
-        }
+            isChecked: this.props.isChecked,
+        };
     }
     static propTypes = {
         leftText: PropTypes.string,
@@ -29,64 +29,64 @@ export default class CheckBox extends Component {
         isChecked: PropTypes.bool.isRequired,
         isIndeterminate: PropTypes.bool.isRequired,
         checkBoxColor: PropTypes.string,
-        disabled: PropTypes.bool
-    }
+        disabled: PropTypes.bool,
+    };
     static defaultProps = {
         isChecked: false,
         isIndeterminate: false,
         leftTextStyle: {},
-        rightTextStyle: {}
-    }
+        rightTextStyle: {},
+    };
     onClick() {
         this.setState({
-            isChecked: !this.state.isChecked
-        })
-        this.props.onClick()
+            isChecked: !this.state.isChecked,
+        });
+        this.props.onClick();
     }
     _renderLeft() {
-        if (this.props.leftTextView) return this.props.leftTextView
-        if (!this.props.leftText) return null
+        if (this.props.leftTextView) return this.props.leftTextView;
+        if (!this.props.leftText) return null;
         return (
             <Text style={[styles.leftText, this.props.leftTextStyle]}>
                 {this.props.leftText}
             </Text>
-        )
+        );
     }
     _renderRight() {
-        if (this.props.rightTextView) return this.props.rightTextView
-        if (!this.props.rightText) return null
+        if (this.props.rightTextView) return this.props.rightTextView;
+        if (!this.props.rightText) return null;
         return (
             <Text style={[styles.rightText, this.props.rightTextStyle]}>
                 {this.props.rightText}
             </Text>
-        )
+        );
     }
 
     _renderImage() {
         if (this.props.isIndeterminate) {
             return this.props.indeterminateImage
                 ? this.props.indeterminateImage
-                : this.genCheckedImage()
+                : this.genCheckedImage();
         }
         if (this.state.isChecked) {
             return this.props.checkedImage
                 ? this.props.checkedImage
-                : this.genCheckedImage()
+                : this.genCheckedImage();
         } else {
             return this.props.unCheckedImage
                 ? this.props.unCheckedImage
-                : this.genCheckedImage()
+                : this.genCheckedImage();
         }
     }
 
     genCheckedImage() {
-        var source
+        var source;
         if (this.props.isIndeterminate) {
-            source = require('./media/checkbox/ic_indeterminate_check_box.png')
+            source = require('./media/checkbox/ic_indeterminate_check_box.png');
         } else {
             source = this.state.isChecked
                 ? require('./media/checkbox/ic_check_box.png')
-                : require('./media/checkbox/ic_check_box_outline_blank.png')
+                : require('./media/checkbox/ic_check_box_outline_blank.png');
         }
 
         return (
@@ -94,7 +94,7 @@ export default class CheckBox extends Component {
                 source={source}
                 style={{ tintColor: this.props.checkBoxColor }}
             />
-        )
+        );
     }
 
     render() {
@@ -110,19 +110,19 @@ export default class CheckBox extends Component {
                     {this._renderRight()}
                 </View>
             </TouchableHighlight>
-        )
+        );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     leftText: {
-        flex: 1
+        flex: 1,
     },
     rightText: {
         flex: 1,
-        marginLeft: 10
-    }
-})
+        marginLeft: 10,
+    },
+});

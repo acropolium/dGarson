@@ -1,5 +1,5 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native'
-import config from '../../config'
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../config';
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +9,7 @@ export default StyleSheet.create({
         top: 0,
         bottom: 0,
         left: 0,
-        right: 0
+        right: 0,
     },
     background: {
         zIndex: 999999,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
         right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
     },
     textContainer: {
         flex: 1,
@@ -30,15 +30,15 @@ export default StyleSheet.create({
         right: 0,
         justifyContent: 'center',
         alignItems: 'center',
-        position: 'absolute'
+        position: 'absolute',
     },
     textContent: {
         top: 80,
         height: 50,
         fontSize: 20,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
     activiti_indicator: {
-        flex: 1
-    }
-})
+        flex: 1,
+    },
+});

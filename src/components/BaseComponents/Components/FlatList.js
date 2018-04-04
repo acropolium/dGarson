@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { FlatList as BaseFlatList } from 'react-native'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FlatList as BaseFlatList } from 'react-native';
 
 export default class FlatList extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     render() {
@@ -30,14 +30,14 @@ export default class FlatList extends React.Component {
                 onEndReachedThreshold={this.props.endReachedThreshold}
                 horizontal={this.props.horizontal}
             />
-        )
+        );
     }
 }
 
 FlatList.propTypes = {
     data: PropTypes.oneOfType([
         PropTypes.array.isRequired,
-        PropTypes.object.isRequired
+        PropTypes.object.isRequired,
     ]),
     renderItem: PropTypes.func.isRequired,
     refreshing: PropTypes.bool,
@@ -49,24 +49,24 @@ FlatList.propTypes = {
     renderEmptyList: PropTypes.func,
     onEndReached: PropTypes.func,
     horizontal: PropTypes.bool,
-    maxToRenderPerBatch: PropTypes.number
-}
+    maxToRenderPerBatch: PropTypes.number,
+};
 
 FlatList.defaultProps = {
     renderSeparator: () => {
-        return null
+        return null;
     },
     renderHeader: () => {
-        return null
+        return null;
     },
     renderFooter: () => {
-        return null
+        return null;
     },
     onEndReached: () => {},
     onRefresh: () => {},
     renderEmptyList: () => {
-        return null
+        return null;
     },
     endReachedThreshold: 0.5,
-    horizontal: false
-}
+    horizontal: false,
+};

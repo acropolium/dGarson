@@ -1,31 +1,31 @@
-import React, { Component } from 'react'
-import { View, Text, Animated } from 'react-native'
-import PropTypes from 'prop-types'
-import config from '../../config'
-import I18n from '../../services/translate.js'
-import styles from '../../styles/components/HomeStyles'
-import Button from '../../widgets/buttons/styledButton'
-import { TextInput } from '../BaseComponents'
+import React, { Component } from 'react';
+import { View, Text, Animated } from 'react-native';
+import PropTypes from 'prop-types';
+import config from '../../config';
+import I18n from '../../services/translate.js';
+import styles from '../../styles/components/HomeStyles';
+import Button from '../../widgets/buttons/styledButton';
+import { TextInput } from '../BaseComponents';
 
 export default class InputBlock extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     userInputCode = phone => {
-        this.props.userInputPhone('userInputPhoneCode', { phoneCode: phone })
+        this.props.userInputPhone('userInputPhoneCode', { phoneCode: phone });
 
-        if (phone.length == 2) this.sndInput.focus()
-    }
+        if (phone.length == 2) this.sndInput.focus();
+    };
 
     userInputNumber = phone => {
         this.props.userInputPhone('userInputPhoneNumber', {
-            phoneNumber: phone
-        })
+            phoneNumber: phone,
+        });
 
-        if (phone.length == 7) this.sndInput.blur()
-        if (phone.length == 0) this.fstInput.focus()
-    }
+        if (phone.length == 7) this.sndInput.blur();
+        if (phone.length == 0) this.fstInput.focus();
+    };
 
     render() {
         return (
@@ -37,8 +37,8 @@ export default class InputBlock extends Component {
                         {
                             opacity: this.props.home.state.form.phone
                                 .visibility,
-                            transform: this.props.home.state.form.phone.position.getTranslateTransform()
-                        }
+                            transform: this.props.home.state.form.phone.position.getTranslateTransform(),
+                        },
                     ]}>
                     <Text style={[styles.custom_font, styles.animated_text]}>
                         +380 (
@@ -79,11 +79,11 @@ export default class InputBlock extends Component {
                     </View>
                 </View>
             </View>
-        )
+        );
     }
 }
 
 InputBlock.propTypes = {
     sendData: PropTypes.func.isRequired,
-    home: PropTypes.object.isRequired
-}
+    home: PropTypes.object.isRequired,
+};

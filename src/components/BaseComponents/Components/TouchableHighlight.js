@@ -1,6 +1,6 @@
-import React from 'react'
-import { View, TouchableHighlight } from 'react-native'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { View, TouchableHighlight } from 'react-native';
+import PropTypes from 'prop-types';
 
 const BaseTouchableHighlight = props => {
     return (
@@ -13,19 +13,19 @@ const BaseTouchableHighlight = props => {
             onPress={props.onPress}>
             {props.children}
         </TouchableHighlight>
-    )
-}
+    );
+};
 
 BaseTouchableHighlight.propTypes = {
     activeOpacity: PropTypes.number,
     underlayColor: PropTypes.string,
     onHideUnderlay: PropTypes.func,
     onShowUnderlay: PropTypes.func,
-    onPress: PropTypes.func
-}
+    onPress: PropTypes.func,
+};
 
 BaseTouchableHighlight.defaultProps = {
-    activeOpacity: 0.2
-}
+    activeOpacity: 0.2,
+};
 
-export default BaseTouchableHighlight
+export default BaseTouchableHighlight;

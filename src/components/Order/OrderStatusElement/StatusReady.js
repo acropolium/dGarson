@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import I18n from '../../../services/translate.js'
-import { Actions } from 'react-native-router-flux'
-import { View, Text, Icon } from '../../BaseComponents'
-import LeftSideStatus from './MicroElement/LeftSideStatus'
-import styles from '../../../styles/components/order/StatusRedyStyle'
+import React from 'react';
+import PropTypes from 'prop-types';
+import I18n from '../../../services/translate.js';
+import { Actions } from 'react-native-router-flux';
+import { View, Text, Icon } from '../../BaseComponents';
+import LeftSideStatus from './MicroElement/LeftSideStatus';
+import styles from '../../../styles/components/order/StatusRedyStyle';
 
 const StatusReady = props => {
     return (
@@ -32,12 +32,12 @@ const StatusReady = props => {
                 </Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
 StatusReady.propTypes = {
     getFormattedTime: PropTypes.func.isRequired,
-    getCurrentAddress: PropTypes.func.isRequired
-}
+    getCurrentAddress: PropTypes.func.isRequired,
+};
 
-export default StatusReady
+export default StatusReady;

@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Text, View } from '../../BaseComponents'
-import styles from '../../../styles/components/order/OrderListStyle'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, View } from '../../BaseComponents';
+import styles from '../../../styles/components/order/OrderListStyle';
 
 const OrderOption = props => {
     return (
@@ -13,29 +13,29 @@ const OrderOption = props => {
                             <Text
                                 style={[
                                     styles.custom_font,
-                                    styles.addition_block_text_plus
+                                    styles.addition_block_text_plus,
                                 ]}>
                                 +{' '}
                             </Text>
                             <Text
                                 style={[
                                     styles.custom_font,
-                                    styles.addition_block_text
+                                    styles.addition_block_text,
                                 ]}>
                                 {addition.name}
                             </Text>
                         </View>
-                    )
+                    );
             })}
         </View>
-    )
-}
+    );
+};
 
 OrderOption.propTypes = {
     options: PropTypes.oneOfType([
         PropTypes.array.isRequired,
-        PropTypes.object.isRequired
-    ])
-}
+        PropTypes.object.isRequired,
+    ]),
+};
 
-export default OrderOption
+export default OrderOption;

@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import I18n from '../../../services/translate.js'
-import { Icon, Text, View } from '../../BaseComponents'
-import Button from '../../../widgets/buttons/styledButton'
+import React from 'react';
+import PropTypes from 'prop-types';
+import I18n from '../../../services/translate.js';
+import { Icon, Text, View } from '../../BaseComponents';
+import Button from '../../../widgets/buttons/styledButton';
 
-import styles from '../../../styles/components/order/StatusNotPickedStyle'
+import styles from '../../../styles/components/order/StatusNotPickedStyle';
 
 const StatusNotPicked = props => {
     return (
@@ -22,16 +22,16 @@ const StatusNotPicked = props => {
                     style={styles.button}
                     title={I18n.t('operator').toUpperCase()}
                     onPress={() => {
-                        props.handleClickUrl('tel:' + props.companyPhone)
+                        props.handleClickUrl('tel:' + props.companyPhone);
                     }}
                 />
             </View>
         </View>
-    )
-}
+    );
+};
 
 StatusNotPicked.propTypes = {
-    handleClickUrl: PropTypes.func.isRequired
-}
+    handleClickUrl: PropTypes.func.isRequired,
+};
 
-export default StatusNotPicked
+export default StatusNotPicked;

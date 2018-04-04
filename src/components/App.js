@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { BackAndroid, AppState } from 'react-native'
-import { Actions, Router, Reducer } from 'react-native-router-flux'
-import I18n from '../services/translate.js'
-import FCM, { FCMEvent } from 'react-native-fcm'
-import scene from '../scene/scene.js'
+import React, { Component } from 'react';
+import { BackAndroid, AppState } from 'react-native';
+import { Actions, Router, Reducer } from 'react-native-router-flux';
+import I18n from '../services/translate.js';
+import FCM, { FCMEvent } from 'react-native-fcm';
+import scene from '../scene/scene.js';
 import {
     CONFIRM_SCENE,
     MENU_SCENE,
@@ -14,83 +14,82 @@ import {
     ABOUT_SCENE,
     DIALOG_SCENE,
     INIT_SCENE,
-    PREVIEW_ORDER_SCENE
-} from '../scene/sceneConstant.js'
+    PREVIEW_ORDER_SCENE,
+} from '../scene/sceneConstant.js';
 import {
     ORDER_PAYED,
     ORDER_DRAFT,
-    ORDER_CANCEL
-} from '../reducers/constOrderState.js'
+    ORDER_CANCEL,
+} from '../reducers/constOrderState.js';
 
- 
 export default class App extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     componentDidMount() {
-        this.props.appAction.loadInitialStateApp()
+        this.props.appAction.loadInitialStateApp();
 
         FCM.on(FCMEvent.Notification, async notification => {
             this.props.appAction.notificationHandler(
                 notification,
                 this.props.dialogActions
-            )
-        })
+            );
+        });
 
-        this.props.appAction.getToken()
+        this.props.appAction.getToken();
 
         FCM.on(FCMEvent.RefreshToken, token => {
-            this.props.appAction.sendToken(token)
-        })
+            this.props.appAction.sendToken(token);
+        });
     }
 
     handleAndroidBack = async () => {
-        const { dialogActions } = this.props
+        const { dialogActions } = this.props;
 
-        let currentAction = false
+        let currentAction = false;
         switch (this.currentPage) {
             case CONFIRM_SCENE:
-                await this.props.changePage(INIT_SCENE)
-                currentAction = true
-                break
+                await this.props.changePage(INIT_SCENE);
+                currentAction = true;
+                break;
             case LOCATION_SCENE:
-                Actions.pop()
-                currentAction = true
-                break
+                Actions.pop();
+                currentAction = true;
+                break;
             case DIALOG_SCENE:
             case TIMER_SCENE:
-                currentAction = true
-                Actions.pop()
-                break
+                currentAction = true;
+                Actions.pop();
+                break;
             case ABOUT_SCENE:
-                Actions.pop()
+                Actions.pop();
 
-                currentAction = true
-                break
+                currentAction = true;
+                break;
 
             case PREVIEW_ORDER_SCENE:
-                await this.props.changePage(MENU_SCENE)
-                currentAction = true
-                break
+                await this.props.changePage(MENU_SCENE);
+                currentAction = true;
+                break;
             case MENU_SCENE:
-                await this.props.changePage(COMPANIES_SCENE)
-                currentAction = true
-                break
+                await this.props.changePage(COMPANIES_SCENE);
+                currentAction = true;
+                break;
             case ORDER_SCENE:
-                let newState = COMPANIES_SCENE
-                currentAction = true
+                let newState = COMPANIES_SCENE;
+                currentAction = true;
 
                 if (
                     [ORDER_DRAFT, ORDER_CANCEL, ORDER_PAYED].indexOf(
                         this.props.order_state
                     ) !== -1
                 ) {
-                    newState = MENU_SCENE
+                    newState = MENU_SCENE;
                 }
-                this.props.changePage(newState)
+                this.props.changePage(newState);
 
-                break
+                break;
         }
 
         if (currentAction == false) {
@@ -100,21 +99,21 @@ export default class App extends Component {
                 callback: BackAndroid.exitApp,
                 ok_title: I18n.t('dialog_ok'),
                 cancel_title: I18n.t('dialog_cancel'),
-                ok_backgroundColor: '#e65048'
-            })
+                ok_backgroundColor: '#e65048',
+            });
         }
 
-        return true
-    }
+        return true;
+    };
 
     reducerCreate = params => {
-        const defaultReducer = new Reducer(params)
+        const defaultReducer = new Reducer(params);
         return (state, action) => {
-            this.currentPage = action.routeName
+            this.currentPage = action.routeName;
 
-            return defaultReducer(state, action)
-        }
-    }
+            return defaultReducer(state, action);
+        };
+    };
 
     render() {
         return (
@@ -123,6 +122,6 @@ export default class App extends Component {
                 scenes={scene}
                 backAndroidHandler={this.handleAndroidBack}
             />
-        )
+        );
     }
 }

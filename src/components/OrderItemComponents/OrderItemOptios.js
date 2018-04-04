@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon, Text, View, TouchableHighlight } from '../BaseComponents'
-import styles from '../../styles/components/OrderItemStyles'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Text, View, TouchableHighlight } from '../BaseComponents';
+import styles from '../../styles/components/OrderItemStyles';
 
 const OrderItemOptions = props => {
     return (
@@ -12,29 +12,27 @@ const OrderItemOptions = props => {
                         <Text
                             style={[
                                 styles.custom_font,
-                                styles.order_block_additions_text
+                                styles.order_block_additions_text,
                             ]}>
                             {props.leftText}
                         </Text>
                         <Text
                             style={[
                                 styles.custom_font,
-                                styles.order_block_additions_text
+                                styles.order_block_additions_text,
                             ]}>
                             {' '}
                             {props.rightText}
                         </Text>
                     </View>
                     <View style={styles.item_icon_collapse}>
-                        <Icon
-                            name={props.iconName}
-                        />
+                        <Icon name={props.iconName} />
                     </View>
                 </View>
             </TouchableHighlight>
         )
-    )
-}
+    );
+};
 
 OrderItemOptions.propTypes = {
     options: PropTypes.object.isRequired,
@@ -42,6 +40,6 @@ OrderItemOptions.propTypes = {
     leftText: PropTypes.string.isRequired,
     rightText: PropTypes.number.isRequired,
     iconName: PropTypes.string.isRequired,
-}
+};
 
-export default OrderItemOptions
+export default OrderItemOptions;

@@ -1,44 +1,44 @@
-import React, { PropTypes, Component } from 'react'
-import { ImageBackground } from 'react-native'
-import { Text, View } from './BaseComponents'
-import I18n from '../services/translate.js'
-import styles from '../styles/components/ConfirmStyle'
-import ConfirmInputBlock from './ConfirmElement/ConfirmInputBlock'
-import ConfirmButtonBlock from './ConfirmElement/ConfirmButtonBlock'
-import Spinner from './Spinner'
-import { HOME_SCENE } from '../scene/sceneConstant.js'
+import React, { PropTypes, Component } from 'react';
+import { ImageBackground } from 'react-native';
+import { Text, View } from './BaseComponents';
+import I18n from '../services/translate.js';
+import styles from '../styles/components/ConfirmStyle';
+import ConfirmInputBlock from './ConfirmElement/ConfirmInputBlock';
+import ConfirmButtonBlock from './ConfirmElement/ConfirmButtonBlock';
+import Spinner from './Spinner';
+import { HOME_SCENE } from '../scene/sceneConstant.js';
 
 export default class Home extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            code: []
-        }
+            code: [],
+        };
     }
 
     sendData = async () => {
         if (this.props.spinnerShow) {
-            return
+            return;
         }
 
-        let code = this.state.code.join('')
-        let confirmData = { phone: this.props.phone, code: code }
+        let code = this.state.code.join('');
+        let confirmData = { phone: this.props.phone, code: code };
 
         this.props.loginActions.sendConfirm(confirmData).catch(error => {
             this.props.dialogActions.dialogShow({
                 title: I18n.t('server_error'),
-                message: error.message
-            })
-        })
-    }
+                message: error.message,
+            });
+        });
+    };
 
     goBack = async () => {
-        this.props.changePage(HOME_SCENE)
-    }
+        this.props.changePage(HOME_SCENE);
+    };
 
     setComfirmNumber = code => {
-        this.setState({ code: code })
-    }
+        this.setState({ code: code });
+    };
 
     render() {
         return (
@@ -76,6 +76,6 @@ export default class Home extends Component {
                     </View>
                 </View>
             </ImageBackground>
-        )
+        );
     }
 }

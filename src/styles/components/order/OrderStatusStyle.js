@@ -1,6 +1,6 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native'
-import config from '../../../config'
-let windowWidth = Dimensions.get('window').width
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../../config';
+let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     timer_main: {
@@ -10,11 +10,11 @@ export default StyleSheet.create({
 
         padding: 10,
         paddingTop: 7,
-        paddingBottom: 7
+        paddingBottom: 7,
     },
 
     custom_font: {
-        fontFamily: config.custom_font
+        fontFamily: config.custom_font,
     },
 
     selectTextStyle: {
@@ -22,22 +22,21 @@ export default StyleSheet.create({
         color: '#333',
         paddingTop: 8,
         paddingRight: 8,
-        fontSize: 16
+        fontSize: 16,
     },
 
     wrap_status_draft: {
         flexDirection: 'row',
         backgroundColor: '#e6e7eb',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
 
     wrap_block_status_draft: {
         padding: 0,
         paddingRight: 8,
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     text_size: {
-        fontSize: 15
+        fontSize: 15,
     },
-    
-})
+});

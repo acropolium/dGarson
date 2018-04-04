@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon, View, Text } from '../../BaseComponents'
-import I18n from '../../../services/translate.js'
-import styles from '../../../styles/components/order/StatusPayedStyle'
-import Button from '../../../widgets/buttons/styledButton'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, View, Text } from '../../BaseComponents';
+import I18n from '../../../services/translate.js';
+import styles from '../../../styles/components/order/StatusPayedStyle';
+import Button from '../../../widgets/buttons/styledButton';
 
 const StatusPayed = props => {
     return (
@@ -25,11 +25,11 @@ const StatusPayed = props => {
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 StatusPayed.propTypes = {
-    goBack: PropTypes.func.isRequired
-}
+    goBack: PropTypes.func.isRequired,
+};
 
-export default StatusPayed
+export default StatusPayed;

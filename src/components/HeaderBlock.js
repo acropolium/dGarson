@@ -1,14 +1,14 @@
-import React, { Component } from 'react'
-import { Linking } from 'react-native'
-import styles from '../styles/components/HeaderBlockStyle'
-import TochableHeaderIcon from './HeaderElement/TochableHeaderIcon'
-import { Text, View } from './BaseComponents'
-import * as routeService from '../services/routeService'
-import { COMPANIES_SCENE } from '../scene/sceneConstant.js'
+import React, { Component } from 'react';
+import { Linking } from 'react-native';
+import styles from '../styles/components/HeaderBlockStyle';
+import TochableHeaderIcon from './HeaderElement/TochableHeaderIcon';
+import { Text, View } from './BaseComponents';
+import * as routeService from '../services/routeService';
+import { COMPANIES_SCENE } from '../scene/sceneConstant.js';
 
 export default class HeaderBlock extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     getCurrentCoordinates = () => {
@@ -20,32 +20,32 @@ export default class HeaderBlock extends Component {
                 let location =
                     this.props.company_info.locations[0].lat +
                     ',' +
-                    this.props.company_info.locations[0].lng
+                    this.props.company_info.locations[0].lng;
                 this.props.company_info.locations.forEach(val => {
                     if (val.id == this.props.currentLocation) {
-                        location = val.lat + ',' + val.lng
+                        location = val.lat + ',' + val.lng;
                     }
-                })
+                });
 
-                return location
+                return location;
             }
         }
-        return false
-    }
+        return false;
+    };
 
     handleClickUrl = link => {
         Linking.canOpenURL(link).then(supported => {
             if (supported) {
-                Linking.openURL(link)
+                Linking.openURL(link);
             } else {
-                console.log("Don't know how to open URI: " + link)
+                console.log("Don't know how to open URI: " + link);
             }
-        })
-    }
+        });
+    };
 
     goBack = () => {
-        routeService.changePage(COMPANIES_SCENE)
-    }
+        routeService.changePage(COMPANIES_SCENE);
+    };
 
     renderRightSide = () => {
         return (
@@ -55,7 +55,7 @@ export default class HeaderBlock extends Component {
                         styles.menu_button_wrap,
                         this.props.showCheck || this.props.aboutAs
                             ? styles.justifyContent_value
-                            : {}
+                            : {},
                     ]}>
                     {this.props.company_info &&
                         this.props.company_info.phone &&
@@ -65,7 +65,7 @@ export default class HeaderBlock extends Component {
                                 press={() => {
                                     this.handleClickUrl(
                                         'tel:' + this.props.company_info.phone
-                                    )
+                                    );
                                 }}
                                 iconName="mobile_header"
                                 typeButton="mobile_button"
@@ -78,10 +78,10 @@ export default class HeaderBlock extends Component {
                                 press={() => {
                                     this.handleClickUrl(
                                         'geo:' +
-                                        this.getCurrentCoordinates() +
-                                        '?q=' +
-                                        this.getCurrentCoordinates()
-                                    )
+                                            this.getCurrentCoordinates() +
+                                            '?q=' +
+                                            this.getCurrentCoordinates()
+                                    );
                                 }}
                                 iconName="location_header"
                                 typeButton="location_button"
@@ -90,7 +90,7 @@ export default class HeaderBlock extends Component {
                     {this.props.showCheck && (
                         <TochableHeaderIcon
                             press={() => {
-                                this.props.showCheck
+                                this.props.showCheck;
                             }}
                             iconName="check_header"
                             typeButton="check_button"
@@ -99,7 +99,7 @@ export default class HeaderBlock extends Component {
                     {this.props.aboutAs && (
                         <TochableHeaderIcon
                             press={() => {
-                                this.props.aboutAs()
+                                this.props.aboutAs();
                             }}
                             iconName="info_company"
                             typeButton="aboutus_button"
@@ -107,11 +107,11 @@ export default class HeaderBlock extends Component {
                     )}
                 </View>
             </View>
-        )
-    }
+        );
+    };
 
     render() {
-        let backButton = this.goBack
+        let backButton = this.goBack;
 
         return (
             <View style={styles.header_main}>
@@ -133,6 +133,6 @@ export default class HeaderBlock extends Component {
                 </View>
                 {this.renderRightSide()}
             </View>
-        )
+        );
     }
 }

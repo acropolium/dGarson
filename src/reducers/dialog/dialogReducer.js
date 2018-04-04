@@ -1,5 +1,5 @@
-import { Actions } from 'react-native-router-flux'
-import { DIALOG_SHOWING, DIALOG_HIDDING } from '../constAction.js'
+import { Actions } from 'react-native-router-flux';
+import { DIALOG_SHOWING, DIALOG_HIDDING } from '../constAction.js';
 
 const initialState = {
     show: false,
@@ -7,17 +7,17 @@ const initialState = {
     type: 'info',
     title: '',
     callback: false,
-    referer: false
-}
+    referer: false,
+};
 
 export default function dialog(state = initialState, action) {
     switch (action.type) {
         case DIALOG_SHOWING:
-            Actions.dialog()
-            return Object.assign({}, state, action.payload, { show: true })
+            Actions.dialog();
+            return Object.assign({}, state, action.payload, { show: true });
         case DIALOG_HIDDING:
-            return Object.assign({}, initialState)
+            return Object.assign({}, initialState);
         default:
-            return state
+            return state;
     }
 }

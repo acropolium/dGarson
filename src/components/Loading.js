@@ -1,21 +1,21 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Component } from 'react';
 import {
     ImageBackground,
     Animated,
     Dimensions,
     Easing,
-    Alert
-} from 'react-native'
-import I18n from '../services/translate.js'
-import { View } from './BaseComponents'
-import styles from '../styles/screens/LoadingScreenSyle'
-import store from '../utils/storage'
-import * as routeService from '../services/routeService'
-let windowHeight = Dimensions.get('window').height
+    Alert,
+} from 'react-native';
+import I18n from '../services/translate.js';
+import { View } from './BaseComponents';
+import styles from '../styles/screens/LoadingScreenSyle';
+import store from '../utils/storage';
+import * as routeService from '../services/routeService';
+let windowHeight = Dimensions.get('window').height;
 
 export default class Loading extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             show: true,
             animating: true,
@@ -24,10 +24,10 @@ export default class Loading extends Component {
             product_visibility: new Animated.Value(0),
             copyright_position: new Animated.ValueXY({
                 x: 0,
-                y: windowHeight - 50
+                y: windowHeight - 50,
             }),
-            copyright_visibility: new Animated.Value(0)
-        }
+            copyright_visibility: new Animated.Value(0),
+        };
     }
 
     componentDidMount() {
@@ -35,21 +35,21 @@ export default class Loading extends Component {
             Animated.timing(this.state.copyright_position, {
                 duration: 400, // milliseconds
                 easing: Easing.in(Easing.linear),
-                toValue: { x: 0, y: windowHeight - 90 }
+                toValue: { x: 0, y: windowHeight - 90 },
             }),
             Animated.timing(this.state.copyright_visibility, {
                 duration: 400, // milliseconds
-                toValue: 1
-            })
+                toValue: 1,
+            }),
         ]).start(() => {
             Animated.timing(this.state.product_visibility, {
                 duration: 400, // milliseconds
-                toValue: 1
+                toValue: 1,
             }).start(() => {
-                let page = store.get('state')
-                routeService.changePage(page ? page : 'init')
-            })
-        })
+                let page = store.get('state');
+                routeService.changePage(page ? page : 'init');
+            });
+        });
     }
 
     render() {
@@ -64,8 +64,8 @@ export default class Loading extends Component {
                                 styles.product_title,
                                 {
                                     opacity: this.state.product_visibility,
-                                    transform: this.state.product_position.getTranslateTransform()
-                                }
+                                    transform: this.state.product_position.getTranslateTransform(),
+                                },
                             ]}>
                             {I18n.t('product_title')}
                         </Animated.Text>
@@ -77,12 +77,12 @@ export default class Loading extends Component {
                             source={require('../media/backgrounds/company.png')}
                             style={{
                                 opacity: this.state.copyright_visibility,
-                                transform: this.state.copyright_position.getTranslateTransform()
+                                transform: this.state.copyright_position.getTranslateTransform(),
                             }}
                         />
                     </View>
                 </View>
             </ImageBackground>
-        )
+        );
     }
 }

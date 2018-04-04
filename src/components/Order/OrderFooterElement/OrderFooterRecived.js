@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import I18n from '../../../services/translate.js'
-import TochableOrderFooter from './OrderFooterMicroElement/TochableOrderFooter'
-import styles from '../../../styles/components/order/OrderFooter/OrderFooterRecivedStyles'
+import React from 'react';
+import PropTypes from 'prop-types';
+import I18n from '../../../services/translate.js';
+import TochableOrderFooter from './OrderFooterMicroElement/TochableOrderFooter';
+import styles from '../../../styles/components/order/OrderFooter/OrderFooterRecivedStyles';
 
 const OrderFooterRecived = props => {
     return (
@@ -11,10 +11,10 @@ const OrderFooterRecived = props => {
             iconName="send_cancel"
             text={I18n.t('order_' + props.orderState).toUpperCase()}
         />
-    )
-}
+    );
+};
 
 OrderFooterRecived.propTypes = {
-    showCancelConfirm: PropTypes.func.isRequired
-}
-export default OrderFooterRecived
+    showCancelConfirm: PropTypes.func.isRequired,
+};
+export default OrderFooterRecived;

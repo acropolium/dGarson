@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View, TouchableHighlight, Text } from 'react-native'
-import Button from '../../widgets/buttons/styledButton'
-import I18n from '../../services/translate.js'
-import styles from '../../styles/components/ConfirmStyle'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, TouchableHighlight, Text } from 'react-native';
+import Button from '../../widgets/buttons/styledButton';
+import I18n from '../../services/translate.js';
+import styles from '../../styles/components/ConfirmStyle';
 const ConfirmButtonBlock = props => {
     return (
         <View style={styles.confirm_buttons_wrap}>
@@ -22,12 +22,12 @@ const ConfirmButtonBlock = props => {
                 </TouchableHighlight>
             </View>
         </View>
-    )
-}
+    );
+};
 
 ConfirmButtonBlock.propTypes = {
     sendData: PropTypes.func,
-    goBack: PropTypes.func
-}
+    goBack: PropTypes.func,
+};
 
-export default ConfirmButtonBlock
+export default ConfirmButtonBlock;

@@ -3,6 +3,6 @@ export const KeyValueSchema = {
     primaryKey: 'key',
     properties: {
         key: { type: 'string' },
-        value: { type: 'string' }
-    }
-}
+        value: { type: 'string' },
+    },
+};

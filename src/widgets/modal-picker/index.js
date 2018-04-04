@@ -1,28 +1,28 @@
-'use strict'
-import React from 'react'
+'use strict';
+import React from 'react';
 import {
     StyleSheet,
     Dimensions,
     Modal,
     ScrollView,
     TouchableOpacity,
-    Platform
-} from 'react-native'
-import PropTypes from 'prop-types'
-import { Actions, ActionConst } from 'react-native-router-flux'
+    Platform,
+} from 'react-native';
+import PropTypes from 'prop-types';
+import { Actions, ActionConst } from 'react-native-router-flux';
 
-import styles from '../../styles/widgets/modal-picker/style'
-import BaseComponent from './BaseComponent'
+import styles from '../../styles/widgets/modal-picker/style';
+import BaseComponent from './BaseComponent';
 
-import { Icon } from '../../components/BaseComponents'
-import Button from '../../widgets/buttons/styledButton'
-import { View, Text } from '../../components/BaseComponents'
-import I18n from '../../services/translate.js'
+import { Icon } from '../../components/BaseComponents';
+import Button from '../../widgets/buttons/styledButton';
+import { View, Text } from '../../components/BaseComponents';
+import I18n from '../../services/translate.js';
 
-let windowWidth = Dimensions.get('window').width
-let windowHeight = Dimensions.get('window').height
+let windowWidth = Dimensions.get('window').width;
+let windowHeight = Dimensions.get('window').height;
 
-let componentIndex = 0
+let componentIndex = 0;
 
 const propTypes = {
     data: PropTypes.array,
@@ -31,12 +31,12 @@ const propTypes = {
     optionTextStyle: Text.propTypes.style,
     sectionTextStyle: Text.propTypes.style,
     cancelTextStyle: Text.propTypes.style,
-    cancelText: PropTypes.string
-}
+    cancelText: PropTypes.string,
+};
 
 const defaultProps = {
     data: [],
-    onChange: () => { },
+    onChange: () => {},
     initValue: 'Select me!',
     style: {},
     selectStyle: {},
@@ -47,45 +47,49 @@ const defaultProps = {
     cancelStyle: {},
     cancelTextStyle: {},
     cancelText: I18n.t('cancel'),
-    overlayStyle: {}
-}
+    overlayStyle: {},
+};
 
 export default class ModalPicker extends BaseComponent {
     constructor(props) {
-        super(props)
+        super(props);
 
-        this._bind('onChange', 'close', 'renderChildren')
+        this._bind('onChange', 'close', 'renderChildren');
 
         this.state = {
             animationType: 'slide',
             modalVisible: false,
             transparent: false,
-            selected: 'please select'
-        }
+            selected: 'please select',
+        };
     }
 
     componentDidMount() {
         this.setState({
-            selected: this.props.initValue ? this.props.initValue : 'Select me!'
-        })
+            selected: this.props.initValue
+                ? this.props.initValue
+                : 'Select me!',
+        });
         this.setState({
-            cancelText: this.props.cancelText ? this.props.cancelText : 'cancel'
-        })
+            cancelText: this.props.cancelText
+                ? this.props.cancelText
+                : 'cancel',
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.initValue != this.props.initValue) {
-            this.setState({ selected: nextProps.initValue })
+            this.setState({ selected: nextProps.initValue });
         }
     }
 
     onChange = async item => {
-        this.props.setOrder({ desired_time: item.value })
-        this.close()
-    }
+        this.props.setOrder({ desired_time: item.value });
+        this.close();
+    };
 
     close() {
-        Actions.pop()
+        Actions.pop();
     }
 
     renderSection(section) {
@@ -96,12 +100,12 @@ export default class ModalPicker extends BaseComponent {
                 <Text
                     style={[
                         styles.sectionTextStyle,
-                        this.props.sectionTextStyle
+                        this.props.sectionTextStyle,
                     ]}>
                     {section.label}
                 </Text>
             </View>
-        )
+        );
     }
 
     renderOption(option) {
@@ -116,34 +120,34 @@ export default class ModalPicker extends BaseComponent {
                             this.props.optionTextStyle,
                             this.props.desired_time == option.value
                                 ? { color: 'white' }
-                                : {}
+                                : {},
                         ]}>
                         {option.label}
                     </Text>
                 </View>
             </TouchableOpacity>
-        )
+        );
     }
 
     getFormattedTime = desired_time => {
-        let outStr = ''
+        let outStr = '';
         if (desired_time < 60) {
-            outStr = desired_time + ' ' + I18n.t('min')
+            outStr = desired_time + ' ' + I18n.t('min');
         } else {
-            let hr = ~~(desired_time / 60).toString()
-            let minutes = desired_time % 60
+            let hr = ~~(desired_time / 60).toString();
+            let minutes = desired_time % 60;
 
             outStr =
                 hr +
                 ' ' +
                 I18n.t('hour') +
-                (minutes == 0 ? '' : ' ' + minutes + ' ' + I18n.t('min'))
+                (minutes == 0 ? '' : ' ' + minutes + ' ' + I18n.t('min'));
         }
-        return outStr
-    }
+        return outStr;
+    };
 
     renderOptionList() {
-        let index = 0
+        let index = 0;
         const data = [
             { key: index++, label: this.getFormattedTime(15), value: 15 },
             { key: index++, label: this.getFormattedTime(30), value: 30 },
@@ -152,16 +156,16 @@ export default class ModalPicker extends BaseComponent {
             { key: index++, label: this.getFormattedTime(90), value: 90 },
             { key: index++, label: this.getFormattedTime(120), value: 120 },
             { key: index++, label: this.getFormattedTime(150), value: 150 },
-            { key: index++, label: this.getFormattedTime(180), value: 180 }
-        ]
+            { key: index++, label: this.getFormattedTime(180), value: 180 },
+        ];
 
         let options = data.map(item => {
             if (item.section) {
-                return this.renderSection(item)
+                return this.renderSection(item);
             } else {
-                return this.renderOption(item)
+                return this.renderOption(item);
             }
-        })
+        });
 
         return (
             <View style={[styles.overlayStyle, this.props.overlayStyle]}>
@@ -179,34 +183,32 @@ export default class ModalPicker extends BaseComponent {
                     />
                 </View>
             </View>
-        )
+        );
     }
 
     renderChildren() {
         if (this.props.children) {
-            return this.props.children
+            return this.props.children;
         }
         return (
             <View
                 style={[
                     styles.selectStyle,
                     this.props.selectStyle,
-                    { padding: 0, paddingRight: 8 }
+                    { padding: 0, paddingRight: 8 },
                 ]}>
                 <Text
                     style={[
                         styles.custom_font,
                         styles.selectTextStyle,
                         this.props.selectTextStyle,
-                        { fontSize: 15 }
+                        { fontSize: 15 },
                     ]}>
                     {this.state.selected}
                 </Text>
-                <Icon
-                    name='modal_picker'
-                />
+                <Icon name="modal_picker" />
             </View>
-        )
+        );
     }
 
     render() {
@@ -219,13 +221,13 @@ export default class ModalPicker extends BaseComponent {
                 animationType={this.state.animationType}>
                 {this.renderOptionList()}
             </Modal>
-        )
+        );
 
         return (
             <View style={[stylesOverlay.overlayStyle]}>
                 {this.renderOptionList()}
             </View>
-        )
+        );
     }
 }
 
@@ -236,9 +238,9 @@ let stylesOverlay = StyleSheet.create({
         bottom: 0,
         left: 0,
         right: 0,
-        backgroundColor: 'rgba(42, 42, 50, 0.97)'
-    }
-})
+        backgroundColor: 'rgba(42, 42, 50, 0.97)',
+    },
+});
 
-ModalPicker.propTypes = propTypes
-ModalPicker.defaultProps = defaultProps
+ModalPicker.propTypes = propTypes;
+ModalPicker.defaultProps = defaultProps;

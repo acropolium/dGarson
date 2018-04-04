@@ -1,10 +1,9 @@
-import { Platform, StyleSheet } from 'react-native'
-import config from '../../../config'
-import { Dimensions } from 'react-native'
-const windowWidth = Dimensions.get('window').width
+import { Platform, StyleSheet } from 'react-native';
+import config from '../../../config';
+import { Dimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-    
     location_main: {
         width: windowWidth,
         flexDirection: 'row',
@@ -12,7 +11,7 @@ export default StyleSheet.create({
         backgroundColor: '#2a2a31',
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#94979f'
+        borderBottomColor: '#94979f',
     },
 
     locationText: {
@@ -21,6 +20,6 @@ export default StyleSheet.create({
         color: '#94979f',
         fontSize: 14,
         marginLeft: 10,
-        paddingRight: 25
-    }
-})
+        paddingRight: 25,
+    },
+});

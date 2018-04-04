@@ -1,18 +1,18 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native'
-import config from '../../../../config'
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../../../config';
 
-let windowWidth = Dimensions.get('window').width
+let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     preview_main: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: 7
+        padding: 7,
     },
 
     custom_font: {
-        fontFamily: config.custom_font
+        fontFamily: config.custom_font,
     },
 
     text_style: {
@@ -20,6 +20,6 @@ export default StyleSheet.create({
         paddingBottom: 0,
         color: 'white',
         fontSize: 14,
-        marginRight: 5
-    }
-})
+        marginRight: 5,
+    },
+});

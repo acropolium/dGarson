@@ -1,21 +1,21 @@
-import { Platform, StyleSheet } from 'react-native'
-import config from '../../../config'
+import { Platform, StyleSheet } from 'react-native';
+import config from '../../../config';
 
 export default StyleSheet.create({
     footer_main: {
         flexDirection: 'row',
-        backgroundColor: '#2a2a31'
+        backgroundColor: '#2a2a31',
     },
 
     total_block: {
         flexDirection: 'row',
         alignItems: 'center',
         padding: 12,
-        flex: 1
+        flex: 1,
     },
 
     custom_font: {
-        fontFamily: config.custom_font
+        fontFamily: config.custom_font,
     },
 
     number2: {
@@ -27,7 +27,7 @@ export default StyleSheet.create({
         height: 25,
         margin: 0,
         color: '#fff',
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
     },
 
     preview_main: {
@@ -36,11 +36,11 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingTop: 14,
         paddingLeft: 15,
-        paddingRight: 15
+        paddingRight: 15,
     },
 
     touchable_icon: {
         padding: 0,
-        margin: 0
-    }
-})
+        margin: 0,
+    },
+});

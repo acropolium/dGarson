@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Text, View } from '../../BaseComponents'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, View } from '../../BaseComponents';
 
-import I18n from '../../../services/translate.js'
-import styles from '../../../styles/components/order/OrderFooter/OrderFooterStyles'
+import I18n from '../../../services/translate.js';
+import styles from '../../../styles/components/order/OrderFooter/OrderFooterStyles';
 
 const OrderFooterNotpicked = props => {
     return (
@@ -12,7 +12,7 @@ const OrderFooterNotpicked = props => {
                 {I18n.t('order_' + props.orderState).toUpperCase()}
             </Text>
         </View>
-    )
-}
+    );
+};
 
-export default OrderFooterNotpicked
+export default OrderFooterNotpicked;

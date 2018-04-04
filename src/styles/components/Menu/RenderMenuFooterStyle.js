@@ -1,30 +1,30 @@
-import { Platform, StyleSheet } from 'react-native'
-import config from '../../../config'
+import { Platform, StyleSheet } from 'react-native';
+import config from '../../../config';
 
 export default StyleSheet.create({
     custom_font: {
         fontFamily: config.custom_font,
         color: 'white',
         fontSize: 14,
-        marginRight: 10
+        marginRight: 10,
     },
 
     footer_main: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: '#2a2a31'
+        backgroundColor: '#2a2a31',
     },
 
     total_block: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: 12
+        padding: 12,
     },
 
     total_color: {
         paddingBottom: 5,
-        color: '#345e80'
+        color: '#345e80',
     },
 
     preview_main: {
@@ -33,6 +33,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         paddingTop: 4,
         paddingLeft: 10,
-        paddingRight: 10
-    }
-})
+        paddingRight: 10,
+    },
+});

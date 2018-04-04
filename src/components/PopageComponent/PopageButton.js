@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View } from 'react-native'
-import Button from '../../widgets/buttons/styledButton'
-import styles from '../../styles/components/PopageStyles'
-import I18n from '../../services/translate.js'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View } from 'react-native';
+import Button from '../../widgets/buttons/styledButton';
+import styles from '../../styles/components/PopageStyles';
+import I18n from '../../services/translate.js';
 
 const PopageButton = props => {
     return (
@@ -43,12 +43,12 @@ const PopageButton = props => {
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 PopageButton.propTypes = {
     approve: PropTypes.func.isRequired,
-    setModalHidden: PropTypes.func.isRequired
-}
+    setModalHidden: PropTypes.func.isRequired,
+};
 
-export default PopageButton
+export default PopageButton;

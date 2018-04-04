@@ -1,58 +1,57 @@
-import React, { Component } from 'react'
-import HeaderBlock from './HeaderBlock'
-import I18n from '../services/translate.js'
-import { View } from './BaseComponents'
-import SearchBlock from './Companies/SearchBlock'
-import CompanyList from './Companies/CompanyList'
-import styles from '../styles/components/CompaniesStyle'
-import Spinner from './Spinner'
+import React, { Component } from 'react';
+import HeaderBlock from './HeaderBlock';
+import I18n from '../services/translate.js';
+import { View } from './BaseComponents';
+import SearchBlock from './Companies/SearchBlock';
+import CompanyList from './Companies/CompanyList';
+import styles from '../styles/components/CompaniesStyle';
+import Spinner from './Spinner';
 
 export default class Companies extends Component {
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             showClear: false,
-            searchValue: ''
-        }
+            searchValue: '',
+        };
 
-        this.getItemsFromStorage()
+        this.getItemsFromStorage();
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.needUpdate) {
-            this.getItemsFromStorage(nextProps.needUpdateFromServer)
+            this.getItemsFromStorage(nextProps.needUpdateFromServer);
         }
     }
 
     clearSearch = () => {
-        this.setState({ showClear: false, searchValue: '' })
-        this.doSearch('')
-    }
+        this.setState({ showClear: false, searchValue: '' });
+        this.doSearch('');
+    };
 
     doSearch = value => {
         if (value.length == 0) {
-            this.setState({ showClear: false, searchValue: value })
+            this.setState({ showClear: false, searchValue: value });
         } else {
-            this.setState({ showClear: true, searchValue: value })
+            this.setState({ showClear: true, searchValue: value });
         }
-    }
+    };
 
     companiesList = value => {
-        let list
-        if (this.props.companies)
-            list = Object.values(this.props.companies)
+        let list;
+        if (this.props.companies) list = Object.values(this.props.companies);
 
         if (value != '') {
-            let patt = new RegExp(value, 'gi')
+            let patt = new RegExp(value, 'gi');
 
-            list = list.filter(function (item) {
-                return item.name.match(patt)
-            })
+            list = list.filter(function(item) {
+                return item.name.match(patt);
+            });
         }
 
-        return list
-    }
+        return list;
+    };
 
     getItemsFromStorage = (readFromServer = false) => {
         this.props.companiesActions
@@ -60,10 +59,10 @@ export default class Companies extends Component {
             .catch(error => {
                 this.props.dialogActions.dialogShow({
                     title: I18n.t('server_error'),
-                    message: error.message
-                })
-            })
-    }
+                    message: error.message,
+                });
+            });
+    };
 
     render() {
         return (
@@ -88,6 +87,6 @@ export default class Companies extends Component {
                     showClear={this.state.showClear}
                 />
             </View>
-        )
+        );
     }
 }

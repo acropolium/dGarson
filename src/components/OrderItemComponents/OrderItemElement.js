@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon, View, Text, TouchableHighlight } from '../BaseComponents'
-import styles from '../../styles/components/OrderItemStyles'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, View, Text, TouchableHighlight } from '../BaseComponents';
+import styles from '../../styles/components/OrderItemStyles';
 
 const OrderItemElement = props => {
     return (
@@ -10,14 +10,14 @@ const OrderItemElement = props => {
                 <Text
                     style={[
                         styles.custom_font,
-                        styles.order_block_element_name
+                        styles.order_block_element_name,
                     ]}>
                     {props.leftText}
                 </Text>
                 <Text
                     style={[
                         styles.custom_font,
-                        styles.order_block_element_price
+                        styles.order_block_element_price,
                     ]}>
                     {' '}
                     {props.rightText}
@@ -25,20 +25,18 @@ const OrderItemElement = props => {
             </View>
             <TouchableHighlight underlayColor="#ddd" onPress={props.press}>
                 <View style={styles.item_icon_remove}>
-                    <Icon
-                        name={props.iconName}
-                    />
+                    <Icon name={props.iconName} />
                 </View>
             </TouchableHighlight>
         </View>
-    )
-}
+    );
+};
 
 OrderItemElement.propTypes = {
     press: PropTypes.func.isRequired,
     leftText: PropTypes.string.isRequired,
     rightText: PropTypes.string.isRequired,
-    iconName: PropTypes.string.isRequired
-}
+    iconName: PropTypes.string.isRequired,
+};
 
-export default OrderItemElement
+export default OrderItemElement;

@@ -1,8 +1,8 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { View, Text } from 'react-native'
-import styles from '../../styles/components/PopageStyles'
-import Image from '../BaseComponents/Components/Image'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, Text } from 'react-native';
+import styles from '../../styles/components/PopageStyles';
+import Image from '../BaseComponents/Components/Image';
 
 const PopageBlock = props => {
     return (
@@ -27,7 +27,7 @@ const PopageBlock = props => {
                 <Text style={styles.text_block}>{props.dialog.message}</Text>
             </View>
         </View>
-    )
-}
+    );
+};
 
-export default PopageBlock
+export default PopageBlock;

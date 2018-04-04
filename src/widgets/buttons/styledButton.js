@@ -1,13 +1,13 @@
-import React, { PropTypes, Component } from 'react'
-import { StyleSheet } from 'react-native'
+import React, { PropTypes, Component } from 'react';
+import { StyleSheet } from 'react-native';
 
-import { View, Text, Icon, Button } from '../../components/BaseComponents'
-import config from '../../config'
-import styles from '../../styles/widgets/buttons/StyledButtonCss'
+import { View, Text, Icon, Button } from '../../components/BaseComponents';
+import config from '../../config';
+import styles from '../../styles/widgets/buttons/StyledButtonCss';
 
 export default class desButton extends Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
 
     render() {
@@ -22,12 +22,10 @@ export default class desButton extends Component {
                 <View
                     style={[
                         styles.content,
-                        { marginLeft: this.props.iconName ? 30 : 35 }
+                        { marginLeft: this.props.iconName ? 30 : 35 },
                     ]}>
                     {this.props.iconNameLeft && (
-                        <Icon
-                            name={this.props.iconNameLeft}
-                        />
+                        <Icon name={this.props.iconNameLeft} />
                     )}
                     <Text
                         style={[
@@ -35,18 +33,14 @@ export default class desButton extends Component {
                             {
                                 color: 'white',
                                 fontSize: 15,
-                                marginRight: this.props.iconName ? 0 : 35
-                            }
+                                marginRight: this.props.iconName ? 0 : 35,
+                            },
                         ]}>
                         {this.props.title}
                     </Text>
-                    {this.props.iconName && (
-                        <Icon
-                            name={this.props.iconName}
-                        />
-                    )}
+                    {this.props.iconName && <Icon name={this.props.iconName} />}
                 </View>
             </Button>
-        )
+        );
     }
 }

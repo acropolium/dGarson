@@ -1,26 +1,26 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native'
-import config from '../../config'
-let windowWidth = Dimensions.get('window').width
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../config';
+let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font
+        fontFamily: config.custom_font,
     },
 
     footer_wrap: {
         borderTopWidth: 3,
-        borderTopColor: '#000'
+        borderTopColor: '#000',
     },
 
     img: {
         width: 6,
-        height: 6
+        height: 6,
     },
 
     text: {
         paddingBottom: 0,
         fontSize: 14,
-        marginLeft: 10
+        marginLeft: 10,
     },
 
     location_main: {
@@ -30,7 +30,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         borderBottomWidth: 1,
-        borderBottomColor: '#94979f'
+        borderBottomColor: '#94979f',
     },
 
     header_main: {
@@ -39,12 +39,12 @@ export default StyleSheet.create({
         backgroundColor: '#2a2a31',
         padding: 10,
         paddingTop: 4,
-        paddingBottom: 7
+        paddingBottom: 7,
     },
 
     menu_button: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
 
     overlayStyle: {
@@ -54,26 +54,26 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: 'rgba(42, 42, 50, 0.8)',
-        marginTop: Platform.OS == 'ios' ? 20 : 0
+        marginTop: Platform.OS == 'ios' ? 20 : 0,
     },
 
     container: {
         width: windowWidth,
         justifyContent: 'flex-end',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     map: {
-        width: windowWidth
+        width: windowWidth,
     },
 
     location_footer_wrap: {
-        backgroundColor: '#4195d1'
+        backgroundColor: '#4195d1',
     },
 
     wrap_icon_footer: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        width: windowWidth - 70
-    }
-})
+        width: windowWidth - 70,
+    },
+});

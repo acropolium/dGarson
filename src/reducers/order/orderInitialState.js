@@ -3,7 +3,7 @@ const initialState = {
     price: { total: 0 },
     desired_time: 15,
     draft: {},
-    order: {}
-}
+    order: {},
+};
 
-export default initialState
+export default initialState;

@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Text, View } from '../../BaseComponents'
-import I18n from '../../../services/translate.js'
-import OrderOption from './OrderOption'
-import styles from '../../../styles/components/order/OrderListStyle'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Text, View } from '../../BaseComponents';
+import I18n from '../../../services/translate.js';
+import OrderOption from './OrderOption';
+import styles from '../../../styles/components/order/OrderListStyle';
 
 const OrderElement = props => {
     return (
@@ -20,20 +20,21 @@ const OrderElement = props => {
                         <Text
                             style={[
                                 styles.custom_font,
-                                styles.item_price_text
+                                styles.item_price_text,
                             ]}>
-                            {props.item.priceTotal.toFixed(2)} {I18n.t(props.currency)}
+                            {props.item.priceTotal.toFixed(2)}{' '}
+                            {I18n.t(props.currency)}
                         </Text>
                     </View>
                 </View>
                 <OrderOption options={props.item.options} />
             </View>
         </View>
-    )
-}
+    );
+};
 
 OrderElement.propTypes = {
-    item: PropTypes.object.isRequired
-}
+    item: PropTypes.object.isRequired,
+};
 
-export default OrderElement
+export default OrderElement;

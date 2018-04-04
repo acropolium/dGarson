@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Icon, Text, View, TouchableHighlight } from '../../../BaseComponents'
-import styles from '../../../../styles/components/order/OrderFooter/OrderFooterPendingStyles'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Icon, Text, View, TouchableHighlight } from '../../../BaseComponents';
+import styles from '../../../../styles/components/order/OrderFooter/OrderFooterPendingStyles';
 
 const TochableOrderFooter = props => {
     return (
@@ -10,19 +10,17 @@ const TochableOrderFooter = props => {
                 <Text style={[styles.custom_font, styles.text_style]}>
                     {props.text}
                 </Text>
-                <Icon
-                    name={props.iconName}
-                />
+                <Icon name={props.iconName} />
             </View>
         </TouchableHighlight>
-    )
-}
+    );
+};
 
 TochableOrderFooter.propTypes = {
     press: PropTypes.func.isRequired,
     iconName: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    iconFamily: PropTypes.string
-}
+    iconFamily: PropTypes.string,
+};
 
-export default TochableOrderFooter
+export default TochableOrderFooter;

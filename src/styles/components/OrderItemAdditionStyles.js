@@ -1,13 +1,13 @@
-import { Platform, StyleSheet, Dimensions } from 'react-native'
-import config from '../../config'
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../config';
 
 export default StyleSheet.create({
     custom_font: {
-        fontFamily: config.custom_font
+        fontFamily: config.custom_font,
     },
 
     order_block_additions_text: {
-        fontSize: 12
+        fontSize: 12,
     },
 
     addition_main: {
@@ -19,6 +19,6 @@ export default StyleSheet.create({
         paddingBottom: 8,
         paddingLeft: 15,
         borderBottomColor: '#caccd1',
-        borderBottomWidth: 1
-    }
-})
+        borderBottomWidth: 1,
+    },
+});

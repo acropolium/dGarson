@@ -1,4 +1,4 @@
-import initialState from './orderInitialState'
+import initialState from './orderInitialState';
 
 import {
     UPDATE_ORDER_STATE,
@@ -9,8 +9,8 @@ import {
     CHANGE_ITEM_ADDITION_ORDER,
     CLEAN_DRAFT_ORDER,
     ORDER_REQUEST,
-    ORDER_ERROR
-} from '../constAction.js'
+    ORDER_ERROR,
+} from '../constAction.js';
 
 export default function order(state = initialState, action) {
     let flush = {
@@ -19,40 +19,40 @@ export default function order(state = initialState, action) {
         desired_time: 15,
         draft: {},
         order: {},
-        spinnerShow: false
-    }
+        spinnerShow: false,
+    };
 
     switch (action.type) {
         case UPDATE_ORDER_STATE:
             if (state.order.id == action.payload.orderID) {
                 return Object.assign({}, flush, state, {
-                    order: { ...state.order, state: action.payload.state }
-                })
+                    order: { ...state.order, state: action.payload.state },
+                });
             } else {
-                return state
+                return state;
             }
         case DO_ORDER:
             return Object.assign({}, flush, state, action.payload, {
-                spinnerShow: false
-            })
+                spinnerShow: false,
+            });
         case FLUSH_ORDER:
-            return Object.assign({}, flush)
+            return Object.assign({}, flush);
         case LOAD_DATA_ORDER:
-            return Object.assign({}, state)
+            return Object.assign({}, state);
         case ADD_ITEM_ORDER:
-            return Object.assign({}, state, action.payload)
+            return Object.assign({}, state, action.payload);
         case CHANGE_ITEM_ADDITION_ORDER:
-            return Object.assign({}, state, action.payload)
+            return Object.assign({}, state, action.payload);
         case ORDER_REQUEST:
             return Object.assign(
                 {},
                 state,
                 { spinnerShow: true },
                 { needUpdateFromServer: false }
-            )
+            );
         case ORDER_ERROR:
-            return Object.assign({}, state, { spinnerShow: false })
+            return Object.assign({}, state, { spinnerShow: false });
         default:
-            return state
+            return state;
     }
 }

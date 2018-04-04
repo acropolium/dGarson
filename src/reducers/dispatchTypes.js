@@ -1,19 +1,19 @@
 export const request = actionType => {
     return {
-        type: actionType
-    }
-}
+        type: actionType,
+    };
+};
 
 export const success = (actionType, payload = {}) => {
     return {
         type: actionType,
-        payload: payload
-    }
-}
+        payload: payload,
+    };
+};
 
 export const failure = (actionType, error = {}) => {
     return {
         type: actionType,
-        error: error
-    }
-}
+        error: error,
+    };
+};

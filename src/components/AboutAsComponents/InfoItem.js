@@ -1,14 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import {
     Text,
     View,
     Image,
     TouchableHighlight,
-    FlatList
-} from '../BaseComponents'
-import styles from '../../styles/components/AboutUsStyle'
-import I18n from '../../services/translate.js'
+    FlatList,
+} from '../BaseComponents';
+import styles from '../../styles/components/AboutUsStyle';
+import I18n from '../../services/translate.js';
 
 const InfoItem = props => {
     return (
@@ -39,11 +39,11 @@ const InfoItem = props => {
                 <View style={styles.line} />
             </View>
         </View>
-    )
-}
+    );
+};
 
-export default InfoItem
+export default InfoItem;
 
 InfoItem.propTypes = {
     //renderItem: PropTypes.func.isRequired,
-}
+};
