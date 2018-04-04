@@ -5,4 +5,3 @@ let Repository = new Realm({
     schema: [Schemas.KeyValueSchema],
 });
 export default Repository;
-

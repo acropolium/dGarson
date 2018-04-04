@@ -1,10 +1,9 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../../../config";
+import config from '../../../../config';
 
 let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-
     preview_main: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -18,18 +17,13 @@ export default StyleSheet.create({
     icon_style: {
         fontSize: 25,
         color: 'white',
-        paddingTop: 6
-
+        paddingTop: 6,
     },
     text_style: {
         paddingTop: 3,
         paddingBottom: 0,
         color: 'white',
         fontSize: 14,
-        marginRight: 5
-    }
-
-
-
-
+        marginRight: 5,
+    },
 });

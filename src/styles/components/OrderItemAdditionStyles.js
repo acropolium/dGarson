@@ -1,18 +1,16 @@
-import {Platform, StyleSheet,Dimensions} from 'react-native';
-import config from "../../config";
+import { Platform, StyleSheet, Dimensions } from 'react-native';
+import config from '../../config';
 
-
-export default  StyleSheet.create({
+export default StyleSheet.create({
     custom_font: {
         fontFamily: config.custom_font,
     },
 
-    order_block_additions_text:{
-        fontSize:12
+    order_block_additions_text: {
+        fontSize: 12,
     },
 
-
-    addition_main:{
+    addition_main: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#e6e7eb',
@@ -22,6 +20,5 @@ export default  StyleSheet.create({
         paddingLeft: 15,
         borderBottomColor: '#caccd1',
         borderBottomWidth: 1,
-        
-    }
-})
+    },
+});

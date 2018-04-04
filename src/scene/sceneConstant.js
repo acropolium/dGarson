@@ -1,0 +1,15 @@
+export const ROOT_SCENE = 'root';
+export const MODAL_SCENE = 'modal';
+export const LOGIN_SCENE = 'login';
+export const REGISTER_SCENE = 'register';
+export const CONFIRM_SCENE = 'confirm';
+export const MENU_SCENE = 'menu';
+export const ORDER_SCENE = 'order';
+export const LOCATION_SCENE = 'location';
+export const DIALOG_SCENE = 'dialog';
+export const TIMER_SCENE = 'timer';
+export const COMPANIES_SCENE = 'companies';
+export const ABOUT_SCENE = 'about';
+export const PREVIEW_ORDER_SCENE = 'previewOrder';
+export const INIT_SCENE = 'init';
+export const HOME_SCENE = 'home';

@@ -9,31 +9,29 @@ export default class Text extends PureComponent {
         super(props);
     }
 
-    setNativeProps = (nativeProps) => {
+    setNativeProps = nativeProps => {
         this._root.setNativeProps(nativeProps);
     };
-      
-    render(){
+
+    render() {
         const {
             font = config.custom_font,
 
-            style
+            style,
         } = this.props;
 
         const styles = helper.aplyCoeffDimensionsToStyles(this.props.style);
-        
 
         return (
             <BaseText
                 style={[{ fontFamily: font }, styles]}
                 numberOfLines={this.props.numberOfLines}
-                {...this.props}
-            >
+                {...this.props}>
                 {this.props.children}
             </BaseText>
         );
     }
-};
+}
 
 Text.propTypes = {
     style: PropTypes.oneOfType([
@@ -41,12 +39,10 @@ Text.propTypes = {
         PropTypes.array,
         PropTypes.object,
     ]),
-    numberOfLines: PropTypes.number
+    numberOfLines: PropTypes.number,
 };
 
 Text.defaultProps = {
     style: {},
-    numberOfLines: 1
+    numberOfLines: 1,
 };
-
-

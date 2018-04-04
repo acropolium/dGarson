@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
-import config from "../../../config";
+import config from '../../../config';
 
 export default StyleSheet.create({
     footer_main: {
@@ -11,7 +11,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: 12,
-        flex: 1
+        flex: 1,
     },
 
     custom_font: {
@@ -26,8 +26,8 @@ export default StyleSheet.create({
         fontSize: 18,
         height: 25,
         margin: 0,
-        color: "#fff",
-        alignSelf: 'stretch'
+        color: '#fff',
+        alignSelf: 'stretch',
     },
 
     preview_main: {
@@ -37,15 +37,10 @@ export default StyleSheet.create({
         paddingTop: 14,
         paddingLeft: 15,
         paddingRight: 15,
-        
     },
 
-    icon_style: {
-        color: 'white'
-    },
-    
     touchable_icon: {
         padding: 0,
-        margin: 0
-    }
+        margin: 0,
+    },
 });

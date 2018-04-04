@@ -1,9 +1,8 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../config";
+import config from '../../config';
 let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
-
     custom_font: {
         fontFamily: config.custom_font,
     },
@@ -17,11 +16,6 @@ export default StyleSheet.create({
         paddingBottom: 7,
     },
 
-    header_icons: {
-        color: 'white',
-        fontSize: 20
-    },
-
     menu_button: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -31,7 +25,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#2a2a31',
-        width: windowWidth
+        width: windowWidth,
     },
 
     total_block: {
@@ -43,7 +37,7 @@ export default StyleSheet.create({
 
     total_color: {
         paddingBottom: 5,
-        color: '#345e80'
+        color: '#345e80',
     },
 
     preview_main: {
@@ -53,8 +47,6 @@ export default StyleSheet.create({
         padding: 7,
     },
 
-
-
     addition_block_item: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -62,18 +54,16 @@ export default StyleSheet.create({
 
     keyboard_wrapper: {
         flex: 1,
-        backgroundColor: '#cbccd1'
+        backgroundColor: '#cbccd1',
     },
 
     wrap: {
         flex: 1,
-        marginTop: Platform.OS == 'ios' ? 20 : undefined
+        marginTop: Platform.OS == 'ios' ? 20 : undefined,
     },
 
     list_style: {
         borderTopWidth: 1,
-        borderTopColor: '#94979f'
-    }
-
-
+        borderTopColor: '#94979f',
+    },
 });

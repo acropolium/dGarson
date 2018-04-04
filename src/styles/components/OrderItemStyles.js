@@ -1,6 +1,5 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../config";
-
+import config from '../../config';
 
 export default StyleSheet.create({
     custom_font: {
@@ -9,13 +8,13 @@ export default StyleSheet.create({
 
     order_block_footer: {
         backgroundColor: '#bbbcc1',
-        height: 2
+        height: 2,
     },
 
     order_block_main: {
         backgroundColor: '#caccd1',
         padding: 10,
-        paddingBottom: 0
+        paddingBottom: 0,
     },
 
     order_block_element_name: {
@@ -29,7 +28,6 @@ export default StyleSheet.create({
         padding: 5,
         paddingRight: 15,
         paddingLeft: 15,
-
     },
 
     item_icon_collapse: {
@@ -43,8 +41,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         padding: 5,
-        maxWidth: 280
-
+        maxWidth: 280,
     },
     order_additions_element: {
         flexDirection: 'row',
@@ -52,26 +49,20 @@ export default StyleSheet.create({
         padding: 9,
         paddingTop: 3,
         paddingLeft: 5,
-
     },
 
-    order_block_additions_text: {
-    },
+    order_block_additions_text: {},
 
-    order_block_wrap: {
-    },
+    order_block_wrap: {},
 
     order_block_element_wrap: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: '#fff',
         paddingLeft: 10,
-
     },
 
-    order_block_add_main: {
-
-    },
+    order_block_add_main: {},
 
     order_block_additions: {
         flexDirection: 'row',
@@ -80,13 +71,11 @@ export default StyleSheet.create({
         paddingLeft: 10,
     },
 
-    order_block_add_main_additions: {
-    },
+    order_block_add_main_additions: {},
 
     order_block_bottom_divider_additions: {
         borderWidth: 1,
         borderColor: '#ddd',
-
     },
     order_block_wrap_tought_additions: {
         marginLeft: 20,
@@ -95,23 +84,19 @@ export default StyleSheet.create({
     order_block_vertical_divider_left_additions: {
         borderWidth: 1,
         borderColor: '#ddd',
-
     },
     order_block_vertical_divider_right_additions: {
         borderWidth: 1,
         borderColor: '#ddd',
-
     },
     order_block_add_wrap_additions: {
         alignSelf: 'stretch',
         marginBottom: 4,
         marginTop: 4,
         flexDirection: 'row',
-
     },
 
     order_block_wrap_additions: {
-
         marginRight: 0,
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -134,12 +119,10 @@ export default StyleSheet.create({
     order_block_vertical_divider_left: {
         borderWidth: 1,
         borderColor: '#ddd',
-
     },
     order_block_vertical_divider_right: {
         borderWidth: 1,
         borderColor: '#ddd',
-
     },
 
     order_block_remove: {
@@ -148,9 +131,5 @@ export default StyleSheet.create({
         marginRight: 10,
         paddingLeft: 10,
         paddingRight: 10,
-    }
-
-
-
-
+    },
 });

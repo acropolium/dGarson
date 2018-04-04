@@ -1,14 +1,14 @@
 import { Platform, StyleSheet } from 'react-native';
-import config from "../../../config";
+import config from '../../../config';
 
 export default StyleSheet.create({
     img_style: {
         backgroundColor: '#2a2a32',
-        height: 70
+        height: 70,
     },
     selected_footer: {
         backgroundColor: '#caccd1',
-        height: 8
+        height: 8,
     },
     custom_font: {
         fontFamily: config.custom_font,
@@ -30,15 +30,13 @@ export default StyleSheet.create({
     },
     item_icon_style: {
         color: '#94979f',
-        fontSize: 70
+        fontSize: 70,
     },
     item_icon_add: {
         padding: 15,
         paddingTop: 20,
     },
-    item_icon_add_style: {
-        
-    },
+    item_icon_add_style: {},
     card_block_wrap: {
         borderTopWidth: 1,
         borderTopColor: '#94979f',
@@ -48,7 +46,7 @@ export default StyleSheet.create({
     },
     order_block_add_main: {
         paddingTop: Platform.OS == 'ios' ? 5 : undefined,
-        alignSelf: 'center'
+        alignSelf: 'center',
     },
     order_block_bottom_divider: {
         borderWidth: 1,
@@ -73,7 +71,7 @@ export default StyleSheet.create({
     },
     order_block_add_wrap: {
         alignSelf: 'center',
-        marginBottom: 8
+        marginBottom: 8,
     },
 
     order_block_wrap: {
@@ -108,7 +106,5 @@ export default StyleSheet.create({
     },
     price_block_currency: {
         alignSelf: 'center',
-    }
-
-
+    },
 });

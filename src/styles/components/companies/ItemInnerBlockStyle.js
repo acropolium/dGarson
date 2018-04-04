@@ -1,9 +1,9 @@
 import { Platform, StyleSheet } from 'react-native';
-import config from "../../../config";
+import config from '../../../config';
 
 export default StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     item_image: {
         width: 50,
@@ -28,7 +28,8 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'flex-start',
     },
-    wrap_text: { 
-        flexDirection: 'row', 
-        justifyContent: 'flex-start' }
+    wrap_text: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+    },
 });

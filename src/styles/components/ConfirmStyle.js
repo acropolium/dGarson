@@ -1,11 +1,10 @@
 import { Platform, StyleSheet } from 'react-native';
-import config from "../../config";
+import config from '../../config';
 
 export default StyleSheet.create({
-
     wrap_text: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     custom_font: {
         fontFamily: config.custom_font,
@@ -14,25 +13,25 @@ export default StyleSheet.create({
     confirm_buttons_wrap: {
         flex: 1,
         justifyContent: 'center',
-        marginTop: 10
+        marginTop: 10,
     },
 
     confirm_button: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
 
     resend_sms_button: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 40
+        marginTop: 40,
     },
 
     resend_sms_text: {
         fontSize: 18,
         borderBottomWidth: 1,
-        color: 'black'
+        color: 'black',
     },
 
     product_title: {
@@ -49,12 +48,14 @@ export default StyleSheet.create({
         flex: 1,
     },
     content_block: {
-        flex: 1
+        flex: 1,
     },
 
     bg: {
-        flex: 1, width: null, height: null,
-        marginTop: Platform.OS == 'ios' ? 20 : undefined
+        flex: 1,
+        width: null,
+        height: null,
+        marginTop: Platform.OS == 'ios' ? 20 : undefined,
     },
 
     phone_block: {
@@ -65,7 +66,6 @@ export default StyleSheet.create({
         marginRight: 40,
         paddingBottom: 30,
         paddingTop: 50,
-
     },
     register_style: {
         paddingTop: 30,
@@ -98,7 +98,6 @@ export default StyleSheet.create({
         fontSize: 24,
         width: 28,
         height: 28,
-        margin: 0
+        margin: 0,
     },
-
 });

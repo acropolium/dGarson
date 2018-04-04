@@ -5,22 +5,33 @@ import { FlatList, View } from '../BaseComponents';
 import CompanyItem from './CompanyItem';
 import EmptyList from './EmptyList';
 
-const CompanyList = (props) => {
+const CompanyList = props => {
     return (
         <FlatList
             data={props.data}
             refreshing={false}
             extraData={props.data}
-            renderItem={(item, key) => {return <CompanyItem {...props} key={key} item={item}/>}}
+            renderItem={(item, key) => {
+                return (
+                    <CompanyItem
+                        dialogActions={props.dialogActions}
+                        getCompanyMenu={props.getCompanyMenu}
+                        key={key}
+                        item={item}
+                    />
+                );
+            }}
             onRefresh={props.onRefresh}
-            renderEmptyComponent={() => {return <EmptyList/>}}
+            renderEmptyComponent={() => {
+                return <EmptyList />;
+            }}
         />
     );
 };
 
 CompanyList.propTypes = {
-  data: PropTypes.array,
-  onRefresh: PropTypes.func
+    data: PropTypes.array,
+    onRefresh: PropTypes.func,
 };
 
 export default CompanyList;

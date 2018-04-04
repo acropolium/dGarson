@@ -1,21 +1,16 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes, Component } from 'react';
 import {
     ImageBackground,
     Animated,
     Dimensions,
-    Easing
+    Easing,
+    Alert,
 } from 'react-native';
-import I18n from '../services/translate.js'
-
-import UserApi from '../services/userService';
-import OrderApi from '../services/orderService';
-
+import I18n from '../services/translate.js';
 import { View } from './BaseComponents';
 import styles from '../styles/screens/LoadingScreenSyle';
-
-const userService = new UserApi();
-const orderService = new OrderApi();
-
+import store from '../utils/storage';
+import * as routeService from '../services/routeService';
 let windowHeight = Dimensions.get('window').height;
 
 export default class Loading extends Component {
@@ -27,16 +22,15 @@ export default class Loading extends Component {
             phone: '',
             product_position: new Animated.ValueXY({ x: 0, y: 240 }),
             product_visibility: new Animated.Value(0),
-            copyright_position: new Animated.ValueXY({ x: 0, y: windowHeight - 50 }),
+            copyright_position: new Animated.ValueXY({
+                x: 0,
+                y: windowHeight - 50,
+            }),
             copyright_visibility: new Animated.Value(0),
         };
-
-        userService.setProps(this.props);
-        orderService.setProps(this.props);
     }
 
     componentDidMount() {
-
         Animated.parallel([
             Animated.timing(this.state.copyright_position, {
                 duration: 400, // milliseconds
@@ -46,37 +40,49 @@ export default class Loading extends Component {
             Animated.timing(this.state.copyright_visibility, {
                 duration: 400, // milliseconds
                 toValue: 1,
-            })
-
-        ])
-            .start(() => {
-                Animated.timing(this.state.product_visibility, {
-                    duration: 400, // milliseconds
-                    toValue: 1,
-                }).start(async () => {
-                    await userService.loadInitialState();
-                    await orderService.loadInitialState();
-                    await userService.changePage(userService.get('state', 'init'))
-                });
+            }),
+        ]).start(() => {
+            Animated.timing(this.state.product_visibility, {
+                duration: 400, // milliseconds
+                toValue: 1,
+            }).start(() => {
+                let page = store.get('state');
+                routeService.changePage(page ? page : 'init');
             });
-
-
+        });
     }
 
     render() {
-        return (            
-                <ImageBackground source={require('../media/backgrounds/splash.png')} style={styles.bg}>
+        return (
+            <ImageBackground
+                source={require('../media/backgrounds/splash.png')}
+                style={styles.bg}>
                 <View>
                     <View style={styles.wrap_animate}>
-                        <Animated.Text style={[styles.product_title, { opacity: this.state.product_visibility, transform: this.state.product_position.getTranslateTransform(), }]}>{I18n.t("product_title")}</Animated.Text>
+                        <Animated.Text
+                            style={[
+                                styles.product_title,
+                                {
+                                    opacity: this.state.product_visibility,
+                                    transform: this.state.product_position.getTranslateTransform(),
+                                },
+                            ]}>
+                            {I18n.t('product_title')}
+                        </Animated.Text>
                     </View>
                 </View>
                 <View>
                     <View style={styles.wrap_animate}>
-                        <Animated.Image source={require('../media/backgrounds/company.png')} style={{ opacity: this.state.copyright_visibility, transform: this.state.copyright_position.getTranslateTransform(), }} />
+                        <Animated.Image
+                            source={require('../media/backgrounds/company.png')}
+                            style={{
+                                opacity: this.state.copyright_visibility,
+                                transform: this.state.copyright_position.getTranslateTransform(),
+                            }}
+                        />
                     </View>
                 </View>
-            </ImageBackground>         
-        )
+            </ImageBackground>
+        );
     }
 }

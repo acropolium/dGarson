@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from 'react-native';
-import config from "../../config";
+import config from '../../config';
 
 export default StyleSheet.create({
     custom_font: {
@@ -25,7 +25,6 @@ export default StyleSheet.create({
         borderWidth: 1,
         borderColor: 'transparent',
         borderBottomColor: '#000',
-
     },
 
     register_style: {
@@ -39,17 +38,18 @@ export default StyleSheet.create({
     container: {
         backgroundColor: 'white',
         alignSelf: 'stretch',
-        flex: 1
+        flex: 1,
     },
 
     bg: {
         flex: 1,
-        width: null, height: null,
+        width: null,
+        height: null,
         marginTop: Platform.OS == 'ios' ? 20 : undefined,
     },
 
     content_block: {
-        flex: 1
+        flex: 1,
     },
 
     number1: {
@@ -59,7 +59,7 @@ export default StyleSheet.create({
         paddingLeft: 3,
         fontSize: 18,
         width: 28,
-        margin: 0
+        margin: 0,
     },
 
     number2: {
@@ -69,19 +69,18 @@ export default StyleSheet.create({
         paddingLeft: 3,
         fontSize: 18,
         width: 90,
-        margin: 0
+        margin: 0,
     },
 
     wrap_view_text: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     animated_text: {
         fontSize: 18,
-        margin: 0
-    }
-    ,
+        margin: 0,
+    },
     wrap_view_button: {
         flex: 1,
         flexDirection: 'row',
@@ -93,6 +92,6 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+    },
 });

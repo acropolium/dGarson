@@ -1,5 +1,5 @@
-import {Platform, StyleSheet} from 'react-native';
-import config from "../../config";
+import { Platform, StyleSheet } from 'react-native';
+import config from '../../config';
 
 export default StyleSheet.create({
     bg: {

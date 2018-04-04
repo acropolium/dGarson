@@ -1,5 +1,5 @@
 import { Platform, StyleSheet, Dimensions } from 'react-native';
-import config from "../../config";
+import config from '../../config';
 let windowWidth = Dimensions.get('window').width;
 
 export default StyleSheet.create({
@@ -14,14 +14,13 @@ export default StyleSheet.create({
 
     img: {
         width: 6,
-        height: 6
+        height: 6,
     },
 
     text: {
-
         paddingBottom: 0,
         fontSize: 14,
-        marginLeft: 10
+        marginLeft: 10,
     },
 
     location_main: {
@@ -30,12 +29,8 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         padding: 10,
-        borderBottomWidth: 1, borderBottomColor: '#94979f',
-    },
-
-    header_icons: {
-        color: 'white',
-        fontSize: 20
+        borderBottomWidth: 1,
+        borderBottomColor: '#94979f',
     },
 
     header_main: {
@@ -50,7 +45,6 @@ export default StyleSheet.create({
     menu_button: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-
     },
 
     overlayStyle: {
@@ -60,7 +54,7 @@ export default StyleSheet.create({
         left: 0,
         right: 0,
         backgroundColor: 'rgba(42, 42, 50, 0.8)',
-        marginTop: Platform.OS == 'ios' ? 20 : 0
+        marginTop: Platform.OS == 'ios' ? 20 : 0,
     },
 
     container: {
@@ -74,13 +68,12 @@ export default StyleSheet.create({
     },
 
     location_footer_wrap: {
-        backgroundColor: '#4195d1'
+        backgroundColor: '#4195d1',
     },
 
     wrap_icon_footer: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        width: windowWidth - 70
-    }
-
+        width: windowWidth - 70,
+    },
 });
