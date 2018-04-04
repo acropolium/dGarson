@@ -29,7 +29,6 @@ export const FLUSH_ORDER = 'flush'
 export const LOAD_DATA_ORDER = 'load_data'
 export const ADD_ITEM_ORDER = 'add_item'
 export const CHANGE_ITEM_ADDITION_ORDER = 'change_item_addition'
-export const CLEAN_DRAFT_ORDER = 'clean_draft_order'
 //dialog
 export const DIALOG_SHOWING = 'show'
 export const DIALOG_HIDDING = 'hide'

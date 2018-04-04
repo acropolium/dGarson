@@ -26,7 +26,6 @@ export default class Order extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.needUpdateFromServer) {
-            // alert("sklk")
             this.readOrder()
         }
     }
@@ -143,6 +142,7 @@ export default class Order extends Component {
                 <OrderStatus
                     currentLocation={this.props.currentLocation}
                     company_info={this.props.company_info}
+                    orderState={this.props.order_state}
                     order={this.props.order}
                     companyPhone={this.props.company_info.phone}
                     goBack={this.goBack}

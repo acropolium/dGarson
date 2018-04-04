@@ -5,10 +5,10 @@ import * as routeService from '../../services/routeService'
 import {
     DO_ORDER,
     MENU_SUCCES,
-    CLEAN_DRAFT_ORDER,
     COMPANY_SUCCES,
     COMPANY_REQUEST,
-    COMPANY_ERROR
+    COMPANY_ERROR,
+    FLUSH_ORDER
 } from '../constAction.js'
 import {
     INIT_SCENE,
@@ -29,14 +29,11 @@ export function companysMenu(companyID, readFromServer) {
             (orderCompany && orderCompany[companyID]) ||
             needUpdate(companyID, currentTime)
         ) {
-            
+
             return readFromServerMenu(companyID, props, dispatch, currentTime)
         } else {
-            
-            dispatchHelp(dispatch, CLEAN_DRAFT_ORDER, {
-                draft: {},
-                price: { total: 0 }
-            })
+
+            dispatchHelp(dispatch, FLUSH_ORDER)
             dispatchHelp(dispatch, COMPANY_SUCCES, {
                 company_info: store.get('company_info')[companyID]
             })
@@ -51,8 +48,8 @@ export function companysMenu(companyID, readFromServer) {
 }
 
 function saveStore(data) {
-    Object.keys(data).forEach(async key => {
-        await store.save(key, data[key])
+    Object.keys(data).forEach(key => {
+        store.save(key, data[key])
     })
 }
 
@@ -71,6 +68,7 @@ function ifRedirect(response, dispatch) {
             case 302:
                 dispatchHelp(dispatch, DO_ORDER, {
                     order: orderJson,
+                    desired_time: orderJson.desired_time,
                     state: orderJson.state,
                     from_company: true
                 })
@@ -85,7 +83,7 @@ function ifRedirect(response, dispatch) {
 
                 return true
             case 401:
-               routeService.changePage(INIT_SCENE)
+                routeService.changePage(INIT_SCENE)
 
                 return true
             case 404:
@@ -137,10 +135,7 @@ function readFromServerMenu(companyID, props, dispatch, currentTime) {
             let allMenuInfo = store.get('menu') || {}
             let save_data = getResponseData(response, menu, allMenuInfo)
 
-            dispatchHelp(dispatch, CLEAN_DRAFT_ORDER, {
-                draft: {},
-                price: { total: 0 }
-            })
+            dispatchHelp(dispatch, FLUSH_ORDER)
             dispatchHelp(dispatch, COMPANY_SUCCES, {
                 company_info: response.company
             })

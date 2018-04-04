@@ -43,8 +43,6 @@ export default function order(state = initialState, action) {
             return Object.assign({}, state, action.payload)
         case CHANGE_ITEM_ADDITION_ORDER:
             return Object.assign({}, state, action.payload)
-        case CLEAN_DRAFT_ORDER:
-            return Object.assign({}, state, action.payload)
         case ORDER_REQUEST:
             return Object.assign(
                 {},

@@ -109,6 +109,6 @@ export default class OrderStatus extends React.Component {
     }
 
     render() {
-        return this.renderStatusElement(this.props.order.order.state)
+        return this.renderStatusElement(this.props.orderState)
     }
 }
